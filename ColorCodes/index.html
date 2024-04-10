@@ -1,0 +1,234 @@
+<html>
+  <head>
+    <style>
+      /*Remove arrow from number input box*/
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+      
+      table {
+        border: 1px solid black;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      td {
+        border: 1px solid black;
+        text-align: center;
+        font-weight: bold;
+      }
+      #qstBinder {
+        background: repeating-linear-gradient(
+          45deg,
+          #FFF 0px,
+          #FFF 10px,
+          #000 10px,
+          #000 20px
+        );
+      }
+      #qstPair {
+        background: repeating-linear-gradient(
+          45deg,
+          #FFF 0px,
+          #FFF 10px,
+          #000 10px,
+          #000 20px
+        );
+      }
+      #qstTip, #qstRng {
+        width:60px;
+        text-align:center;
+      }
+      #cntAnswer {
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid black;
+      }
+      #txtAnswer {
+        width: 40px;
+      }
+      #txtScore {
+        width: 60px;
+      }
+      #btnSubmit {
+        width: 55px;
+      }
+      .hidden {
+        text-align: center;
+        border: 2px solid blue;
+      }
+      .hidden     {display: none;}
+      
+
+      
+      
+      .colWhite   {background-color: #FFF;color: #000;}
+      .colRed     {background-color: #F00;color: #000;}
+      .colBlack   {background-color: #000;color: #FFF;}
+      .colYellow  {background-color: #FF0;color: #000;}
+      .colViolet  {background-color: #F0F;color: #000;}
+      .colBlue    {background-color: #00F;color: #000;}
+      .colOrange  {background-color: #FA1;color: #000;}
+      .colGreen   {background-color: #0F0;color: #000;}
+      .colBrown   {background-color: #B73;color: #000;}
+      .colSlate   {background-color: #AAA;color: #000;}
+      
+      
+    </style>
+  </head>
+  <body onload="reset();">
+    
+    <table>
+      <tr>
+        <td>Score:</td><td><input type="text" id="txtScore" name="txtScore" value="0"/></td>
+      </tr>
+    </table>
+    <br><br>
+    <table>
+      <tr>
+        <td id="qstSBinder">&nbsp;</td>
+      </tr>
+      <tr>
+        <td id="qstBinder">&nbsp;</td>
+        <!--<td id="qstBinderTip">Binder</td>
+        <td id="qstBinderRing">Binder</td>-->
+      </tr>
+      <tr>
+        <td id="qstPair">&nbsp;</td>
+        <!--<td id="qstTip">Tip</td>
+        <td id="qstRing">Ring</td>-->
+      </tr>
+      <tr>
+        <td>
+          <div id="cntAnswer">
+            <input id="txtAnswer" type="number" name="txtAnswer" onkeydown="if (event.keyCode==13) document.getElementById('btnSubmit').click()"/>
+            <button id="btnSubmit" onclick="checkAnswer();">Check</button>
+          </div>
+        </td>
+    </table>
+    <br><br><br>
+    <table>
+      <tr>
+        <th colspan="2">Options</th>
+      </tr>
+      <tr>
+        <td>Max:</td><td><input type="number" id="optMax" name="optMax" value="25"/></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button id="btnReset" onclick="reset();">Reset</button></td>
+      </tr>
+    </table>
+    </table>
+    <table class="hidden">
+      <tr>
+        <th>Question</th>
+      </tr>
+      <tr>
+        <td><input disabled class="hidden" type="text" id="hdnQuestion" name="hdnQuestion"/></td>
+      </tr>
+      <tr>
+        <th>Super Binder</th>
+        <th>Super Binder Tip</th>
+        <th>Super Binder Ring</th>
+      </tr>
+      <tr>
+        <td><input disabled class="hidden" type="text" id="hdnSBinder" name="hdnSBinder"/></td>
+        <td><input disabled class="hidden" type="text" id="hdnSBinderTip" name="hdnSBinderTip"/></td>
+        <td><input disabled class="hidden" type="text" id="hdnSBinderRing" name="hdnSBinderRing"/></td>
+      </tr>
+      <tr>
+        <th>Binder</th>
+        <th>Binder Tip</th>
+        <th>Binder Ring</th>
+      </tr>
+      <tr>
+        <td><input disabled class="hidden" type="text" id="hdnBinder" name="hdnBinder"/></td>
+        <td><input disabled class="hidden" type="text" id="hdnBinderTip" name="hdnBinderTip"/></td>
+        <td><input disabled class="hidden" type="text" id="hdnBinderRing" name="hdnBinderRing"/></td>
+      </tr>
+      <tr>
+        <th>Pair</th>
+        <th>Tip</th>
+        <th>Ring</th>
+      </tr>
+      <tr>
+        <td><input disabled class="hidden" type="text" id="hdnPair" name="hdnPair"/></td>
+        <td><input disabled class="hidden" type="text" id="hdnTip" name="hdnTip"/></td>
+        <td><input disabled class="hidden" type="text" id="hdnRing" name="hdnRing"/></td>
+      </tr>
+    </table>
+    <br><br>
+  </body>
+  <script>
+    const colTips = ["colWhite", "colRed", "colBlack", "colYellow", "colViolet"];
+    const colRings = ["colBlue", "colOrange", "colGreen", "colBrown", "colSlate"];
+    function nextQuestion() {
+      var iMax = parseInt(document.getElementById("optMax").value);
+      var iQuestion = Math.ceil(Math.random() * (iMax - 1) + 1);
+      
+      var iSBinder = Math.floor(iQuestion / 600)+1;
+      //var iSBinderTip = Math.ceil(iSBinder/5);
+      //var iSBinderRing = iSBinder - (Math.ceil(iSBinder/5)*5-5);
+      
+      var iBinder = Math.floor(iQuestion / 25)+1;
+      var iBinderTip = Math.ceil(iBinder/5);
+      var iBinderRing = iBinder - (Math.ceil(iBinder/5)*5-5);
+      
+      var iPair = iQuestion - ((iBinder-1) * 25);
+      var iTip = Math.ceil(iPair/5);
+      var iRing = iPair - (Math.ceil(iPair/5)*5-5);
+      
+      document.getElementById("hdnSBinder").value = iSBinder;
+      //document.getElementById("hdnSBinderTip").value = iSBinderTip;
+      //document.getElementById("hdnSBinderRing").value = iSBinderRing;
+      document.getElementById("hdnBinder").value = iBinder;
+      document.getElementById("hdnBinderTip").value = iBinderTip;
+      document.getElementById("hdnBinderRing").value = iBinderRing;
+      document.getElementById("hdnPair").value = iPair;
+      document.getElementById("hdnQuestion").value = iQuestion;
+      document.getElementById("hdnTip").value = iTip;
+      document.getElementById("hdnRing").value = iRing;
+      
+      //document.getElementById("qstSBinder").style.background = getStripe(iSBinderTip-1,iSBinderRing-1);
+      document.getElementById("qstSBinder").className = colTips[iSBinder-1];
+      
+      document.getElementById("qstBinder").style.background = getStripe(iBinderTip-1,iBinderRing-1);
+      //document.getElementById("qstBinderTip").className = colTips[iBinderTip-1];
+      //document.getElementById("qstBinderRing").className = colTips[iBinderRing-1];
+      
+      document.getElementById("qstPair").style.background = getStripe(iTip-1,iRing-1);
+      //document.getElementById("qstTip").className = colTips[iTip-1];
+      //document.getElementById("qstRing").className = colRings[iRing-1];
+    }
+    function checkAnswer() {
+      if (document.getElementById("txtAnswer").value == document.getElementById("hdnQuestion").value) {
+        document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) + 1;
+        document.getElementById("txtAnswer").value = ""
+        nextQuestion();
+      } else {
+        document.getElementById("txtAnswer").value = ""
+      }
+    }
+    function reset() {
+      if (parseInt(document.getElementById("optMax").value) >= 25 && parseInt(document.getElementById("optMax").value) <= 3000) {
+        if (parseInt(document.getElementById("optMax").value) > 25) {
+          document.getElementById("qstBinder").style.display = '';
+        } else {
+          document.getElementById("qstBinder").style.display = 'none';
+        }
+        if (parseInt(document.getElementById("optMax").value) > 600) {
+          document.getElementById("qstSBinder").style.display = '';
+        } else {
+          document.getElementById("qstSBinder").style.display = 'none';
+        }
+        document.getElementById("txtScore").value = "0";
+        nextQuestion();
+      } else {
+        alert("'MAX' must be between 25 and 3000");
+      }
+    }
+    function getStripe(tip, ring) {
+      const colTip = ["#FFF","#F00","#000","#FF0","#F0F"];
+      const colRing = ["#00F","#FA1","#0F0","#B73","#AAA"];
+      return 'repeating-linear-gradient(-45deg, '+colTip[tip]+' 0px, '+colTip[tip]+' 10px, '+colRing[ring]+' 10px, '+colRing[ring]+' 15px)';
+    }
+  </script>
+</html>
+
