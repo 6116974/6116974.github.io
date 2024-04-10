@@ -176,9 +176,9 @@
       var iMax = parseInt(document.getElementById("optMax").value);
 	  
       var iQuestion
-	  do {
-		iQuestion = Math.ceil(Math.random() * (iMax - 1) + 1);
-	  }
+      do {
+        iQuestion = Math.floor(Math.random() * iMax) + 1;
+      }
       while (iQuestion == parseInt(document.getElementById("hdnQuestion").value))
 	  
 	  
