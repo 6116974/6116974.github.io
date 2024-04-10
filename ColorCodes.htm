@@ -174,8 +174,14 @@
     const colRings = ["colBlue", "colOrange", "colGreen", "colBrown", "colSlate"];
     function nextQuestion() {
       var iMax = parseInt(document.getElementById("optMax").value);
-      var iQuestion = Math.ceil(Math.random() * (iMax - 1) + 1);
-      
+	  
+      var iQuestion
+	  do {
+		iQuestion = Math.ceil(Math.random() * (iMax - 1) + 1);
+	  }
+      while (iQuestion == parseInt(document.getElementById("hdnQuestion").value))
+	  
+	  
       var iSBinder = Math.floor(iQuestion / 600)+1;
       //var iSBinderTip = Math.ceil(iSBinder/5);
       //var iSBinderRing = iSBinder - (Math.ceil(iSBinder/5)*5-5);
@@ -211,12 +217,13 @@
       //document.getElementById("qstRing").className = colRings[iRing-1];
     }
     function checkAnswer() {
+      if (document.getElementById("txtAnswer").value == "") return
       if (document.getElementById("txtAnswer").value == document.getElementById("hdnQuestion").value) {
         document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) + 1;
         document.getElementById("txtAnswer").value = ""
         nextQuestion();
       } else {
-		document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) - 1;
+        document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) - 1;
         document.getElementById("txtAnswer").value = ""
       }
     }
@@ -225,26 +232,31 @@
 		reset();
 	}
     function reset() {
-      if (parseInt(document.getElementById("optMax").value) >= 25 && parseInt(document.getElementById("optMax").value) <= 3000) {
-        if (parseInt(document.getElementById("optMax").value) > 25) {
-          document.getElementById("qstBinder").style.display = '';
-        } else {
-          document.getElementById("qstBinder").style.display = 'none';
-        }
-        if (parseInt(document.getElementById("optMax").value) > 600) {
-          document.getElementById("qstSBinder").style.display = '';
-        } else {
-          document.getElementById("qstSBinder").style.display = 'none';
-        }
-        document.getElementById("txtScore").value = "0";
-        nextQuestion();
-      } else {
-        alert("'MAX' must be between 25 and 3000");
+      if (parseInt(document.getElementById("optMax").value) < 25) {
+        alert("'MAX' can not be less than 25");
+        document.getElementById("optMax").value = "25";
       }
-	  const d = new Date();
-	  document.getElementById("hdnStart").value = d.getTime();
-	  document.getElementById("txtTimer").value = '0';
-	  updateTimer();
+      if (parseInt(document.getElementById("optMax").value) > 3000) {
+        alert("'MAX' can not be more than 3000");
+        document.getElementById("optMax").value = "3000";
+      }
+      if (parseInt(document.getElementById("optMax").value) > 25) {
+        document.getElementById("qstBinder").style.display = '';
+      } else {
+        document.getElementById("qstBinder").style.display = 'none';
+      }
+      if (parseInt(document.getElementById("optMax").value) > 600) {
+        document.getElementById("qstSBinder").style.display = '';
+      } else {
+        document.getElementById("qstSBinder").style.display = 'none';
+      }
+      document.getElementById("txtScore").value = "0";
+      nextQuestion();
+
+      const d = new Date();
+      document.getElementById("hdnStart").value = d.getTime();
+      document.getElementById("txtTimer").value = '0';
+      updateTimer();
     }
     function getStripe(tip, ring) {
       const colTip = ["#FFF","#F00","#000","#FF0","#F0F"];
