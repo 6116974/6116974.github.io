@@ -44,17 +44,16 @@
       #txtAnswer {
         width: 40px;
       }
-      #txtScore {
+      #txtScore, #txtTimer {
         width: 60px;
       }
       #btnSubmit {
         width: 55px;
       }
-      .hidden {
+      .debug {
         text-align: center;
         border: 2px solid blue;
       }
-      /*.hidden     {display: none;}*/
       
 
       
@@ -73,11 +72,14 @@
       
     </style>
   </head>
-  <body onload="reset();">
+  <body onload="start();">
     
     <table>
       <tr>
-        <td>Score:</td><td><input type="text" id="txtScore" name="txtScore" value="0"/></td>
+        <td>Score:</td><td><input readonly type="text" id="txtScore" name="txtScore" value="0"/></td>
+      </tr>
+	  <tr>
+        <td>Time:</td><td><input readonly type="text" id="txtTimer" name="txtTimer" value="0"/></td>
       </tr>
     </table>
     <br><br>
@@ -111,26 +113,32 @@
       <tr>
         <td>Max:</td><td><input type="number" id="optMax" name="optMax" value="25"/></td>
       </tr>
+	  <tr>
+	  </tr>
       <tr>
-        <td colspan="2"><button id="btnReset" onclick="reset();">Reset</button></td>
+        <td colspan="2"><button id="btnReset" onclick="reset();">Save & Reset</button></td>
       </tr>
     </table>
 	<br><br><br><br><br><br>
 	<br><br><br><br><br><br>
-	<br><br><br><br><br><br>
-    </table>
-    <table class="hidden">
+    <table>
+		<tr>
+			<td><input type="checkbox" id="btnDebug" onclick="toggleDebug(this);" checked>Debug</input></td>
+		</tr>
+	</table>
+	
+    <table id="debugTable" class="debug">
       <tr>
         <th colspan="3">Question</th>
       </tr>
       <tr>
-        <td colspan="3"><input disabled class="hidden" type="text" id="hdnQuestion" name="hdnQuestion"/></td>
+        <td colspan="3"><input disabled class="debug" type="text" id="hdnQuestion" name="hdnQuestion"/></td>
       </tr>
       <tr>
         <th colspan="3">Super Binder</th>
       </tr>
       <tr>
-        <td colspan="3"><input disabled class="hidden" type="text" id="hdnSBinder" name="hdnSBinder"/></td>
+        <td colspan="3"><input disabled class="debug" type="text" id="hdnSBinder" name="hdnSBinder"/></td>
       </tr>
       <tr>
         <th>Binder</th>
@@ -138,19 +146,25 @@
         <th>Binder Ring</th>
       </tr>
       <tr>
-        <td><input disabled class="hidden" type="text" id="hdnBinder" name="hdnBinder"/></td>
-        <td><input disabled class="hidden" type="text" id="hdnBinderTip" name="hdnBinderTip"/></td>
-        <td><input disabled class="hidden" type="text" id="hdnBinderRing" name="hdnBinderRing"/></td>
+        <td><input disabled class="debug" type="text" id="hdnBinder" name="hdnBinder"/></td>
+        <td><input disabled class="debug" type="text" id="hdnBinderTip" name="hdnBinderTip"/></td>
+        <td><input disabled class="debug" type="text" id="hdnBinderRing" name="hdnBinderRing"/></td>
       </tr>
       <tr>
         <th>Pair</th>
-        <th>Tip</th>
-        <th>Ring</th>
+        <th>Pair Tip</th>
+        <th>Pair Ring</th>
       </tr>
       <tr>
-        <td><input disabled class="hidden" type="text" id="hdnPair" name="hdnPair"/></td>
-        <td><input disabled class="hidden" type="text" id="hdnTip" name="hdnTip"/></td>
-        <td><input disabled class="hidden" type="text" id="hdnRing" name="hdnRing"/></td>
+        <td><input disabled class="debug" type="text" id="hdnPair" name="hdnPair"/></td>
+        <td><input disabled class="debug" type="text" id="hdnTip" name="hdnTip"/></td>
+        <td><input disabled class="debug" type="text" id="hdnRing" name="hdnRing"/></td>
+      </tr>
+	  <tr>
+        <th>Start Time</th>
+      </tr>
+	  <tr>
+        <td><input disabled class="debug" type="text" id="hdnStart" name="hdnStart"/></td>
       </tr>
     </table>
     <br><br>
@@ -202,9 +216,14 @@
         document.getElementById("txtAnswer").value = ""
         nextQuestion();
       } else {
+		document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) - 1;
         document.getElementById("txtAnswer").value = ""
       }
     }
+	function start() {
+		document.getElementById("btnDebug").click();
+		reset();
+	}
     function reset() {
       if (parseInt(document.getElementById("optMax").value) >= 25 && parseInt(document.getElementById("optMax").value) <= 3000) {
         if (parseInt(document.getElementById("optMax").value) > 25) {
@@ -222,12 +241,34 @@
       } else {
         alert("'MAX' must be between 25 and 3000");
       }
+	  const d = new Date();
+	  document.getElementById("hdnStart").value = d.getTime();
+	  document.getElementById("txtTimer").value = '0';
+	  updateTimer();
     }
     function getStripe(tip, ring) {
       const colTip = ["#FFF","#F00","#000","#FF0","#F0F"];
       const colRing = ["#00F","#FA1","#0F0","#B73","#AAA"];
       return 'repeating-linear-gradient(-45deg, '+colTip[tip]+' 0px, '+colTip[tip]+' 10px, '+colRing[ring]+' 10px, '+colRing[ring]+' 15px)';
     }
+	function toggleDebug(elem) {
+		if (elem.checked) {
+			document.getElementById("debugTable").style.display = '';
+		} else {
+			document.getElementById("debugTable").style.display = 'none';
+		};
+	}
+	function updateTimer() {
+		var frequency = 100;
+		var myVar = setTimeout(updateTimer, frequency);
+		
+		var endDate   = new Date();
+		var seconds = (endDate.getTime() - document.getElementById("hdnStart").value) / 1000;
+		document.getElementById("txtTimer").value = new Date(seconds * 1000).toISOString().substring(14, 22);
+	}
+	function end() {
+	
+	}
   </script>
 </html>
 
