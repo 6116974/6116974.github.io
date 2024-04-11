@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <script src="helpers.js"></script>
+    <style>
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+      input, button {
+        border-radius: 15px;
+        text-align: center;
+        height: 30px;
+        font-weight: bold;
+      }
+      table {
+        /*Center The Table*/
+        margin-left: auto;
+        margin-right: auto;
+        
+        /*Pretty Border*/
+        border: 1px solid black;
+        border-radius: 10px;
+        
+        padding: 15px;
+        font-weight: bold;
+      }
+      td {
+        padding: 5px;
+      }
+      .boxAnswer {
+        /*Pretty Border*/
+        border: 1px solid black;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>Input:</td>
+        <td><input type="number" id="txtQuestion" onkeydown="if (event.keyCode==13) document.getElementById('btnSubmit').click()"/></td>
+        <td><button id="btnSubmit" onclick="getResult();">Calculate</button></td>
+      </tr>
+      <tr><td colspan="3" class="boxAnswer" id="boxSuperBinder">Super Binder&nbsp;</td></tr>
+      <tr><td colspan="3" class="boxAnswer" id="boxBinder">Binder&nbsp;</td></tr>
+      <tr><td colspan="3" class="boxAnswer" id="boxPair">Pair&nbsp;</td></tr>
+      </tr>
+    </table>
+  </body>
+  <script>
+    function getResult() {
+      var iQuestion = document.getElementById("txtQuestion").value;
+      if (iQuestion < 0) {alert("You must enter a value greater than 0");return;}
+      if (iQuestion > 3000) {alert("You must enter a value of 3000 or less");return;}
+      
+      var aQuestion = pairDecode(parseInt(iQuestion));
+      var aBinder = getTipRing(aQuestion['binder']);
+      var aPair = getTipRing(aQuestion['pair']);
+      console.log(aQuestion);
+      console.log(aBinder);
+      console.log(aPair);
+      
+      document.getElementById("boxSuperBinder").style.background = clrTip(aQuestion['sbinder']);
+      document.getElementById("boxBinder").style.background = clrStripe(aBinder['tip'],aBinder['ring']);
+      document.getElementById("boxPair").style.background = clrStripe(aPair['tip'],aPair['ring']);
+    }
+    
+  </script>
+</html>

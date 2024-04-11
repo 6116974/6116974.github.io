@@ -1,0 +1,212 @@
+<html>
+  <head>
+    <script src="helpers.js"></script>
+    <style>
+      /*Remove arrow from number input box*/
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+      input {
+        border-radius: 10px;
+      }
+      table {
+        
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+      }
+      td {
+        
+        text-align: center;
+        font-weight: bold;
+      }
+      #qstBinder {
+        background: repeating-linear-gradient(
+          45deg,
+          #FFF 0px,
+          #FFF 10px,
+          #000 10px,
+          #000 20px
+        );
+      }
+      #qstPair {
+        background: repeating-linear-gradient(
+          45deg,
+          #FFF 0px,
+          #FFF 10px,
+          #000 10px,
+          #000 20px
+        );
+      }
+      #qstTip, #qstRng {
+        width:60px;
+        text-align:center;
+      }
+      #cntAnswer {
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid black;
+      }
+      #txtAnswer {
+        width: 100px;
+      }
+      #txtScore, #txtTimer, #txtAverage {
+        text-align: center;
+      }
+      #btnSubmit {
+        width: 55px;
+      }
+      .debug {
+        text-align: center;
+        border: 2px solid blue;
+      }
+      .boxAnswer {
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body onload="onLoad();">
+    
+    <table>
+      <tr>
+        <td>Score:</td><td><input readonly type="text" id="txtScore" name="txtScore" value="0"/></td>
+      </tr>
+      <tr>
+        <td>Time:</td><td><input readonly type="text" id="txtTimer" name="txtTimer" value="0"/></td>
+      </tr>
+      <tr>
+        <td>Average:</td><td><input readonly type="text" id="txtAverage" name="txtAverage" value="0"/></td>
+      </tr>
+    </table>
+    <br><br>
+    <table>
+      <tr><td colspan="1" class="boxAnswer" id="boxSuperBinder">Super Binder&nbsp;</td></tr>
+      <tr><td colspan="1" class="boxAnswer" id="boxBinder">Binder&nbsp;</td></tr>
+      <tr><td colspan="1" class="boxAnswer" id="boxPair">Pair&nbsp;</td></tr>
+      <tr>
+        <td>
+          <div>
+            <input id="txtAnswer" type="number" onkeydown="if (event.keyCode==13) document.getElementById('btnSubmit').click()"/>
+            <button id="btnSubmit" onclick="checkAnswer();">Check</button>
+          </div>
+        </td>
+    </table>
+    <br><br><br>
+    <table>
+      <tr>
+        <th colspan="2">Options</th>
+      </tr>
+      <tr>
+        <td>Max:</td><td><input type="number" id="optMax" name="optMax" value="25"/></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button id="btnReset" onclick="start();">Save/Start</button></td>
+      </tr>
+    </table>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <table>
+      <tr>
+        <td><input type="checkbox" id="btnDebug" onclick="toggleDebug(this);" checked>Debug</input></td>
+      </tr>
+    </table>
+	
+    <table id="debugTable" class="debug">
+      <tr>
+        <td><input readonly class="debug" type="text" id="hdnQuestion"/></td>
+        <td><input readonly class="debug" type="text" id="hdnStartTime"/></td>
+        <td><input readonly class="debug" type="text" id="hdnTimes"/></td>
+      </tr>
+    </table>
+    <br><br>
+  </body>
+  <script>
+    function nextQuestion() {
+      var iMax = parseInt(document.getElementById("optMax").value);
+      
+      //Pick next random pair
+      var iQuestion
+      do {
+        iQuestion = Math.floor(Math.random() * iMax) + 1;
+      }
+      while (iQuestion == parseInt(document.getElementById("hdnQuestion").value))
+      document.getElementById("hdnQuestion").value = iQuestion;
+      
+      var aQuestion = pairDecode(parseInt(iQuestion));
+      var aBinder = getTipRing(aQuestion['binder']);
+      var aPair = getTipRing(aQuestion['pair']);
+      
+      document.getElementById("boxSuperBinder").style.background = clrTip(aQuestion['sbinder']);
+      document.getElementById("boxBinder").style.background = clrStripe(aBinder['tip'],aBinder['ring']);
+      document.getElementById("boxPair").style.background = clrStripe(aPair['tip'],aPair['ring']);
+      
+      //Save current Time
+      document.getElementById("hdnStartTime").value = new Date().getTime();
+      updateTimer();
+    }
+    function checkAnswer() {
+      if (document.getElementById("txtAnswer").value == "") return
+      if (document.getElementById("txtAnswer").value == document.getElementById("hdnQuestion").value) {
+        document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) + 1;
+        document.getElementById("txtAnswer").value = ""
+        
+        var iTime = ((new Date().getTime() - parseInt(document.getElementById("hdnStartTime").value))/1000).toFixed(2);
+        document.getElementById("hdnTimes").value = iTime + "," + document.getElementById("hdnTimes").value;
+        
+        var fTime = 0.0;
+        var aTime = document.getElementById("hdnTimes").value.split(",");
+        console.log(aTime);
+        for (var i = 0; i < aTime.length-1; i++) {
+          fTime += parseFloat(aTime[i]);
+        }
+        document.getElementById("txtAverage").value = new Date(fTime/(aTime.length-1)*1000).toISOString().substring(14, 22);
+        
+        nextQuestion();
+      } else {
+        document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) - 1;
+        document.getElementById("txtAnswer").value = ""
+      }
+    }
+    function onLoad() {
+      document.getElementById("btnDebug").click();
+      
+    }
+    function start() {
+      if (parseInt(document.getElementById("optMax").value) < 25) {
+        alert("'MAX' can not be less than 25");
+        document.getElementById("optMax").value = "25";
+      }
+      if (parseInt(document.getElementById("optMax").value) > 3000) {
+        alert("'MAX' can not be more than 3000");
+        document.getElementById("optMax").value = "3000";
+      }
+      if (parseInt(document.getElementById("optMax").value) > 25) {
+        document.getElementById("boxBinder").style.display = '';
+      } else {
+        document.getElementById("boxBinder").style.display = 'none';
+      }
+      if (parseInt(document.getElementById("optMax").value) > 600) {
+        document.getElementById("boxSuperBinder").style.display = '';
+      } else {
+        document.getElementById("boxSuperBinder").style.display = 'none';
+      }
+      document.getElementById("txtScore").value = "0";
+      nextQuestion();
+    }
+    function toggleDebug(elem) {
+      if (elem.checked) {
+        document.getElementById("debugTable").style.display = '';
+      } else {
+        document.getElementById("debugTable").style.display = 'none';
+      };
+    }
+    function updateTimer() {
+      if (document.getElementById("hdnQuestion").value == "") return;
+      var frequency = 100;
+      var myVar = setTimeout(updateTimer, frequency);
+      
+      var seconds = (new Date().getTime() - document.getElementById("hdnStartTime").value) / 1000;
+      document.getElementById("txtTimer").value = new Date(seconds * 1000).toISOString().substring(14, 22);
+    }
+  </script>
+</html>
+
