@@ -2,10 +2,30 @@
   <head>      
     <title>Index</title>      
     <!--<meta http-equiv="refresh" content="0;URL='ColorCodes.htm'" />-->
+    <style>
+      .mainContainer {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .clsButton {
+        height: 30px;
+        line-height: 30px;
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer; 
+        text-align: center;
+      }
+    </style>
   </head>    
   <body> 
-    <a href="ColorCode_Game.html">Game</a>
-    <a href="ColorCode_Tool.html">Tool</a>
-    
+    <div class="mainContainer">
+      <div class="clsButton" onclick="location.href='ColorCode_Game.html';">Game</div>
+      <br>
+      <div class="clsButton"  onclick="location.href='ColorCode_Tool.html';">Tool</div>
+    </div>
   </body>  
 </html>  
