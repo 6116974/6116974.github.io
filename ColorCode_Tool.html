@@ -3,9 +3,11 @@
     <script src="helpers.js"></script>
     <style>
       input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
-      input {
+      input, button {
         border-radius: 15px;
         text-align: center;
+        height: 30px;
+        font-weight: bold;
       }
       table {
         /*Center The Table*/
@@ -17,6 +19,7 @@
         border-radius: 10px;
         
         padding: 15px;
+        font-weight: bold;
       }
       td {
         padding: 5px;
@@ -45,7 +48,11 @@
   </body>
   <script>
     function getResult() {
-      var aQuestion = pairDecode(parseInt(document.getElementById("txtQuestion").value));
+      var iQuestion = document.getElementById("txtQuestion").value;
+      if (iQuestion < 0) {alert("You must enter a value greater than 0");return;}
+      if (iQuestion > 3000) {alert("You must enter a value of 3000 or less");return;}
+      
+      var aQuestion = pairDecode(parseInt(iQuestion));
       var aBinder = getTipRing(aQuestion['binder']);
       var aPair = getTipRing(aQuestion['pair']);
       console.log(aQuestion);
