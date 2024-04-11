@@ -1,13 +1,61 @@
 <html>
   <head>
     <script src="helpers.js"></script>
+    <style>
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+      input {
+        border-radius: 15px;
+        text-align: center;
+      }
+      table {
+        /*Center The Table*/
+        margin-left: auto;
+        margin-right: auto;
+        
+        /*Pretty Border*/
+        border: 1px solid black;
+        border-radius: 10px;
+        
+        padding: 15px;
+      }
+      td {
+        padding: 5px;
+      }
+      .boxAnswer {
+        /*Pretty Border*/
+        border: 1px solid black;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
   </head>
-  <body onload="test()">
-  
+  <body>
+    <table>
+      <tr>
+        <td>Input:</td>
+        <td><input type="number" id="txtQuestion" onkeydown="if (event.keyCode==13) document.getElementById('btnSubmit').click()"/></td>
+        <td><button id="btnSubmit" onclick="getResult();">Calculate</button></td>
+      </tr>
+      <tr><td colspan="3" class="boxAnswer" id="boxSuperBinder">Super Binder&nbsp;</td></tr>
+      <tr><td colspan="3" class="boxAnswer" id="boxBinder">Binder&nbsp;</td></tr>
+      <tr><td colspan="3" class="boxAnswer" id="boxPair">Pair&nbsp;</td></tr>
+      </tr>
+    </table>
   </body>
   <script>
-    function test() {
-      console.log(pairDecode(25));
+    function getResult() {
+      var aQuestion = pairDecode(parseInt(document.getElementById("txtQuestion").value));
+      var aBinder = getTipRing(aQuestion['binder']);
+      var aPair = getTipRing(aQuestion['pair']);
+      console.log(aQuestion);
+      console.log(aBinder);
+      console.log(aPair);
+      
+      document.getElementById("boxSuperBinder").style.background = clrTip(aQuestion['sbinder']);
+      document.getElementById("boxBinder").style.background = clrStripe(aBinder['tip'],aBinder['ring']);
+      document.getElementById("boxPair").style.background = clrStripe(aPair['tip'],aPair['ring']);
     }
+    
   </script>
 </html>
