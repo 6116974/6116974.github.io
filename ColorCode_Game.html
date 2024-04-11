@@ -1,5 +1,6 @@
 <html>
   <head>
+    <script src="helpers.js"></script>
     <style>
       /*Remove arrow from number input box*/
       input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
@@ -72,31 +73,21 @@
       
     </style>
   </head>
-  <body onload="start();">
+  <body>
     
     <table>
       <tr>
         <td>Score:</td><td><input readonly type="text" id="txtScore" name="txtScore" value="0"/></td>
       </tr>
-	  <tr>
+      <tr>
         <td>Time:</td><td><input readonly type="text" id="txtTimer" name="txtTimer" value="0"/></td>
       </tr>
     </table>
     <br><br>
     <table>
-      <tr>
-        <td id="qstSBinder">&nbsp;</td>
-      </tr>
-      <tr>
-        <td id="qstBinder">&nbsp;</td>
-        <!--<td id="qstBinderTip">Binder</td>
-        <td id="qstBinderRing">Binder</td>-->
-      </tr>
-      <tr>
-        <td id="qstPair">&nbsp;</td>
-        <!--<td id="qstTip">Tip</td>
-        <td id="qstRing">Ring</td>-->
-      </tr>
+      <tr><td colspan="1" class="boxAnswer" id="boxSuperBinder">Super Binder&nbsp;</td></tr>
+      <tr><td colspan="1" class="boxAnswer" id="boxBinder">Binder&nbsp;</td></tr>
+      <tr><td colspan="1" class="boxAnswer" id="boxPair">Pair&nbsp;</td></tr>
       <tr>
         <td>
           <div id="cntAnswer">
