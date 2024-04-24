@@ -20,7 +20,7 @@ function getTipRing(iQuestion) {
 }
 
 function clrStripe(tip, ring) {
-  return 'repeating-linear-gradient(-45deg, '+clrTip(tip)+' 0px, '+clrTip(tip)+' 10px, '+clrRing(ring)+' 10px, '+clrRing(ring)+' 15px)';
+  return 'repeating-linear-gradient(-45deg, '+clrTip(tip)+' 0px, '+clrTip(tip)+' 20px, '+clrRing(ring)+' 20px, '+clrRing(ring)+' 30px)';
 }
 function clrRing(ring) {
   const colRing = ["#00F","#FA1","#0F0","#B73","#AAA"];
