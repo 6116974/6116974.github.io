@@ -18,65 +18,34 @@
         text-align: center;
         font-weight: bold;
       }
-      #qstBinder {
-        background: repeating-linear-gradient(
-          45deg,
-          #FFF 0px,
-          #FFF 10px,
-          #000 10px,
-          #000 20px
-        );
-      }
-      #qstPair {
-        background: repeating-linear-gradient(
-          45deg,
-          #FFF 0px,
-          #FFF 10px,
-          #000 10px,
-          #000 20px
-        );
-      }
-      #qstTip, #qstRng {
-        width:60px;
-        text-align:center;
-      }
-      #cntAnswer {
-        padding: 10px;
-        margin: 5px;
-        border: 1px solid black;
-      }
-      #txtAnswer {
-        width: 100px;
-      }
-      #txtScore, #txtTimer, #txtAverage {
-        text-align: center;
-      }
-      #btnSubmit {
-        width: 55px;
-      }
+
       .debug {
         text-align: center;
         border: 2px solid blue;
       }
-      .boxAnswer {
-        border: 1px solid black;
-        border-radius: 5px;
-      }
       
+      .boxPair {
+        border: 1px solid black;
+        border-radius: 10px;
+        box-shadow: inset 0 0 15px #000;
+        width: 100%;
+        height: 40px;
+        margin: 0px;
+        padding: 0px;
+      }
       .trWrapper {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         border: 1px solid black;
         border-radius: 5px;
         padding: 5px;
-        margin: 5px;
+        margin-top: 5px;
       }
-      
       .colorButton {
         border: 1px solid black;
         border-radius: 5px;
         margin: 5px;
-        padding: 0px;
+        padding: 10px 30px;
         cursor: pointer;
       }
       .clrBlue {background-color: #00F;}
@@ -86,58 +55,39 @@
       .clrSlate {background-color: #AAA;}
       .clrWhite {background-color: #FFF;}
       .clrRed {background-color: #F00;}
-      .clrBlack {background-color: #000;color: #FFF;}
+      .clrBlack {background-color: #000;}
       .clrYellow {background-color: #FF0;}
       .clrViolet {background-color: #F0F;}
       
       
     </style>
   </head>
-  <body onload="onLoad();">
-    
-    <!--
+  <body onload="nextQuestion();">
     <table>
-      <tr>
-        <td>Score:</td><td><input readonly type="text" id="txtScore" name="txtScore" value="0"/></td>
-      </tr>
-      <tr>
-        <td>Time:</td><td><input readonly type="text" id="txtTimer" name="txtTimer" value="0"/></td>
-      </tr>
-      <tr>
-        <td>Average:</td><td><input readonly type="text" id="txtAverage" name="txtAverage" value="0"/></td>
-      </tr>
-    </table>
-    -->
-    
-    <br><br>
-    <table>
-      <tr><td colspan="1" class="boxAnswer" id="boxSuperBinder">Question:</td></tr>
-      <tr><td colspan="1" class="boxAnswer" id="boxSuperBinder">Super Binder&nbsp;</td></tr>
-      <tr><td colspan="1" class="boxAnswer" id="boxBinder">Binder&nbsp;</td></tr>
-      <tr><td colspan="1" class="boxAnswer" id="boxPair">Pair&nbsp;</td></tr>
+      <tr><td><input type="number" id="txtQuestion" read-only value="0"/></td></tr>
       <tr>
         <td>
           <div>
+            <div class="boxPair" id="boxPair">&nbsp;</div>
             <div class="trWrapper">
-              <div class="colorButton clrWhite">W</div>
-              <div class="colorButton clrRed">R</div>
-              <div class="colorButton clrBlack">Bk</div>
-              <div class="colorButton clrYellow">Y</div>
-              <div class="colorButton clrViolet">V</div>
+              <div class="colorButton clrWhite" onclick="selection(0, false, 1);">&nbsp;</div>
+              <div class="colorButton clrRed" onclick="selection(0, false, 2);">&nbsp;</div>
+              <div class="colorButton clrBlack" onclick="selection(0, false, 3);">&nbsp;</div>
+              <div class="colorButton clrYellow" onclick="selection(0, false, 4);">&nbsp;</div>
+              <div class="colorButton clrViolet" onclick="selection(0, false, 5);">&nbsp;</div>
             </div>
             <div class="trWrapper">
-              <div class="colorButton clrBlue">Bl</div>
-              <div class="colorButton clrOrange">O</div>
-              <div class="colorButton clrGreen">G</div>
-              <div class="colorButton clrBrown">Br</div>
-              <div class="colorButton clrSlate">S</div>
+              <div class="colorButton clrBlue" onclick="selection(0, true, 1);">&nbsp;</div>
+              <div class="colorButton clrOrange" onclick="selection(0, true, 2);">&nbsp;</div>
+              <div class="colorButton clrGreen" onclick="selection(0, true, 3);">&nbsp;</div>
+              <div class="colorButton clrBrown" onclick="selection(0, true, 4);">&nbsp;</div>
+              <div class="colorButton clrSlate" onclick="selection(0, true, 5);">&nbsp;</div>
             </div>
             <button id="btnSubmit" onclick="checkAnswer();">Check</button>
           </div>
         </td>
     </table>
     
-    <!--
     <br><br><br>
     <table>
       <tr>
@@ -150,7 +100,7 @@
         <td colspan="2"><button id="btnReset" onclick="start();">Save/Start</button></td>
       </tr>
     </table>
-    -->
+    
     
     <br><br><br><br><br><br>
     <br><br><br><br><br><br>
@@ -162,7 +112,6 @@
 	
     <table id="debugTable" class="debug">
       <tr>
-        <td><input readonly class="debug" type="text" id="hdnQuestion"/></td>
         <td><input readonly class="debug" type="text" id="hdnStartTime"/></td>
         <td><input readonly class="debug" type="text" id="hdnTimes"/></td>
       </tr>
@@ -170,6 +119,23 @@
     <br><br>
   </body>
   <script>
+    function selection(type, ring, value) {
+      if (type==0) {    //Type is Pair
+        oElem = document.getElementById("boxPair")
+        
+        var iTip=0, iRing=0;
+        if (!ring) {oElem.setAttribute('tip', value);
+        } else {oElem.setAttribute('ring', value);}
+        if (oElem.hasAttribute('tip')) {iTip = oElem.getAttribute('tip');};
+        if (oElem.hasAttribute('ring')) {iRing = oElem.getAttribute('ring');};
+        
+        if (iTip>0 && iRing>0) {
+          oElem.style.background = clrStripe(iTip,iRing);
+        }
+        
+        
+      }
+    }
     function nextQuestion() {
       var iMax = parseInt(document.getElementById("optMax").value);
       
@@ -178,16 +144,14 @@
       do {
         iQuestion = Math.floor(Math.random() * iMax) + 1;
       }
-      while (iQuestion == parseInt(document.getElementById("hdnQuestion").value))
-      document.getElementById("hdnQuestion").value = iQuestion;
+      while (iQuestion == parseInt(document.getElementById("txtQuestion").value))
+      document.getElementById("txtQuestion").value = iQuestion;
       
       var aQuestion = pairDecode(parseInt(iQuestion));
       var aBinder = getTipRing(aQuestion['binder']);
       var aPair = getTipRing(aQuestion['pair']);
       
-      //Save current Time
-      document.getElementById("hdnStartTime").value = new Date().getTime();
-      updateTimer();
+      
     }
     function checkAnswer() {
       if (document.getElementById("txtAnswer").value == "") return
@@ -212,46 +176,12 @@
         document.getElementById("txtAnswer").value = ""
       }
     }
-    function onLoad() {
-      document.getElementById("btnDebug").click();
-      
-    }
-    function start() {
-      if (parseInt(document.getElementById("optMax").value) < 25) {
-        alert("'MAX' can not be less than 25");
-        document.getElementById("optMax").value = "25";
-      }
-      if (parseInt(document.getElementById("optMax").value) > 3000) {
-        alert("'MAX' can not be more than 3000");
-        document.getElementById("optMax").value = "3000";
-      }
-      if (parseInt(document.getElementById("optMax").value) > 25) {
-        document.getElementById("boxBinder").style.display = '';
-      } else {
-        document.getElementById("boxBinder").style.display = 'none';
-      }
-      if (parseInt(document.getElementById("optMax").value) > 600) {
-        document.getElementById("boxSuperBinder").style.display = '';
-      } else {
-        document.getElementById("boxSuperBinder").style.display = 'none';
-      }
-      document.getElementById("txtScore").value = "0";
-      nextQuestion();
-    }
     function toggleDebug(elem) {
       if (elem.checked) {
         document.getElementById("debugTable").style.display = '';
       } else {
         document.getElementById("debugTable").style.display = 'none';
       };
-    }
-    function updateTimer() {
-      if (document.getElementById("hdnQuestion").value == "") return;
-      var frequency = 100;
-      var myVar = setTimeout(updateTimer, frequency);
-      
-      var seconds = (new Date().getTime() - document.getElementById("hdnStartTime").value) / 1000;
-      document.getElementById("txtTimer").value = new Date(seconds * 1000).toISOString().substring(14, 22);
     }
   </script>
 </html>
