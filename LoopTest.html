@@ -68,7 +68,8 @@
     const KM2PX = 2;
       
     var iLeft = 0;
-    var iTapLine = 1;
+    var iTapLine = 2;
+    
     function onLoad() {
       var oContainer = document.getElementById("container_graph");
       var params = {'max_length': 5500}
@@ -92,7 +93,7 @@
       
       //Create the minor ticks first
       params['max_minor_ticks'] = Math.ceil(params['max_length']/TICK_MINOR_FREQUENCY)+1;
-      for (var i = 0; i < params['max_minor_ticks']; i++) {
+      for (var i = 0; i <= params['max_minor_ticks']; i++) {
         if ((i*TICK_MINOR_FREQUENCY)%TICK_MAJOR_FREQUENCY==0) continue;
         //Create a vertical line
         var oTick = document.createElement("div");
@@ -132,7 +133,7 @@
       
       var oContainer = document.getElementById("container_graph");
       iLeft = 0;
-      iTapLine = 1;
+      iTapLine = 2;
       //oContainer.style.height = aData['taps']*HEIGHT_BAR + HEIGHT_SCROLLBAR;
       
       
