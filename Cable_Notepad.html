@@ -4,6 +4,7 @@
     , initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, interactive-widget=overlays-content
   -->
     <meta name="viewport" content="width=670"/>
+    <script src="helpers.js"></script>
     <style>
       body {
         margin: 0px; padding: 0px;
@@ -143,7 +144,7 @@
       var insertHTML_data = "";
       for (var i = pairLow; i <= pairHigh; i++) {
         insertHTML_side += "   <div class='header' style='height: 60px;'>"+
-                           "     <div class='pair'>"+i+"</div>"+
+                           "     <div class='pair' style='background:"+clrPair(i)+"'>"+i+"</div>"+
                            "     <div class='tn'><input type='text' class='input_phone' id='tn_"+i+"'/></div>"+
                            "   </div>";
         insertHTML_data += "   <div class='data' style='width:50px;height:60px;'><input type='text' class='input_data' id='"+i+"_V_TR'/></div>"+
