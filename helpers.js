@@ -19,8 +19,12 @@ function getTipRing(iQuestion) {
   return ret;
 }
 
-function clrStripe(tip, ring) {
-  return 'repeating-linear-gradient(-45deg, '+clrTip(tip)+' 0px, '+clrTip(tip)+' 20px, '+clrRing(ring)+' 20px, '+clrRing(ring)+' 30px)';
+function clrStripe(tip, ring, isBinder=false) {
+  if (isBinder) {
+    return 'repeating-linear-gradient(-45deg, '+clrRing(ring)+' 0px, '+clrRing(ring)+' 20px, '+clrTip(tip)+' 20px, '+clrTip(tip)+' 30px)';
+  } else {
+    return 'repeating-linear-gradient(-45deg, '+clrTip(tip)+' 0px, '+clrTip(tip)+' 20px, '+clrRing(ring)+' 20px, '+clrRing(ring)+' 30px)';
+  }
 }
 function clrRing(ring) {
   const colRing = ["#00F","#FA1","#0F0","#B73","#AAA"];

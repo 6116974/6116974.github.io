@@ -1,0 +1,188 @@
+<html>
+  <head>
+    <script src="helpers.js"></script>
+    <style>
+      /*Remove arrow from number input box*/
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+      input {
+        border-radius: 10px;
+      }
+      table {
+        
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+      }
+      td {
+        
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .debug {
+        text-align: center;
+        border: 2px solid blue;
+      }
+      
+      .boxPair {
+        border: 1px solid black;
+        border-radius: 10px;
+        box-shadow: inset 0 0 15px #000;
+        width: 100%;
+        height: 40px;
+        margin: 0px;
+        padding: 0px;
+      }
+      .trWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top: 5px;
+      }
+      .colorButton {
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 10px 30px;
+        cursor: pointer;
+      }
+      .clrBlue {background-color: #00F;}
+      .clrOrange {background-color: #FA1;} 
+      .clrGreen {background-color: #0F0;}
+      .clrBrown {background-color: #B73;} 
+      .clrSlate {background-color: #AAA;}
+      .clrWhite {background-color: #FFF;}
+      .clrRed {background-color: #F00;}
+      .clrBlack {background-color: #000;}
+      .clrYellow {background-color: #FF0;}
+      .clrViolet {background-color: #F0F;}
+      
+      
+    </style>
+  </head>
+  <body onload="nextQuestion();">
+    <table>
+      <tr><td><input type="number" id="txtQuestion" read-only value="0"/></td></tr>
+      <tr>
+        <td>
+          <div>
+            <div class="boxPair" id="boxPair">&nbsp;</div>
+            <div class="trWrapper">
+              <div class="colorButton clrWhite" onclick="selection(0, false, 1);">&nbsp;</div>
+              <div class="colorButton clrRed" onclick="selection(0, false, 2);">&nbsp;</div>
+              <div class="colorButton clrBlack" onclick="selection(0, false, 3);">&nbsp;</div>
+              <div class="colorButton clrYellow" onclick="selection(0, false, 4);">&nbsp;</div>
+              <div class="colorButton clrViolet" onclick="selection(0, false, 5);">&nbsp;</div>
+            </div>
+            <div class="trWrapper">
+              <div class="colorButton clrBlue" onclick="selection(0, true, 1);">&nbsp;</div>
+              <div class="colorButton clrOrange" onclick="selection(0, true, 2);">&nbsp;</div>
+              <div class="colorButton clrGreen" onclick="selection(0, true, 3);">&nbsp;</div>
+              <div class="colorButton clrBrown" onclick="selection(0, true, 4);">&nbsp;</div>
+              <div class="colorButton clrSlate" onclick="selection(0, true, 5);">&nbsp;</div>
+            </div>
+            <button id="btnSubmit" onclick="checkAnswer();">Check</button>
+          </div>
+        </td>
+    </table>
+    
+    <br><br><br>
+    <table>
+      <tr>
+        <th colspan="2">Options</th>
+      </tr>
+      <tr>
+        <td>Max:</td><td><input type="number" id="optMax" name="optMax" value="25"/></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button id="btnReset" onclick="start();">Save/Start</button></td>
+      </tr>
+    </table>
+    
+    
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <table>
+      <tr>
+        <td><input type="checkbox" id="btnDebug" onclick="toggleDebug(this);" checked>Debug</input></td>
+      </tr>
+    </table>
+	
+    <table id="debugTable" class="debug">
+      <tr>
+        <td><input readonly class="debug" type="text" id="hdnStartTime"/></td>
+        <td><input readonly class="debug" type="text" id="hdnTimes"/></td>
+      </tr>
+    </table>
+    <br><br>
+  </body>
+  <script>
+    function selection(type, ring, value) {
+      if (type==0) {    //Type is Pair
+        oElem = document.getElementById("boxPair")
+        
+        var iTip=0, iRing=0;
+        if (!ring) {oElem.setAttribute('tip', value);
+        } else {oElem.setAttribute('ring', value);}
+        if (oElem.hasAttribute('tip')) {iTip = oElem.getAttribute('tip');};
+        if (oElem.hasAttribute('ring')) {iRing = oElem.getAttribute('ring');};
+        
+        if (iTip>0 && iRing>0) {
+          oElem.style.background = clrStripe(iTip,iRing);
+        }
+        
+        
+      }
+    }
+    function nextQuestion() {
+      var iMax = parseInt(document.getElementById("optMax").value);
+      
+      //Pick next random pair
+      var iQuestion
+      do {
+        iQuestion = Math.floor(Math.random() * iMax) + 1;
+      }
+      while (iQuestion == parseInt(document.getElementById("txtQuestion").value))
+      document.getElementById("txtQuestion").value = iQuestion;
+      
+      var aQuestion = pairDecode(parseInt(iQuestion));
+      var aBinder = getTipRing(aQuestion['binder']);
+      var aPair = getTipRing(aQuestion['pair']);
+      
+      
+    }
+    function checkAnswer() {
+      if (document.getElementById("txtAnswer").value == "") return
+      if (document.getElementById("txtAnswer").value == document.getElementById("hdnQuestion").value) {
+        document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) + 1;
+        document.getElementById("txtAnswer").value = ""
+        
+        var iTime = ((new Date().getTime() - parseInt(document.getElementById("hdnStartTime").value))/1000).toFixed(2);
+        document.getElementById("hdnTimes").value = iTime + "," + document.getElementById("hdnTimes").value;
+        
+        var fTime = 0.0;
+        var aTime = document.getElementById("hdnTimes").value.split(",");
+        console.log(aTime);
+        for (var i = 0; i < aTime.length-1; i++) {
+          fTime += parseFloat(aTime[i]);
+        }
+        document.getElementById("txtAverage").value = new Date(fTime/(aTime.length-1)*1000).toISOString().substring(14, 22);
+        
+        nextQuestion();
+      } else {
+        document.getElementById("txtScore").value = parseInt(document.getElementById("txtScore").value) - 1;
+        document.getElementById("txtAnswer").value = ""
+      }
+    }
+    function toggleDebug(elem) {
+      if (elem.checked) {
+        document.getElementById("debugTable").style.display = '';
+      } else {
+        document.getElementById("debugTable").style.display = 'none';
+      };
+    }
+  </script>
+</html>
+
