@@ -1,0 +1,257 @@
+<html>
+  <head>
+    <script src="helpers.js"></script>
+    <style>
+      body {
+        margin: 0; padding: 0;
+      }
+      #container_graph {
+        position: relative; margin: 0; padding: 0; height: 500px; line-height: 100px;
+        border: 1px solid black;
+        
+        overflow-x: scroll;
+      }
+      .graph_minor_tick {
+        position: absolute; margin: 0; padding: 0; top: 0; bottom: 0;
+        background-color: #000;
+      }
+      .graph_major_tick {
+        position: absolute; margin: 0; padding: 0; top: 0; bottom: 0;
+        background-color: #40A;
+      }
+      .graph_tick-label {
+        position: absolute; margin: 0; padding: 0; top: 0px; height: 20px; line-height: 20px; width: 60px;
+        background-color: #A0F;
+        border-radius: 0px 5px 5px 0px;
+        border: 2px solid #40A;
+      }
+      .graph_block {
+        position: absolute; margin: 0px; padding: 0px;
+        border: 2px solid black;
+        text-align: center;
+        line-height: 20px;
+      }
+      .type_tap {
+        background-color: #AAAAFF;
+      }
+      .type_cable {
+        background-color: #FFAA00;
+      }
+      .type_splice {
+        background-color: #AA00AA;
+      }
+      .type_change {
+        background-color: #AAFFFF;
+      }
+      .type_interface {
+        background-color: #00CC00;
+      }
+    </style>
+  </head>
+  <body onload="onLoad();">
+        <textarea id="txtInput" rows="4" cols="100">
+Tap  FAKECLLI/001-1,1;FAKECLLI/001-1,1  26  3.18  0.87  0.01  
+Cable  FAKECLLI/001-1,1  26  40.81  11.15  0.07  
+Splice  FAKECLLI/001-1,1  -  -  -  -  
+Cable  FAKECLLI/001-1,1  26  73.00  19.95  0.13  
+Splice  FAKECLLI/001-1,1  -  -  -  -  
+Tap  FAKECLLI/001-1,1  24  49.00  8.34  0.07  
+Cable  FAKECLLI/001-1,1  24  26.00  4.43  0.04  
+Gauge change  FAKECLLI/001-1,1  -  -  -  0.20  
+Splice  FAKECLLI/001-1,1  -  -  -  -  
+Cable  FAKECLLI/001-1,1  24  15.00  2.55  0.02  
+Splice  FAKECLLI/001-1,1  -  -  -  -  
+Tap  FAKECLLI/001-1,1  24  10.00  1.70  0.02  
+Cable  FAKECLLI/001-1,1  26  9.00  2.46  0.02  
+Gauge change  FAKECLLI/001-1,1  -  -  -  0.20  
+Interface  FAKECLLI/001-1,1  -  -  -  -  
+Splice  FAKECLLI/001-1,1  -  -  -  -  
+Tap  FAKECLLI/001-1,1  24  10.00  1.70  0.02  
+-  -  -  -  -  -  
+Total cable  -  -  163.81  40.54  0.68  
+Total bridge tap  -  -  72.18  12.62  0.12  
+Total buildout  -  -  0.00  0.00  0.00  
+-  -  -  -  -  -  
+Totals  -  -  163.81  40.54  0.68  
+    </textarea>
+    <button onclick="Submit();">Submit</button>
+    <hr>
+    <div id="container_graph">
+      <div class="graph_block" style="top:0;left:0;width:400px;height:20px;">test div</div>
+      <div class="graph_block" style="top:0;left:400;width:400px;height:20px;">test div</div>
+      <div class="graph_block" style="top:0;left:800;width:400px;height:20px;">test div</div>
+      <div class="graph_block" style="top:0;left:1200;width:400px;height:20px;">test div</div>
+    </div>
+    
+  </body>
+  <script>
+    const KM2PX = 2;
+      
+    var iLeft = 0;
+    var iTapLine = 1;
+    function onLoad() {
+      var oContainer = document.getElementById("container_graph");
+      var params = {'max_length': 5500}
+      barPrepare(oContainer, params);
+    }
+    function Submit() {
+      var aData = ParseData();
+      var oContainer = document.getElementById("container_graph");
+      var params = {'max_length': aData['max_length']}
+      barPrepare(oContainer, params);
+      draw_graph(aData);
+    }
+    
+    
+    function barPrepare(oElement, params) {
+      const TICK_MAJOR_FREQUENCY = 100; //in meters
+      const TICK_MINOR_FREQUENCY = 25;  //in meters
+      const TICK_MAJOR_WIDTH = 3;       //in px
+      const TICK_MINOR_WIDTH = 1;       //in px
+      oElement.innerHTML = '';          //Clear everything out of the bar to start fresh
+      
+      //Create the minor ticks first
+      params['max_minor_ticks'] = Math.ceil(params['max_length']/TICK_MINOR_FREQUENCY)+1;
+      for (var i = 0; i < params['max_minor_ticks']; i++) {
+        if ((i*TICK_MINOR_FREQUENCY)%TICK_MAJOR_FREQUENCY==0) continue;
+        //Create a vertical line
+        var oTick = document.createElement("div");
+        oTick.className = 'graph_minor_tick';
+        oTick.style.left = (i*TICK_MINOR_FREQUENCY)*KM2PX;
+        oTick.style.width = TICK_MINOR_WIDTH;
+        oElement.append(oTick);
+      }
+      
+      //Create the major ticks
+      params['max_major_ticks'] = Math.ceil(params['max_length']/TICK_MAJOR_FREQUENCY)+1;
+      for (var i = 0; i < params['max_major_ticks']; i++) {
+        //Create a vertical line
+        var oTick = document.createElement("div");
+        oTick.className = 'graph_major_tick';
+        oTick.style.left = (i*TICK_MAJOR_FREQUENCY)*KM2PX;
+        oTick.style.width = TICK_MAJOR_WIDTH;
+        oElement.append(oTick);
+        
+        //Create a label for the tick
+        var oLabel = document.createElement("div");
+        oLabel.className = 'graph_tick-label';
+        oLabel.style.left = (i*TICK_MAJOR_FREQUENCY)*KM2PX;
+        oElement.append(oLabel);
+        var oSpan = document.createElement("span");
+        oSpan.append(i*TICK_MAJOR_FREQUENCY + " M");
+        oLabel.append(oSpan);
+      }    
+    }
+    
+    
+    function draw_graph(aData) {
+      const HEIGHT_SCROLLBAR = 20;
+      const HEIGHT_BAR = 20;
+      const WIDTH_BARMIN = 10;
+      const OFFSET_LINE = 25;
+      
+      var oContainer = document.getElementById("container_graph");
+      iLeft = 0;
+      iTapLine = 1;
+      //oContainer.style.height = aData['taps']*HEIGHT_BAR + HEIGHT_SCROLLBAR;
+      
+      
+      
+      var iMaxLength = parseFloat(aData['max_length']);
+      for (var i = aData['data'].length-1; i >= 0; i--) {
+        line_Data = aData['data'][i];
+        console.log(line_Data);
+        
+        var oBlock = document.createElement("div");
+        oBlock.className = 'graph_block';
+        
+        var iWidth = WIDTH_BARMIN;
+        if (line_Data['length'] != '-') {
+          iWidth = line_Data['length']*KM2PX;
+        }
+        
+        var iLine = 0;
+        switch(line_Data['type']) {
+          case 'Cable': 
+            oBlock.textContent = line_Data['length'];
+            iLine = 1;
+            break;
+          case 'Tap':
+            iLine = iTapLine;
+            iTapLine++
+            oBlock.textContent = line_Data['length'];
+            break;
+          case 'Splice':
+            iLine = 0;
+            oBlock.textContent = 'S';
+            break;
+          case 'Guage change':
+            iLine = 0;
+            oBlock.textContent = 'G';
+            break;
+          case 'Interface':
+            iLine = 0;
+            oBlock.textContent = 'I';
+            break;
+          default: oBlock.textContent = '.';
+        }
+        
+        oBlock.classList.add("type_"+line_Data['type']);
+        oBlock.style.left = iLeft;
+        oBlock.style.width = iWidth;
+        oBlock.style.top = (iLine * HEIGHT_BAR) + OFFSET_LINE;
+        
+        oBlock.style.height = HEIGHT_BAR;
+
+        
+        oContainer.append(oBlock);
+        
+        if (line_Data['type'] == 'Cable') {
+          iLeft += iWidth;
+        }
+      }
+    }
+    
+    
+    function ParseData() {
+      var sInput = document.getElementById("txtInput").value;
+      var aInput = sInput.split(/\n/);
+      var aData = [];
+      var aLoop = {};
+      var iCableLength = 0;
+      var iTaps = 0;
+      
+      //Collect basic data
+      for (var i = 0; i < aInput.length-1; i++) {
+        var aParts = aInput[i].split("  ");
+        if (aParts[0] == "Cable" || aParts[0] == "Tap" || aParts[0] == "Splice" || aParts[0] == "Guage change" || aParts[0] == "Interface") {
+          aData.push({'type':aParts[0],'guage':aParts[2],'length':aParts[3]}); 
+        } else if (aParts[0] == "Total cable") {
+          aLoop['length'] = aParts[3];
+        }
+      }
+      aLoop['data'] = aData;
+      aLoop['max_length'] = aLoop['length'];
+      //Check to see if any taps are longer than the cable
+      for (var i = 0; i < aInput.length-1; i++) {
+        var aParts = aInput[i].split("  ");
+        if (aParts[0] == "Cable") {
+          iCableLength += aParts[3];
+        } else if (aParts[0] == "Tap") {
+          iTaps += 1;
+          if (iCableLength + aParts[3] > aLoop['max_length']) {
+            aLoop['max_length'] = iCableLength + aParts[3];
+          }
+        }
+      }
+      aLoop['taps'] = iTaps;
+      console.log ("Parsed Data:");
+      console.log (aLoop);
+      
+      
+      
+      return aLoop;
+    }
+  </script>
+</html>
+

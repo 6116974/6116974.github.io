@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px; padding: 0px;
+      }
+      #container_main {
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        position: relative;
+        
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border: 1px solid black;
+      }
+      #container_corner {
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0px; left: 0px;
+        height: 60px; width: 150px;
+        //border: 3px solid orange;
+        background-color: #000;
+        z-index: 3;
+      }
+      #container_top {
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        position: sticky;
+        top: 0px;
+        width: 650px;
+        height: 60px;
+        //border: 2px solid red;
+        background-color: #CCC;
+        overflow: hidden;
+        z-index: 1;
+      }
+      #container_side {
+        float:left;
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        position: sticky;
+        left: 0px;
+        width: 150px;
+        height: 1000px;
+        //border: 2px solid green;
+        background-color: #CCC;
+        z-index: 2;
+      }
+      #container_data {
+        float:left;
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        left: 150px;
+        top: 60;
+        width: 500px;
+        height: 1000px;
+        //border: 2px solid green;
+        background-color: #CCC;
+        overflow:hidden;
+        z-index: 2;
+      }
+      .header {
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        word-spacing: -1;
+        
+        border: 1px solid black;
+        border-radius: 3px;
+        text-align: center;
+        line-height: 30px;
+        float: left;
+        
+        height: 30px;
+        width: 150px;
+      }
+      .data{
+        margin: 0px; padding: 0px;
+        box-sizing: border-box;
+        word-spacing: -1;
+        
+        border: 1px solid black;
+        border-radius: 3px;
+        text-align: center;
+        line-height: 30px;
+        float: left;
+        
+        height: 30px;
+        width: 150px;
+      }
+      #table {
+        margin: auto; padding: 0;
+        width: 100%;
+        border: 1px solid black;
+      }
+      th {
+        border: 2px solid black;
+      }
+      td {
+        border: 1px solid black;
+      }
+      .cls_dataCell {
+        width: 50px;
+      }
+    </style>
+  </head>
+  <body onload="tableSetup();">
+    <div id="container"></div>
+    <div id="container_main">
+      <div id="container_corner">&nbsp;</div>
+      <div id="container_top">
+        <div class="header">&nbsp;</div>
+        <div class="header">Voltage</div>
+        <div class="header">Opens</div>
+        <div style="width:50px;" class="header">VF</div>
+        <div class="header">Short/Ground</div>
+        <br>
+        <div class="header">&nbsp;</div>
+        <div class="header" style="width:50px;">TR</div><div class="header" style="width:50px;">TG</div><div class="header" style="width:50px;">RG</div>
+        <div class="header" style="width:50px;">TR</div><div class="header" style="width:50px;">TG</div><div class="header" style="width:50px;">RG</div>
+        <div class="header" style="width:50px;">&nbsp;</div>
+        <div class="header" style="width:50px;">TR</div><div class="header" style="width:50px;">TG</div><div class="header" style="width:50px;">RG</div>
+      </div>
+      <div id="container_side"></div>  
+      <div id="container_data"></div>
+      
+    </div>
+  </body>
+  <script>
+    var pairLow = 1;
+    var pairHigh = 25;
+    var ROW_HEIGHT = 60;
+    function tableSetup() {
+      var container_side = document.getElementById("container_side");
+      var container_data = document.getElementById("container_data");
+      var insertHTML_side = "";
+      var insertHTML_data = "";
+      for (var i = pairLow; i <= pairHigh; i++) {
+        insertHTML_side += "   <div class='header' style='height: 60px;'>"+
+                           "     <div class='pair'>"+i+"</div>"+
+                           "     <div class='tn'>000-000-0000</div>"+
+                           "   </div>";
+        insertHTML_data += "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>"+
+                           "   <div class='data' style='width:50px;height:60px;'></div>";
+      }
+      container_side.style.height = (pairHigh-pairLow+1) * ROW_HEIGHT;
+      container_data.style.height = (pairHigh-pairLow+1) * ROW_HEIGHT;
+      container_side.innerHTML = insertHTML_side;
+      container_data.innerHTML = insertHTML_data;
+    }
+  </script>
+</html>
+
+<!--
+  ExportEmployees('6116974,6116973,6116972,6116971,6116970');
+-->
