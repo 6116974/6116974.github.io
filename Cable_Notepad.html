@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=670"/>
     <script src="helpers.js"></script>
     <style>
-      :root {
-      	--screen-width: 670px;
-      	--sidebar-width: 100px;
-      } 
+      $screenWidth: 670; 
       body {
         margin: 0px; padding: 0px;
       }
@@ -18,7 +15,7 @@
         box-sizing: border-box;
         position: relative;
         
-        width: var(--screen-width);
+        width: #{$screenWidth}px;
         height: 100%;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -39,7 +36,7 @@
         box-sizing: border-box;
         position: sticky;
         top: 0px;
-        width: 650px;
+        width: calc(#{$screenWidth}-20)px;
         height: 60px;
         //border: 2px solid red;
         background-color: #CCC;
