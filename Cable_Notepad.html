@@ -147,11 +147,13 @@
       var insertHTML_side = "";
       var insertHTML_data = "";
       for (var i = pairLow; i <= pairHigh; i++) {
-        insertHTML_side += "   <div class='header' style='height: 60px;'>"+
+        insertHTML_side += 
+						   "  <div class='header' style='height: 60px;width: 100px;'>"+
                            "     <div class='cell_pair' style='background:"+clrPair(i)+"'>"+i+"</div>"+
                            "     <div class='tn'><input type='text' class='input_phone' id='tn_"+i+"'/></div>"+
-                           "   </div>";
-        insertHTML_data += "   <div class='cell_data' style='width:50px;height:60px;'><input type='text' class='input_data' id='"+i+"_V_TR'/></div>"+
+                           "  </div>";
+        insertHTML_data += 
+						   "   <div class='cell_data' style='width:50px;height:60px;'><input type='text' class='input_data' id='"+i+"_V_TR'/></div>"+
                            "   <div class='cell_data' style='width:50px;height:60px;'><input type='number' class='input_data' id='"+i+"_V_TG'/></div>"+
                            "   <div class='cell_data' style='width:50px;height:60px;'><input type='number' class='input_data' id='"+i+"_V_RG'/></div>"+
                            "   <div class='cell_data' style='width:50px;height:60px;'><input type='number' class='input_data' id='"+i+"_O_TR'/></div>"+
