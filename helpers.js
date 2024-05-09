@@ -28,7 +28,7 @@ function clrStripe(tip, ring, isBinder=false) {
 }
 function clrPair(iPair) {
   var data = getTipRing(iPair);
-  return clrStripe(data['tip'], data['ring'], false)
+  return clrStripe(data['tip'], data['ring'], false);
 }
 function clrRing(ring) {
   const colRing = ["#00F","#FA1","#0F0","#B73","#AAA"];
