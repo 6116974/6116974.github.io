@@ -7,9 +7,9 @@
     <script src="helpers.js"></script>
     <style>
       :root {
-     	--screenWidth: 800; 
-         --scrollWidth: 20;
-     	--sideWidth: 100;
+     	--screenWidth: 800px; 
+         --scrollWidth: 20px;
+     	--sideWidth: 100px;
       } 
       body {
         margin: 0px; padding: 0px;
@@ -19,7 +19,7 @@
         box-sizing: border-box;
         position: relative;
         
-        width: var(--screenWidth)px;
+        width: var(--screenWidth);
         height: 100%;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -30,7 +30,8 @@
         box-sizing: border-box;
         position: fixed;
         top: 0px; left: 0px;
-        height: 60px; width: var(--sideWidth)px;
+        height: 60px; 
+		width: var(--sideWidth);
         //border: 3px solid orange;
         background-color: #000;
         z-index: 3;
@@ -40,7 +41,7 @@
         box-sizing: border-box;
         position: sticky;
         top: 0px;
-        width: calc(var(--screenWidth)-var(--scrollWidth))px;
+        width: calc(var(--screenWidth) - var(--scrollWidth));
         height: 60px;
         //border: 2px solid red;
         background-color: #CCC;
@@ -53,7 +54,7 @@
         box-sizing: border-box;
         position: sticky;
         left: 0px;
-        width: var(--sideWidth)px;
+        width: var(--sideWidth);
         height: 1000px;
         //border: 2px solid green;
         background-color: #CCC;
@@ -65,7 +66,7 @@
         box-sizing: border-box;
         left: 100px;
         top: 60;
-        width: calc(var(--screenWidth)-var(--scrollWidth)-var(--sideWidth))px;
+        width: calc(var(--screenWidth) - var(--scrollWidth) - var(--sideWidth));
         height: 1000px;
         //border: 2px solid green;
         background-color: #CCC;
