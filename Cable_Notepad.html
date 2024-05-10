@@ -105,8 +105,6 @@
         border-radius: 3px;
         text-align: center;
         float: left;
-        
-        height: 30px;
       }
       .cell_pair {
         height: 20px;
@@ -167,7 +165,7 @@
       var insertHTML_data = "";
       for (var i = pairLow; i <= pairHigh; i++) {
         insertHTML_side += 
-						   "  <div class='header sideWidth rowHeight'>"+
+						   "  <div class='sideWidth rowHeight'>"+
                            "     <div class='cell_pair' style='background:"+clrPair(i)+"'>"+i+"</div>"+
                            "     <div class='cell_phone'><input type='text' class='input_phone' id='tn_"+i+"'/></div>"+
                            "  </div>";
