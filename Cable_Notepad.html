@@ -158,7 +158,8 @@
   <script>
     var pairLow = 1;
     var pairHigh = 25;
-    var ROW_HEIGHT = 60;
+    
+    var ROW_HEIGHT = getComputedStyle(document.body).getPropertyValue('--rowHeight');
     function tableSetup() {
       var container_side = document.getElementById("container_side");
       var container_data = document.getElementById("container_data");
