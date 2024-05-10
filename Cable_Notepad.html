@@ -110,10 +110,14 @@
         height: 30px;
       }
       .cell_pair {
+        height: 20px;
         color: #000;
         font-weight: bold;
         text-shadow: -1px -1px 2px #FFF, 1px -1px 2px #FFF, -1px 1px 2px #FFF, 1px 1px 2px #FFF;
       }
+      .cell_tn {
+     	 height: calc(var(--rowHeight) - 20px);
+      } 
       input {
         width: 100%;
         height: 100%;
@@ -163,21 +167,21 @@
       var insertHTML_data = "";
       for (var i = pairLow; i <= pairHigh; i++) {
         insertHTML_side += 
-						   "  <div class='header sideWidth' style='height: 60px;'>"+
+						   "  <div class='header sideWidth rowHeight'>"+
                            "     <div class='cell_pair' style='background:"+clrPair(i)+"'>"+i+"</div>"+
                            "     <div class='tn'><input type='text' class='input_phone' id='tn_"+i+"'/></div>"+
                            "  </div>";
         insertHTML_data += 
-						   "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_V_TR'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_V_TG'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_V_RG'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_O_TR'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_O_TG'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_O_RG'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_VF'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_R_TR'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_R_TG'/></div>"+
-                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_R_RG'/></div>";
+						   "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_V_TR'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_V_TG'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_V_RG'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_O_TR'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_O_TG'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_O_RG'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_VF'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_R_TR'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_R_TG'/></div>"+
+                           "   <div class='cell_data dataWidth rowHeight'><input type='number' class='input_data' id='"+i+"_R_RG'/></div>";
       }
       container_side.style.height = (pairHigh-pairLow+1) * ROW_HEIGHT;
       container_data.style.height = (pairHigh-pairLow+1) * ROW_HEIGHT;
