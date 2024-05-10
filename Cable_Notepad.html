@@ -109,7 +109,6 @@
         float: left;
         
         height: 30px;
-        width: 150px;
       }
       .cell_pair {
         color: #000;
@@ -137,10 +136,10 @@
       <div id="container_corner" class="sideWidth">&nbsp;</div>
       <div id="container_top">
         <div class="header sideWidth">&nbsp;</div>
-        <div class="header">Voltage</div>
-        <div class="header">Opens</div>
+        <div class="header dataWidth3">Voltage</div>
+        <div class="header dataWidth3">Opens</div>
         <div class="header dataWidth">VF</div>
-        <div class="header">Short/Ground</div>
+        <div class="header dataWidth3">Short/Ground</div>
         <br>
         <div class="header sideWidth">&nbsp;</div>
         <div class="header dataWidth">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
@@ -169,16 +168,16 @@
                            "     <div class='tn'><input type='text' class='input_phone' id='tn_"+i+"'/></div>"+
                            "  </div>";
         insertHTML_data += 
-						   "   <div class='cell_data' style='width:55px;height:60px;'><input type='text' class='input_data' id='"+i+"_V_TR'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_V_TG'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_V_RG'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_O_TR'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_O_TG'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_O_RG'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_VF'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_R_TR'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_R_TG'/></div>"+
-                           "   <div class='cell_data' style='width:55px;height:60px;'><input type='number' class='input_data' id='"+i+"_R_RG'/></div>";
+						   "   <div class='cell_data dataWidth' style='height:60px;'><input type='text' class='input_data' id='"+i+"_V_TR'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_V_TG'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_V_RG'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_O_TR'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_O_TG'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_O_RG'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_VF'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_R_TR'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_R_TG'/></div>"+
+                           "   <div class='cell_data dataWidth' style='height:60px;'><input type='number' class='input_data' id='"+i+"_R_RG'/></div>";
       }
       container_side.style.height = (pairHigh-pairLow+1) * ROW_HEIGHT;
       container_data.style.height = (pairHigh-pairLow+1) * ROW_HEIGHT;
