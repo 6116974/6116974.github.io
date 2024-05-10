@@ -10,6 +10,7 @@
      	--screenWidth: 800px; 
          --scrollWidth: 20px;
      	--sideWidth: 100px;
+    	 --dataWidth: 55px;
       } 
       body {
         margin: 0px; padding: 0px;
@@ -30,8 +31,8 @@
         box-sizing: border-box;
         position: fixed;
         top: 0px; left: 0px;
+        width: var(--screenWidth);
         height: 60px; 
-		width: var(--sideWidth);
         //border: 3px solid orange;
         background-color: #000;
         z-index: 3;
@@ -54,8 +55,8 @@
         box-sizing: border-box;
         position: sticky;
         left: 0px;
-        width: var(--sideWidth);
         height: 1000px;
+        width: var(--screenWidth);
         //border: 2px solid green;
         background-color: #CCC;
         z-index: 2;
@@ -72,6 +73,12 @@
         background-color: #CCC;
         overflow:hidden;
         z-index: 2;
+      }
+     .sideWidth {
+      	width: var(--sideWidth);
+      }
+      .dataWidth {
+    	  width: var(--dataWidth);	
       }
       .header {
         margin: 0px; padding: 0px;
@@ -124,21 +131,21 @@
   <body onload="tableSetup();">
     <div id="container"></div>
     <div id="container_main">
-      <div id="container_corner">&nbsp;</div>
+      <div id="container_corner" class="sideWidth">&nbsp;</div>
       <div id="container_top">
-        <div class="header" style="width: 100px;">&nbsp;</div>
+        <div class="header sideWidth">&nbsp;</div>
         <div class="header">Voltage</div>
         <div class="header">Opens</div>
-        <div style="width:55px;" class="header">VF</div>
+        <div class="header dataWidth">VF</div>
         <div class="header">Short/Ground</div>
         <br>
-        <div class="header" style="width: 100px;">&nbsp;</div>
-        <div class="header" style="width:55px;">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
-        <div class="header" style="width:55px;">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
-        <div class="header" style="width:55px;">&nbsp;</div>
-        <div class="header" style="width:55px;">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
+        <div class="header sideWidth">&nbsp;</div>
+        <div class="header dataWidth">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
+        <div class="header dataWidth">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
+        <div class="header dataWidth">&nbsp;</div>
+        <div class="header dataWidth">TR</div><div class="header" style="width:55px;">TG</div><div class="header" style="width:55px;">RG</div>
       </div>
-      <div id="container_side"></div>  
+      <div id="container_side" class="sideWidth"></div>  
       <div id="container_data"></div>
       
     </div>
