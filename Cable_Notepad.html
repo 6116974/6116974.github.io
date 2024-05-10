@@ -11,10 +11,11 @@
          --scrollWidth: 20px;
      	--sideWidth: 100px;
     	 --dataWidth: 55px;
+         --rowHeight: 50px;
       } 
       body {
         margin: 0px; padding: 0px;
-        text-size: 12px;
+        text-size: 16px;
       }
       #container_main {
         margin: 0px; padding: 0px;
@@ -80,7 +81,8 @@
       .sideWidth {width: var(--sideWidth);}
       .dataWidth {width: calc((var(--screenWidth) - var(--scrollWidth) - var(--sideWidth))/10);}
       .dataWidth3 {width: calc(((var(--screenWidth) - var(--scrollWidth) - var(--sideWidth))/10)*3);}
-
+      .rowHeight {width: var(--rowHeight);}
+      
       .header {
         margin: 0px; padding: 0px;
         box-sizing: border-box;
@@ -120,7 +122,7 @@
         text-align: center;
       }
       .input_data {
-        font-size: 15px;
+        font-size: 12px;
       }
       .input_phone {
         height: 30px;
