@@ -31,7 +31,7 @@
         box-sizing: border-box;
         position: fixed;
         top: 0px; left: 0px;
-        width: var(--screenWidth);
+        width: var(--sideWidth);
         height: 60px; 
         //border: 3px solid orange;
         background-color: #000;
@@ -78,7 +78,7 @@
       	width: var(--sideWidth);
       }
       .dataWidth {
-    	  width: var(--dataWidth);	
+    	  calc((var(--screenWidth) - var(--scrollWidth) - var(--sideWidth))/10);
       }
       .header {
         margin: 0px; padding: 0px;
