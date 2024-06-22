@@ -55,8 +55,9 @@
             long = position.coords.longitude;
             accuracy = (position.coords.accuracy/2);
 
-			blipsFakePositions({'long':long,'lat':lat});
-			
+			var arrBlips = blipsFakePositions({'long':long,'lat':lat});
+			makeBlips(arrBlips, map_init);
+				
             if (dot) {map_init.removeLayer(dot);};
 			if (circle) {map_init.removeLayer(circle);};
 
@@ -77,16 +78,21 @@
         function blipsFakePositions(position) {    
             var positionData = [];
 		    for (var i=0; i < 2; i++) {
-				
 				var newLong = position['long'] + ((Math.random() * 4)-2);
 				var newLat = position['lat'] + ((Math.random() * 4)-2);
-				console.log(newLong + ":" + newLat);
-				positionData.push({'long':newLong, 'lat':newLat});
-				
+				positionData.push({'long':newLong, 'lat':newLat});	
 			};
-			console.log(positionData);
-			
+			return positionData;
         };
+        
+        var blips = [];
+        function makeBlips(arrBlips, map_init) {
+        	for (var i=0; i < arrBlips.length; i++) {
+        		if (blips[i]) {map_init.removeLayer(blips[i]);};
+           	blips[i] = L.circle([arrBlips['lat'], arrBlips['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
+           	var featureGroup = L.featureGroup(blips).addTo(map_init);
+			}
+        } 
     </script>
 </body>
 
