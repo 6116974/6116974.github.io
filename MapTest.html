@@ -52,7 +52,7 @@
 			if (circle) {map_init.removeLayer(circle)}
 
             dot = L.circle([lat, long], {radius: 2, color: black, opacity:1})
-            circle = L.circle([lat, long], {radius: accuracy, color: blue, opacity:0.2})
+            circle = L.circle([lat, long], {radius: accuracy, color: blue, opacity:0.2, stroke:false})
 
             //var featureGroup = L.featureGroup([marker, circle]).addTo(map_init)
             var featureGroup = L.featureGroup([dot,circle]).addTo(map_init)
