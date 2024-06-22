@@ -74,15 +74,14 @@
         };
         
         
-        function blipsFakePositions(position) {
-            //console.log(position);
-            
+        function blipsFakePositions(position) {    
             var positionData = [];
-		    for (var i=0; i < 200; i++) {
+		    for (var i=0; i < 2; i++) {
 				
-				var newPosition = [];
+				var newPosition = {};
 				newPosition['long'] = position['long'] + ((Math.random() * 4)-2);
 				newPosition['lat'] = position['lat'] + ((Math.random() * 4)-2);
+				console.log(newPosition);
 				positionData.push([newPosition]);
 				
 			};
