@@ -83,6 +83,7 @@
 		    for (var i=0; i < 10; i++) {
 				var newLong = position['long'] + ((Math.random() *2)-1);
 				var newLat = position['lat'] + ((Math.random() *2)-1);
+				console.log(newLong+":"+newLat);
 				positionData.push({'long':newLong, 'lat':newLat});	
 			};
 			return positionData;
