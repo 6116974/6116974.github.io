@@ -78,11 +78,10 @@
             var positionData = [];
 		    for (var i=0; i < 2; i++) {
 				
-				var newPosition = [];
-				newPosition['long'] = position['long'] + ((Math.random() * 4)-2);
-				newPosition['lat'] = position['lat'] + ((Math.random() * 4)-2);
-				console.log(newPosition);
-				positionData.push([newPosition]);
+				var newLong = position['long'] + ((Math.random() * 4)-2);
+				var newLat = position['lat'] + ((Math.random() * 4)-2);
+				console.log(newLong + ":" + newLat);
+				positionData.push({'long':newLong, 'lat':newLat});
 				
 			};
 			console.log(positionData);
