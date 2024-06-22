@@ -39,29 +39,30 @@
         } else {
             setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition)}, 1000);
         };
-
+		
+		var elemStatusbar = document.body.getElementById("statusbar");
         var dot, circle, lat, long, accuracy;
         function getPosition(position) {
-            // console.log(position)
+            // console.log(position);
             lat = position.coords.latitude;
             long = position.coords.longitude;
             accuracy = (position.coords.accuracy/2);
 
-            if (dot) {map_init.removeLayer(dot)}
-			if (circle) {map_init.removeLayer(circle)}
+            if (dot) {map_init.removeLayer(dot);};
+			if (circle) {map_init.removeLayer(circle);};
 
-            dot = L.circle([lat, long], {radius: 2, color: black, opacity:1});
-            circle = L.circle([lat, long], {radius: accuracy, color: black, opacity:0.2, stroke:false});
+            dot = L.circle([lat, long], {radius: 2, color: black, opacity: 1.0});
+            circle = L.circle([lat, long], {radius: accuracy, color: black, opacity: 0.2, stroke: false});
 
             //var featureGroup = L.featureGroup([marker, circle]).addTo(map_init);
-            var featureGroup = L.featureGroup([dot,circle]).addTo(map_init);
+            var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
 			
 			if (document.getElementById("trackgps").checked==true) {
            	map_init.fitBounds(featureGroup.getBounds());
 			} 
 			
-			var statusbar = document.body.getElementById("statusbar");
-            statusbar.innerHTML("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy);
+			
+            elemStatusbar.innerHTML("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy);
         }
     </script>
 </body>
