@@ -43,10 +43,10 @@
         var arrBlips = blipsFakePositions({'long':46.3,'lat':-79.4});
         console.log(arrBlips);
         for (var i=0; i < arrBlips.length; i++) {
-        	console.log([arrBlips[i]['lat'], arrBlips[i]['long']]);
-            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
+        	//console.log([arrBlips[i]['lat'], arrBlips[i]['long']]);
+            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#00FF00', opacity: 1.0});
         };
-        var featureGroup = L.featureGroup(blips).addTo(map_init);
+        var blipGroup = L.featureGroup(blips).addTo(map_init);
         
         //Start tracking the GPS
         if (!navigator.geolocation) {
