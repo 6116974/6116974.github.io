@@ -38,6 +38,14 @@
         var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map_init);
         L.Control.geocoder().addTo(map_init);
         
+        //Plot static blips
+        var blips = [];
+        var arrBlips = blipsFakePositions({'long':long,'lat':lat});
+        for (var i=0; i < arrBlips.length; i++) {
+           blips[i] = L.circle([arrBlips['lat'], arrBlips['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
+           var featureGroup = L.featureGroup(blips).addTo(map_init);
+        };
+        
         //Start tracking the GPS
         if (!navigator.geolocation) {
             console.log("Your browser doesn't support geolocation feature!")
@@ -66,12 +74,7 @@
             elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
         };
         
-        var blips = [];
-        var arrBlips = blipsFakePositions({'long':long,'lat':lat});
-        for (var i=0; i < arrBlips.length; i++) {
-           blips[i] = L.circle([arrBlips['lat'], arrBlips['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
-           var featureGroup = L.featureGroup(blips).addTo(map_init);
-        };
+        
         
         function blipsFakePositions(position) {    
             var positionData = [];
