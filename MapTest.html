@@ -59,7 +59,7 @@
 			if (circle) {map_init.removeLayer(circle);};
 
             dot = L.circle([lat, long], {radius: 2.0, color: '#000000', opacity: 1.0});
-            circle = L.circle([lat, long], {radius: accuracy, color: '#AAAAAA', opacity: 0.2, stroke: false});
+            circle = L.circle([lat, long], {radius: accuracy, color: '#AAAAAA', opacity: 0.1, stroke: false});
 
             var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
 			
