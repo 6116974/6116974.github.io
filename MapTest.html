@@ -46,7 +46,7 @@
         	console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['long']);
             blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#00FF00', opacity: 1.0});
         };
-        var blipGroup = L.featureGroup(blips).addTo(map_init);
+        var blipGroup = L.featureGroup([blips]).addTo(map_init);
         
         //Start tracking the GPS
         if (!navigator.geolocation) {
