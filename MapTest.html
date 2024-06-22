@@ -20,7 +20,7 @@
 </head>
 
 <body>
-	<input type="checkbox">Follow</input>
+	<input type="checkbox">Follow Position</input>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
@@ -38,7 +38,7 @@
         } else {
             setInterval(() => {
                 navigator.geolocation.getCurrentPosition(getPosition)
-            }, 500);
+            }, 1000);
         };
         var marker, circle, lat, long, accuracy;
 
