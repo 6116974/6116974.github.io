@@ -40,27 +40,22 @@
                 navigator.geolocation.getCurrentPosition(getPosition)
             }, 1000);
         };
-        var marker, circle, lat, long, accuracy;
+        var dot, circle, lat, long, accuracy;
 
         function getPosition(position) {
             // console.log(position)
             lat = position.coords.latitude
             long = position.coords.longitude
-            accuracy = (position.coords.accuracy/10)+1
+            accuracy = position.coords.accuracy/2
 
-            /*if (marker) {
-                map_init.removeLayer(marker)
-            }*/
+            if (dot) {map_init.removeLayer(marker)}
+			if (circle) {map_init.removeLayer(circle)}
 
-            if (circle) {
-                map_init.removeLayer(circle)
-            }
-
-            //marker = L.marker([lat, long])
+            dot = L.circle([lat, long], {radius: 4})
             circle = L.circle([lat, long], { radius: accuracy })
 
             //var featureGroup = L.featureGroup([marker, circle]).addTo(map_init)
-            var featureGroup = L.featureGroup([circle]).addTo(map_init)
+            var featureGroup = L.featureGroup([dot,circle]).addTo(map_init)
 			
 			if (document.getElementById("trackgps").checked==true) {
            	map_init.fitBounds(featureGroup.getBounds())
