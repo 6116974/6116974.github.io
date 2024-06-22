@@ -55,6 +55,8 @@
             long = position.coords.longitude;
             accuracy = (position.coords.accuracy/2);
 
+			blipsFakePositions({'long':long,'lat':lat});
+			
             if (dot) {map_init.removeLayer(dot);};
 			if (circle) {map_init.removeLayer(circle);};
 
@@ -70,6 +72,18 @@
 			
             elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
         }
+        
+        
+        function blipsFakePositions(position) {
+            var positionData = {};
+		    for (var i = 0; i < 200, i++) {
+				var newPosition = {};
+				newPosition['long'] = position['long'] + ((Math.random() * 4)-2);
+				newPosition['lat'] = position['lat'] + ((Math.random() * 4)-2);
+				positionData.push(newPosition);
+			}
+			console.log(positionData);
+        } 
     </script>
 </body>
 
