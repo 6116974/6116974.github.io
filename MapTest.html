@@ -82,10 +82,10 @@
         function blipsFakePositions(position) {    
             var positionData = [];
 		    for (var i=0; i < 30000; i++) {
-				var newLong = position['long'] + ((Math.random() *.2)-.1);
+				var newLong = position['lng'] + ((Math.random() *.2)-.1);
 				var newLat = position['lat'] + ((Math.random() *.2)-.1);
 				
-				positionData.push({'long':newLong, 'lat':newLat});	
+				positionData.push({'lng':newLong, 'lat':newLat});	
 			};
 			return positionData;
         };
@@ -95,10 +95,10 @@
         
         async function read(input) {
         	console.log("Reading File");
-       	 var arrBlips = blipsFakePositions({'lat':46.3,'long':-79.4});
+       	 var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
 			//var arrBlips = JSON.parse(await readFile(input.files[0]));
 			console.log("File Read");
-			console.log(arrBlips);
+			//console.log(arrBlips);
 			for (var i=0; i < arrBlips.length; i++) {
        		console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
            	blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 3.0, color: randomColor(), fillColor: randomColor(), opacity: 1.0, fillOpacity: 1.0}).addTo(map_init);
