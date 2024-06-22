@@ -83,8 +83,7 @@
             var positionData = [];
 		    for (var i=0; i < 30000; i++) {
 				var newLong = position['lng'] + ((Math.random() *.2)-.1);
-				var newLat = position['lat'] + ((Math.random() *.2)-.1);
-				
+				var newLat = position['lat'] + ((Math.random() *.2)-.1);			
 				positionData.push({'lng':newLong, 'lat':newLat});	
 			};
 			return positionData;
@@ -95,8 +94,8 @@
         
         async function read(input) {
         	console.log("Reading File");
-       	 var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
-			//var arrBlips = JSON.parse(await readFile(input.files[0]));
+       	 //var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
+			var arrBlips = JSON.parse(await readFile(input.files[0]));
 			console.log("File Read");
 			//console.log(arrBlips);
 			for (var i=0; i < arrBlips.length; i++) {
