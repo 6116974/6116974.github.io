@@ -42,10 +42,9 @@
         if (!navigator.geolocation) {
             console.log("Your browser doesn't support geolocation feature!")
         } else {
-            setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, gpsOptions)}, 1000);
+            setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 1000);
         };
         
-		const gpsOptions = {enableHighAccuracy: true};
         function gpsError(err) {
    		console.warn(`Error: ${err.code}, ${err.message}`);
 		}
