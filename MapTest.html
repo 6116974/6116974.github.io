@@ -48,7 +48,7 @@
             long = position.coords.longitude
             accuracy = position.coords.accuracy/2
 
-            if (dot) {map_init.removeLayer(marker)}
+            if (dot) {map_init.removeLayer(dot)}
 			if (circle) {map_init.removeLayer(circle)}
 
             dot = L.circle([lat, long], {radius: 2, color: black, opacity:1})
