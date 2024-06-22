@@ -93,11 +93,10 @@
         };
         
         async function read(input) {
-        	console.log("Reading File");
        	 //var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
 			var fileData = await readFile(input.files[0]);
-			console.log("File Read");
 			console.log(fileData);
+			console.log(JSON.parse(fileData));
 			
 			/*
 			for (var i=0; i < arrBlips.length; i++) {
