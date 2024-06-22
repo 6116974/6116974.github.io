@@ -46,7 +46,7 @@
             // console.log(position)
             lat = position.coords.latitude
             long = position.coords.longitude
-            accuracy = position.coords.accuracy
+            accuracy = (position.coords.accuracy/10)+1
 
             /*if (marker) {
                 map_init.removeLayer(marker)
