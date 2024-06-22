@@ -41,6 +41,7 @@
         //Plot static blips
         var blips = [];
         var arrBlips = blipsFakePositions({'long':long,'lat':lat});
+        console.log(arrBlips);
         for (var i=0; i < arrBlips.length; i++) {
         	console.log([arrBlips[i]['lat'], arrBlips[i]['long']]);
             blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
