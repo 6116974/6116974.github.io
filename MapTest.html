@@ -43,7 +43,7 @@
         var arrBlips = blipsFakePositions({'lat':46.3,'long':-79.4});
         for (var i=0; i < arrBlips.length; i++) {
         	console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['long']);
-            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#FF0000', opacity: 1.0}).addTo(map_init);
+            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: randomColor(), opacity: 1.0}).addTo(map_init);
         };
         
         //Start tracking the GPS
@@ -86,7 +86,9 @@
 			};
 			return positionData;
         };
-        
+        function randomColor() {
+        	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
+        };
         
     </script>
 </body>
