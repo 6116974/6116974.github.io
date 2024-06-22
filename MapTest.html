@@ -44,37 +44,34 @@
         } else {
             setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
         };
-        
         function gpsError(err) {
    		console.warn(`Error: ${err.code}, ${err.message}`);
 		};
+		
 		
 		var dot, circle, lat, long, accuracy;
         function getPosition(position) {    
             lat = position.coords.latitude;
             long = position.coords.longitude;
             accuracy = (position.coords.accuracy/2);
-
-			var arrBlips = blipsFakePositions({'long':long,'lat':lat});
-			console.log(arrBlips);
-			//makeBlips(arrBlips, map_init);
 				
             if (dot) {map_init.removeLayer(dot);};
 			if (circle) {map_init.removeLayer(circle);};
-
             dot = L.circle([lat, long], {radius: 1.0, color: '#000000', opacity: 1.0});
             circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
-
             var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
-			
 			if (document.getElementById("trackgps").checked==true) {
            	map_init.fitBounds(featureGroup.getBounds());
 			};
-			
-			
             elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
         };
         
+        var blips = [];
+        var arrBlips = blipsFakePositions({'long':long,'lat':lat});
+        for (var i=0; i < arrBlips.length; i++) {
+           blips[i] = L.circle([arrBlips['lat'], arrBlips['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
+           var featureGroup = L.featureGroup(blips).addTo(map_init);
+        };
         
         function blipsFakePositions(position) {    
             var positionData = [];
@@ -86,14 +83,7 @@
 			return positionData;
         };
         
-        var blips = [];
-        function makeBlips(arrBlips, map_init) {
-        	for (var i=0; i < arrBlips.length; i++) {
-        		if (blips[i]) {map_init.removeLayer(blips[i]);};
-           	blips[i] = L.circle([arrBlips['lat'], arrBlips['long']], {radius: 1.0, color: '#000000', opacity: 1.0});
-           	var featureGroup = L.featureGroup(blips).addTo(map_init);
-			}
-        } 
+        
     </script>
 </body>
 
