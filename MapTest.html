@@ -97,7 +97,7 @@
 			var fileData = await readFile(input.files[0]);
 			//console.log(fileData);
 			//console.log(JSON.parse(fileData));
-			
+			var arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
        		console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
