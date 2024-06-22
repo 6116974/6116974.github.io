@@ -67,7 +67,7 @@
 			
 			if (document.getElementById("trackgps").checked==true) {
            	map_init.fitBounds(featureGroup.getBounds());
-			} 
+			};
 			
 			
             elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
@@ -76,7 +76,17 @@
         
         function blipsFakePositions(position) {
             console.log("test");
-        } 
+            /*
+            var positionData = {};
+		    for (var i=0; i < 200, i++) {
+				var newPosition = {};
+				newPosition['long'] = position['long'] + ((Math.random() * 4)-2);
+				newPosition['lat'] = position['lat'] + ((Math.random() * 4)-2);
+				positionData.push(newPosition);
+			}
+			console.log(positionData);
+			*/
+        };
     </script>
 </body>
 
