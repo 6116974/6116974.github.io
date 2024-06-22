@@ -40,7 +40,7 @@
             setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition)}, 1000);
         };
 		
-		var elemStatusbar = document.body.getElementById("statusbar");
+		var elemStatusbar = document.getElementById("statusbar");
         var dot, circle, lat, long, accuracy;
         function getPosition(position) {
             // console.log(position);
@@ -51,8 +51,8 @@
             if (dot) {map_init.removeLayer(dot);};
 			if (circle) {map_init.removeLayer(circle);};
 
-            dot = L.circle([lat, long], {radius: 2.0, color: blue, opacity: 1.0});
-            circle = L.circle([lat, long], {radius: accuracy, color: blue, opacity: 0.2, stroke: false});
+            dot = L.circle([lat, long], {radius: 2.0, color: #000000, opacity: 1.0});
+            circle = L.circle([lat, long], {radius: accuracy, color: #000000, opacity: 0.2, stroke: false});
 
             //var featureGroup = L.featureGroup([marker, circle]).addTo(map_init);
             var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
