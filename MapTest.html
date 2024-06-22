@@ -41,7 +41,6 @@
         
         //Plot static blips
         var blips = [];
-        var arrBlips = [];
         /*
 		var arrBlips = blipsFakePositions({'lat':46.3,'long':-79.4});
         for (var i=0; i < arrBlips.length; i++) {
@@ -95,7 +94,7 @@
         };
         
         async function read(input) {
-			arrBlips = JSON.parse(await readFile(input.files[0]));
+			var arrBlips = JSON.parse(await readFile(input.files[0]));
 			console.log(arrBlips);
 			for (var i=0; i < arrBlips.length; i++) {
        		console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
