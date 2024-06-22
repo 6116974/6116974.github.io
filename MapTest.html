@@ -79,8 +79,8 @@
         function blipsFakePositions(position) {    
             var positionData = [];
 		    for (var i=0; i < 30000; i++) {
-				var newLong = position['long'] + ((Math.random() *.2)-.2);
-				var newLat = position['lat'] + ((Math.random() *.2)-.2);
+				var newLong = position['long'] + ((Math.random() *.2)-.1);
+				var newLat = position['lat'] + ((Math.random() *.2)-.1);
 				
 				positionData.push({'long':newLong, 'lat':newLat});	
 			};
