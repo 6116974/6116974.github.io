@@ -42,7 +42,7 @@
         if (!navigator.geolocation) {
             console.log("Your browser doesn't support geolocation feature!")
         } else {
-            setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 1000);
+            setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
         };
         
         function gpsError(err) {
@@ -75,7 +75,7 @@
         
         
         function blipsFakePositions(position) {
-            console.log(position);
+            //console.log(position);
             
             var positionData = [];
 		    for (var i=0; i < 200, i++) {
