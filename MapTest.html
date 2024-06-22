@@ -45,7 +45,7 @@
             setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, gpsOptions)}, 1000);
         };
         
-		const gpsOptions = {enableHighAccuracy: true, timeout: 6000, maximumAge: 0};
+		const gpsOptions = {enableHighAccuracy: true};
         function gpsError(err) {
    		console.warn(`Error: ${err.code}, ${err.message}`);
 		}
