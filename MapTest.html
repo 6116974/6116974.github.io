@@ -41,10 +41,9 @@
         //Plot static blips
         var blips = [];
         var arrBlips = blipsFakePositions({'lat':46.3,'long':-79.4});
-        //console.log(arrBlips);
         for (var i=0; i < arrBlips.length; i++) {
         	console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['long']);
-            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#00FF00', opacity: 1.0}).addTo(map_init);
+            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 1.0, color: '#FF0000', opacity: 1.0}).addTo(map_init);
         };
         
         //Start tracking the GPS
