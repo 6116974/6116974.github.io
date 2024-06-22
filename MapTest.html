@@ -60,7 +60,7 @@
             circle = L.circle([lat, long], { radius: accuracy })
 
             //var featureGroup = L.featureGroup([marker, circle]).addTo(map_init)
-            var featureGroup = L.featureGroup(circle).addTo(map_init)
+            var featureGroup = L.featureGroup([circle]).addTo(map_init)
 
             //map_init.fitBounds(featureGroup.getBounds())
 
