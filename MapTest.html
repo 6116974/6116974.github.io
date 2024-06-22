@@ -59,7 +59,9 @@
 			if (document.getElementById("trackgps").checked==true) {
            	map_init.fitBounds(featureGroup.getBounds());
 			} 
-            console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy);
+			
+			var statusbar = document.body.getElementById("statusbar");
+            statusbar.innerHTML("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy);
         }
     </script>
 </body>
