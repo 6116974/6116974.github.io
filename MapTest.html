@@ -95,15 +95,15 @@
         async function read(input) {
        	 //var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
 			var fileData = await readFile(input.files[0]);
-			console.log(fileData);
-			console.log(JSON.parse([fileData]));
+			//console.log(fileData);
+			//console.log(JSON.parse(fileData));
 			
-			/*
+			
 			for (var i=0; i < arrBlips.length; i++) {
        		console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
            	blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 3.0, color: randomColor(), fillColor: randomColor(), opacity: 1.0, fillOpacity: 1.0}).addTo(map_init);
      	  };
-   		*/
+   		
 		}
         function readFile(file) {
 			return new Promise((resolve, reject) => {
