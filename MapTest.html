@@ -65,8 +65,8 @@
 				
             if (dot) {map_init.removeLayer(dot);};
 			if (circle) {map_init.removeLayer(circle);};
-            dot = L.circle([lat, long], {radius: 1.0, color: '#000000', stroke: false, opacity: 1.0, fillColor: '#000000', fillOpacity: 1});
-            circle = L.circle([lat, long], {radius: accuracy, color: '#000080', opacity: 0.1, stroke: false});
+            dot = L.circle([lat, long], {radius: 1.0, color: '#000000', opacity: 1.0, fillColor: '#FFFFFF', fillOpacity: 1});
+            circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
             var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
 			if (document.getElementById("trackgps").checked==true) {
            	map_init.fitBounds(featureGroup.getBounds());
