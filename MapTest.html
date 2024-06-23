@@ -128,7 +128,7 @@
 											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "\n" +
 											"Address:" + arrBlips[i]['address'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
-				blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 3.0, color: clrStatus(arrBlips[i]['status_id']), fillColor: randomColor(), opacity: 1.0, fillOpacity: 1.0}).bindPopup(txtPopup).addTo(map_init);
+				blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 10.0, color: clrStatus(arrBlips[i]['status_id']), fillColor: clrStatus(arrBlips[i]['status_id']), opacity: 1.0, fillOpacity: 1.0}).bindPopup(txtPopup).addTo(map_init);
      	  };
    		
 		}
