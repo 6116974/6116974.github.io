@@ -156,7 +156,10 @@
         
         //Update bottom list
         function updateBottom() {
-			console.log("test");	
+			console.log("test");
+			if (document.getElementById("trackgps").checked == false) {
+				elemStatusbar.innerHTML = "Status: not tracking gps";
+			}
 		} 
         
         function clrRandom() {
