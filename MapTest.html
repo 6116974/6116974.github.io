@@ -190,6 +190,20 @@
 				case 9: return "#FF00FF"; //Contractor Completed
 			};
 		}
+		function styleBlip(status_id) {
+			switch(status_id) {
+				case 1: return {color:"#008800", opacity:0.1}; //Submitted
+				case 2: return {color:"#00FF00", opacity:1.0}; //Approved
+				case 3: return {color:"#FF0000", opacity:0.1}; //Denied
+				case 4: return {color:"#FFFFFF", opacity:1.0}; //unknown
+				case 5: return {color:"#5B3E31", opacity:0.1}; //Cancelled
+				case 6: return {color:"#0000AA", opacity:0.5}; //Under Surveillance
+				case 7: return {color:"#AAAAAA", opacity:0.0}; //Completed
+				case 8: return {color:"#AA00AA", opacity:0.0}; //Sent to Contractor
+				case 9: return {color:"#FF00FF", opacity:).0}; //Contractor Completed
+			};
+			
+		} 
         
         
 		function onLoad() {
