@@ -44,7 +44,7 @@
 		<div class="topbarLine">
 			<input type="file" onchange="read(this)"/>
 			<input id="trackgps" type="checkbox">Track GPS</input>
-			<input type="button" onclick="fullscreen();"><FullScreen</input>
+			<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"><FullScreen</input>
 		</div>
 		<div id="status" class="topbarLine">Status:</div>
 	</div>
@@ -155,9 +155,13 @@
 			alert("This tool is only used to translate data. No data will be transfered to or from any location as all data is processed client side. This tool will attempt to interpret data from a range of different sources and will plot the data on a map.");
 			//setInterval(fullscreen, 1000);
 		} 
-		function fullscreen() {
-			console.log("going fullscreen4");
-			document.documentElement.requestFullscreen();
+		function fullscreen(elem) {
+			if (elem.checked) {
+				console.log("going fullscreen4");
+				document.documentElement.requestFullscreen();
+			} else {
+				document.exitFullscreen();
+			} 
 		} 
     </script>
 </body>
