@@ -125,6 +125,9 @@
 											"Address:" + arrBlips[i]['address'] + "<br>" +
 											"Work:" + arrBlips[i]['work_type'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
+				if (occupied({'lat':arrBlips[i]['lat'], 'lng':arrBlips[i]['lng']})==true) {
+					console.log("position is already occupied");
+				} 
 				blips[i] = L
 					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(arrBlips[i]['status_id']))
 					.bindPopup(txtPopup)
@@ -203,6 +206,15 @@
 				case 9: return {color:"#FF00FF", opacity:0.0}; //Contractor Completed
 			};			
 		} 
+		function occupied(latlong) {
+			for (var i=0; i < blips.length; i++) {
+				if (latlong['lat'] = blips[i].getLatLng().lat &&
+					latlong['lng'] = blips[i].getLatLng().lng) {
+					return true;
+				} 
+			}
+			return false;
+		}
         
         
 		function onLoad() {
