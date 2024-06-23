@@ -126,7 +126,8 @@
 			for (var i=0; i < arrBlips.length; i++) {
 				var txtPopup = arrBlips[i]['request_id'] + "&#9;" + arrBlips[i]['submitted'] + " &#9;" + arrBlips[i]['status'] + "<br>" +
 											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br>" +
-											"Address:" + arrBlips[i]['address'];
+											"Address:" + arrBlips[i]['address'] + "<br>" +
+											"Work:" + arrBlips[i]['work_type'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				blips[i] = L
 					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 10.0, color: clrStatus(arrBlips[i]['status_id']), fillColor: clrStatus(arrBlips[i]['status_id']), opacity: 1.0, fillOpacity: 1.0})
