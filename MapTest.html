@@ -124,7 +124,7 @@
 			var arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
-				var txtPopup = "ID:" + arrBlips[i]['request_id'] + " Status:" + arrBlips[i]['status'] + " Submitted:" + arrBlips[i]['submitted'] + "<br>" +
+				var txtPopup = arrBlips[i]['request_id'] + "&#9;" + arrBlips[i]['submitted'] + " &#9;" + arrBlips[i]['status'] + "<br>" +
 											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br>" +
 											"Address:" + arrBlips[i]['address'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
