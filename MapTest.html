@@ -83,74 +83,27 @@
         function clrRandom() {
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
-        function styleBlip(status_id) {
-        	var ret = {radius:40.0, fillColor:'#FFFFFF', fillOpacity:1.0, color:'#FFFFFF', opacity:1.0, weight:1.0, stroke:false};
+        function clrBlip(status_id) {
 			switch(status_id) {
 				case 1: //Submitted
-					ret['fillColor'] = "#008800";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#008800";
 				case 2: //Approved
-					ret['fillColor'] = "#00FF00";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#00FF00";
-					ret['opacity'] = 1.0;
-					ret['stroke'] = true;
-					break;
+					return "#00FF00";
 				case 3: //Denied
-					ret['fillColor'] = "#CC0000";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#CC0000";
 				case 4: //unknown
-					ret['fillColor'] = "#FFFFFF";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#FFFFFF";
 				case 5: //Cancelled
-					ret['fillColor'] = "#5B3E31";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#5B3E31";
 				case 6: //Under Surveillance
-					ret['fillColor'] = "#0000AA";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#0000AA";
 				case 7: //Completed
-					ret['fillColor'] = "#AAAAAA";
-					ret['fillOpacity'] = 0.2;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#AAAAAA";
 				case 8: //Sent to Contractor
-					ret['fillColor'] = "#AA00AA";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#AA00AA";
 				case 9: //Contractor Completed
-					ret['fillColor'] = "#FF00FF";
-					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#000000";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
-					break;
+					return "#FF00FF";
 			};
-			return ret;
 		}
         
         async function read(input) {
@@ -164,7 +117,7 @@
 											"Work:" + arrBlips[i]['work_type'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				blips[i] = L
-					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(arrBlips[i]['status_id']))
+					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius:40.0, fillColor:clrBlip(arrBlips[i]['status_id']), fillOpacity:1.0})
 					.bindPopup(txtPopup)
 					.addTo(map_init);
      	  };
