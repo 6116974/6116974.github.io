@@ -83,6 +83,7 @@
 		var elemStatusbar = document.getElementById("status");
 		var elemListbox = document.getElementById("listbox");
 		var tmrGPS;
+		var tmrBottomList;
 		
 		//Toggle tracking GPS position
         function trackgps(elem) {
@@ -154,8 +155,7 @@
         
         //Update bottom list
         function updateBottom() {
-			console.log("test");
-			setTimeout(updateBottom, 3000);
+			console.log("test");	
 		} 
         
         function clrRandom() {
@@ -178,7 +178,7 @@
         
 		function disclamer() {
 			alert("This tool is only used to translate data. No data will be transfered to or from any location as all data is processed client side. This tool will attempt to interpret data from a range of different sources and will plot the data on a map.");
-			updateBottom();
+			tmrBottomList = setInterval(updateBottom(), 3000);
 		} 
     </script>
 </body>
