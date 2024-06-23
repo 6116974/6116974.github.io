@@ -156,7 +156,6 @@
         
         //Update bottom list
         function updateBottom() {
-			console.log("test");
 			if (document.getElementById("trackgps").checked == false) {
 				lat = map_init.getCenter().lat;
 				long = map_init.getCenter().lng;
@@ -165,13 +164,14 @@
 
 			var features = [];
 			map.eachLayer( function(layer) {
-				if(layer instanceof L.Marker) {
+				if(layer instanceof L.circle) {
 					if(map.getBounds().contains(layer.getLatLng())) {
 						features.push(layer.feature);
 					}
 				}
 			});
-			elemListbox.innerHTML = features;
+			console.log(features);
+			//elemListbox.innerHTML = features;
 		} 
         
         function clrRandom() {
