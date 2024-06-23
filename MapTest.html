@@ -160,7 +160,7 @@
 			if (document.getElementById("trackgps").checked == false) {
 				lat = map_init.getCenter().lat;
 				long = map_init.getCenter().lng;
-				elemStatusbar.innerHTML = "[ " + lat + " : " + long + " ]";
+				elemStatusbar.innerHTML = "[ " + lat.toFixed(4)+ " : " + long.toFixed(4) + " ]";
 			}
 		} 
         
