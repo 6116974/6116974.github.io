@@ -162,15 +162,13 @@
 				elemStatusbar.innerHTML = "[ " + lat.toFixed(4)+ " : " + long.toFixed(4) + " ]";
 			}
 
-			var layers = L.LayerGroup(); //layers contains all markers..
-			contained = [];          //makers in map boundingbox
-			layers.eachLayer(function(l) {
-				if (map_init.getBounds().contains(l.getLatLng())) {
-					contained.push(l);
-				} 
-			});
-			console.log(contained);
-			elemListbox.innerHTML = contained;
+			for (var i=0; i < blips.length; i++) {
+				if (map_init.getBounds().contains(blips[i].getLatLng()) {
+					console.log(i);
+				}
+			}
+			
+			//elemListbox.innerHTML = contained;
 		} 
         
         function clrRandom() {
