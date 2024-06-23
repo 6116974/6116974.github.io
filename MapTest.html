@@ -211,8 +211,8 @@
 			var newPos = {'lat':oldPos['lat'],'lng':oldPos['lng']};
 			
 			while (occupied(newPos)==true) {
-				newPos['lat'] = oldPos['lat'] + Math.random()*0.001;
-				newPos['lng'] = oldPos['lng'] + Math.random()*0.001;
+				newPos['lat'] = (parseFloat(oldPos['lat']) + Math.random()*0.001);
+				newPos['lng'] = (parseFloat(oldPos['lng']) + Math.random()*0.001);
 			}
 			console.log(newPos);
 			return newPos;
