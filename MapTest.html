@@ -90,27 +90,36 @@
 					ret['fillColor'] = "#008800";
 					ret['color'] = "#000000";
 					ret['stroke'] = true;
+					break;
 				case 2: //Approved
 					ret['fillColor'] = "#008800";
 					ret['color'] = "#00FF00";
 					ret['stroke'] = true;
+					break;
 				case 3: //Denied
 					ret['fillColor'] = "#CC0000";
+					break;
 				case 4: //unknown
 					ret['fillColor'] = "#FFFFFF";
+					break;
 				case 5: //Cancelled
 					ret['fillColor'] = "#5B3E31";
 					ret['color'] = "#000000";
 					ret['stroke'] = true;
+					break;
 				case 6: //Under Surveillance
 					ret['fillColor'] = "#0000AA";
+					break;
 				case 7: //Completed
 					ret['fillColor'] = "#AAAAAA";
 					ret['fillOpacity'] = 0.2;
+					break;
 				case 8: //Sent to Contractor
 					ret['fillColor'] = "#AA00AA";
+					break;
 				case 9: //Contractor Completed
 					ret['fillColor'] = "#FF00FF";
+					break;
 			};
 			return ret;
 		}
