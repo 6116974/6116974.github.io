@@ -41,7 +41,7 @@
         input[type="checkbox"]{
 			display: none;
 		}
-        labe + input[type="checkbox"] {
+        input[type="checkbox"] {
         	color: #FA0;
 			background-color: #444;		
 			line-height: 15px;
@@ -51,7 +51,7 @@
 			margin: 2px;
 			border: 1px solid black;
 		}
-		label + input[type="checkbox"]:checked {
+		input[type="checkbox"]:checked {
 			color: #0FA;
 		}
 		
@@ -61,9 +61,12 @@
 <body onload="disclamer();">
 	<div class="topbar">
 		<div class="topbarLine">
-			<label for="loadfile"><input id="loadfile" type="file" onchange="read(this)"/>&#x1F4C1;</label>
-			<label for="trackgps"><input id="trackgps" type="checkbox"/>&#8982;</label>
-			<label for="fullscreentog"><input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>&#x26F6;</label>
+			<input id="loadfile" type="file" onchange="read(this)"/>
+			<label for="loadfile">&#x1F4C1;</label>
+			<input id="trackgps" type="checkbox"/>
+			<label for="trackgps">&#8982;</label>
+			<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>
+			<label for="fullscreentog">&#x26F6;</label>
 		</div>
 		<div id="status" class="topbarLine">Status:</div>
 	</div>
