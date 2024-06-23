@@ -109,43 +109,6 @@
 		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map_init);
 		L.Control.geocoder().addTo(map_init);    
         
-		//Track the client's position	
-		var dot, circle, lat, long, accuracy;
-		function getPosition(position) {    
-			if (document.getElementById("trackgps").checked==false) {return;} 
-			lat = position.coords.latitude;
-			long = position.coords.longitude;
-			accuracy = (position.coords.accuracy/2);
-				
-			if (dot) {map_init.removeLayer(dot);};
-			if (circle) {map_init.removeLayer(circle);};
-			dot = L.circle([lat, long], {radius: 1.0, color: '#000000', opacity: 1.0, fillColor: '#FFFFFF', fillOpacity: 1});
-			circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
-			var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
-			map_init.fitBounds(featureGroup.getBounds());
-			elemStatusbar.innerHTML = "Lat:" + lat.toFixed(4) + " Long:" + long.toFixed(4) + " Acc:" + accuracy.toFixed(1);
-        };
-        
-        
-        
-        
-        function clrRandom() {
-        	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
-        };
-        function clrBlip(status_id) {
-			switch(status_id) {
-				case 1: return "#008800"; //Submitted
-				case 2: return "#00FF00"; //Approved
-				case 3: return "#CC0000"; //Denied
-				case 4: return "#FFFFFF"; //unknown
-				case 5: return "#5B3E31"; //Cancelled
-				case 6: return "#0000AA"; //Under Surveillance
-				case 7: return "#AAAAAA"; //Completed
-				case 8: return "#AA00AA"; //Sent to Contractor
-				case 9: return "#FF00FF"; //Contractor Completed
-			};
-		}
-        
         //Read from file and Plot static blips
         var blips = [];
         async function read(input) {
@@ -171,6 +134,48 @@
 				fr.readAsText(file);
 			});
 		}
+        
+		//Track the client's position	
+		var dot, circle, lat, long, accuracy;
+		function getPosition(position) {    
+			if (document.getElementById("trackgps").checked==false) {return;} 
+			lat = position.coords.latitude;
+			long = position.coords.longitude;
+			accuracy = (position.coords.accuracy/2);
+				
+			if (dot) {map_init.removeLayer(dot);};
+			if (circle) {map_init.removeLayer(circle);};
+			dot = L.circle([lat, long], {radius: 1.0, color: '#000000', opacity: 1.0, fillColor: '#FFFFFF', fillOpacity: 1});
+			circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
+			var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
+			map_init.fitBounds(featureGroup.getBounds());
+			elemStatusbar.innerHTML = "Lat:" + lat.toFixed(4) + " Long:" + long.toFixed(4) + " Acc:" + accuracy.toFixed(1);
+        };
+        
+        //Update bottom list
+        function updateBottom() {
+			setInterval(updateBottom(), 3000);
+			console.log("test");
+		} 
+        
+        function clrRandom() {
+        	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
+        };
+        function clrBlip(status_id) {
+			switch(status_id) {
+				case 1: return "#008800"; //Submitted
+				case 2: return "#00FF00"; //Approved
+				case 3: return "#CC0000"; //Denied
+				case 4: return "#FFFFFF"; //unknown
+				case 5: return "#5B3E31"; //Cancelled
+				case 6: return "#0000AA"; //Under Surveillance
+				case 7: return "#AAAAAA"; //Completed
+				case 8: return "#AA00AA"; //Sent to Contractor
+				case 9: return "#FF00FF"; //Contractor Completed
+			};
+		}
+        
+        
 		function disclamer() {
 			alert("This tool is only used to translate data. No data will be transfered to or from any location as all data is processed client side. This tool will attempt to interpret data from a range of different sources and will plot the data on a map.");
 		} 
