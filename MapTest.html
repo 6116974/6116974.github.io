@@ -83,30 +83,37 @@
         function clrRandom() {
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
-        function clrStatus(status_id) {
+        function styleBlip(status_id) {
+        	var ret = {radius:10.0, fillColor:'#FFFFFF', fillOpacity:1.0, color:'#FFFFFF', opacity:1.0, stroke:false}
 			switch(status_id) {
 				case 1: //Submitted
-					return "#008800";
+					ret['fillColor'] = "#008800";
+					ret['color'] = "#000000";
+					ret['stroke'] = true;
 				case 2: //Approved
-					return "#00FF00";
+					ret['fillColor'] = "#008800";
+					ret['color'] = "#00FF00";
+					ret['stroke'] = true;
 				case 3: //Denied
-					return "#AA0000";
+					ret['fillColor'] = "#CC0000";
 				case 4: //unknown
-					return "#AAAA00";
+					ret['fillColor'] = "#FFFFFF";
 				case 5: //Cancelled
-					return "#5B3E31";
+					ret['fillColor'] = "#5B3E31";
+					ret['color'] = "#000000";
+					ret['stroke'] = true;
 				case 6: //Under Surveillance
-					return "#0000AA";
+					ret['fillColor'] = "#0000AA";
 				case 7: //Completed
-					return "#AAAAAA";
+					ret['fillColor'] = "#AAAAAA";
+					ret['fillOpacity'] = 0.2;
 				case 8: //Sent to Contractor
-					return "#AA00AA";
+					ret['fillColor'] = "#AA00AA";
 				case 9: //Contractor Completed
-					return "#FF00FF";
-				default: 
-					return "#000000";
+					ret['fillColor'] = "#FF00FF";
 			};
-		} 
+			return ret;
+		}
         
         async function read(input) {
 			var fileData = await readFile(input.files[0]);
