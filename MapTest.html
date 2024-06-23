@@ -89,16 +89,16 @@
         
         //Start tracking the GPS
         function trackgps(elem) {
-       	if (!navigator.geolocation) {
-           	console.log("Your browser doesn't support geolocation feature!")
-       	} else {
-           	setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
-       	};
-       	function gpsError(err) {
-   			console.warn(`Error: ${err.code}, ${err.message}`);
+        	if (elem.checked==false) {return;}
+			if (!navigator.geolocation) {
+				console.log("Your browser doesn't support geolocation feature!")
+			} else {
+				setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
 			};
 		}
-		
+		function gpsError(err) {
+			console.warn(`Error: ${err.code}, ${err.message}`);
+		};
 		
 		var dot, circle, lat, long, accuracy;
 		function getPosition(position) {    
