@@ -114,7 +114,7 @@
 			circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
 			var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
 			map_init.fitBounds(featureGroup.getBounds());
-			elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
+			elemStatusbar.innerHTML = "Lat:" + lat.toFixed(4) + " Long:" + long.toFixed(4) + " Acc:" + accuracy.toFixed(1);
         };
         
         
