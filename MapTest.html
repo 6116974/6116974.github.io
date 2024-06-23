@@ -88,37 +88,54 @@
 			switch(status_id) {
 				case 1: //Submitted
 					ret['fillColor'] = "#008800";
+					ret['fillOpacity'] = 1.0;
 					ret['color'] = "#000000";
+					ret['opacity'] = 1.0;
 					ret['stroke'] = true;
 					break;
 				case 2: //Approved
 					ret['fillColor'] = "#00FF00";
+					ret['fillOpacity'] = 1.0;
 					ret['color'] = "#008800";
+					ret['opacity'] = 1.0;
 					ret['stroke'] = true;
 					break;
 				case 3: //Denied
 					ret['fillColor'] = "#CC0000";
+					ret['fillOpacity'] = 1.0;
+					ret['stroke'] = false;
 					break;
 				case 4: //unknown
 					ret['fillColor'] = "#FFFFFF";
+					ret['fillOpacity'] = 1.0;
+					ret['stroke'] = false;
 					break;
 				case 5: //Cancelled
 					ret['fillColor'] = "#5B3E31";
+					ret['fillOpacity'] = 1.0;
 					ret['color'] = "#000000";
+					ret['opacity'] = 1.0;
 					ret['stroke'] = true;
 					break;
 				case 6: //Under Surveillance
 					ret['fillColor'] = "#0000AA";
+					ret['fillOpacity'] = 1.0;
+					ret['stroke'] = false;
 					break;
 				case 7: //Completed
 					ret['fillColor'] = "#AAAAAA";
 					ret['fillOpacity'] = 0.2;
+					ret['stroke'] = false;
 					break;
 				case 8: //Sent to Contractor
 					ret['fillColor'] = "#AA00AA";
+					ret['fillOpacity'] = 1.0;
+					ret['stroke'] = false;
 					break;
 				case 9: //Contractor Completed
 					ret['fillColor'] = "#FF00FF";
+					ret['fillOpacity'] = 1.0;
+					ret['stroke'] = false;
 					break;
 			};
 			return ret;
