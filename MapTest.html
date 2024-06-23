@@ -12,34 +12,42 @@
             margin: 0;
             padding: 0;
         }
-        #statusbar {
+        #topbar {
+			width: 100%;
+			height: 40px;
+			background-color: #F00;
+		} 
+        #status {
         	width: 100%;
 			height: 20px;
 			border: 1px solid black;
 		} 
         #map {
             width: 100%;
-            height: calc(100vh - 50px);
+            height: calc(100vh - 20px - 50px);
+            background-color: #00F;
         }
         #listbox {
 			width: 100%;
 			height: 50px;
-			background-color: #AAAAAA;
+			background-color: #0F0;
 		} 
         
     </style>
 </head>
 
 <body onload="disclaimer()">
-	<input type="file" onchange="read(this)"/>
-	<input id="trackgps" type="checkbox">Track GPS</input>
-	<div id="statusbar">Status:</div>
+	<div id="topbar">
+		<input type="file" onchange="read(this)"/>
+		<input id="trackgps" type="checkbox">Track GPS</input>
+		<div id="status">Status:</div>
+	</div>
     <div id="map"></div>
     <div id="listbox"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
-    	var elemStatusbar = document.getElementById("statusbar");
+    	var elemStatusbar = document.getElementById("status");
     
     	//Setup the map
         var map_init = L.map('map', {center: [46.3, -79.4], zoom: 8});
