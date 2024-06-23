@@ -125,11 +125,11 @@
 											"Address:" + arrBlips[i]['address'] + "<br>" +
 											"Work:" + arrBlips[i]['work_type'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
-				if (occupied({'lat':arrBlips[i]['lat'], 'lng':arrBlips[i]['lng']})==true) {
-					console.log("position is already occupied");
-				} 
+				
+				var newPos = getUnoccupied(arrBlips[i]);
+				
 				blips[i] = L
-					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(arrBlips[i]['status_id']))
+					.circle([newPos['lat'], newPos['lng']], styleBlip(arrBlips[i]['status_id']))
 					.bindPopup(txtPopup)
 					.addTo(map_init);
      	  };	
@@ -205,6 +205,16 @@
 				case 8: return {color:"#AA00AA", opacity:0.0}; //Sent to Contractor
 				case 9: return {color:"#FF00FF", opacity:0.0}; //Contractor Completed
 			};			
+		} 
+		
+		function getUnoccupied(oldPos) {
+			var newPos = {'lat':oldPos['lat'],'lng':oldPos['lng']};
+			
+			while (occupied(newPos)==true) {
+				newPos['lat'] = oldPos['lat'] + Math.random()*0.001;
+				newPos['lng'] = oldPos['lng'] + Math.random()*0.001;
+			}
+			return newPos;
 		} 
 		function occupied(latlong) {
 			for (var i=0; i < blips.length; i++) {
