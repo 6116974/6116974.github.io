@@ -126,7 +126,7 @@
 											"Work:" + arrBlips[i]['work_type'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				blips[i] = L
-					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {color:clrBlip(arrBlips[i]['status_id']), opacity:1.0})
+					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(arrBlips[i]['status_id']))
 					.bindPopup(txtPopup)
 					.addTo(map_init);
      	  };	
