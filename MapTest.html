@@ -158,7 +158,7 @@
         function updateBottom() {
 			console.log("test");
 			if (document.getElementById("trackgps").checked == false) {
-				elemStatusbar.innerHTML = map_init.getCenter();
+				elemStatusbar.innerHTML = "[ " + map_init.getCenter()[0] + " : " + map_init.getCenter()[1] + " ]";
 			}
 		} 
         
