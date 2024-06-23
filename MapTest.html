@@ -84,7 +84,7 @@
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
         function styleBlip(status_id) {
-        	var ret = {radius:10.0, fillColor:'#FFFFFF', fillOpacity:1.0, color:'#FFFFFF', opacity:1.0, stroke:false}
+        	var ret = {radius:50.0, fillColor:'#FFFFFF', fillOpacity:1.0, color:'#FFFFFF', opacity:1.0, stroke:false}
 			switch(status_id) {
 				case 1: //Submitted
 					ret['fillColor'] = "#008800";
@@ -126,7 +126,7 @@
 											"Work:" + arrBlips[i]['work_type'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				blips[i] = L
-					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 10.0, color: clrStatus(arrBlips[i]['status_id']), fillColor: clrStatus(arrBlips[i]['status_id']), opacity: 1.0, fillOpacity: 1.0})
+					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(status_id))
 					.bindPopup(txtPopup)
 					.addTo(map_init);
      	  };
