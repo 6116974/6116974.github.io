@@ -77,21 +77,12 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
     	var elemStatusbar = document.getElementById("status");
-    
+		var elemListbox = document.getElementById("listbox");
+		
     	//Setup the map
         var map_init = L.map('map', {center: [46.3, -79.4], zoom: 8});
         var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map_init);
-        L.Control.geocoder().addTo(map_init);
-        
-        //Plot static blips
-        var blips = [];
-        /*
-		var arrBlips = blipsFakePositions({'lat':46.3,'long':-79.4});
-        for (var i=0; i < arrBlips.length; i++) {
-        	console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['long']);
-            blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['long']], {radius: 3.0, color: randomColor(), fillColor: randomColor(), opacity: 1.0, fillOpacity: 1.0}).addTo(map_init);
-        };
-		*/
+        L.Control.geocoder().addTo(map_init);    
         
         //Start tracking the GPS
         if (!navigator.geolocation) {
@@ -129,27 +120,20 @@
         };
         function clrBlip(status_id) {
 			switch(status_id) {
-				case 1: //Submitted
-					return "#008800";
-				case 2: //Approved
-					return "#00FF00";
-				case 3: //Denied
-					return "#CC0000";
-				case 4: //unknown
-					return "#FFFFFF";
-				case 5: //Cancelled
-					return "#5B3E31";
-				case 6: //Under Surveillance
-					return "#0000AA";
-				case 7: //Completed
-					return "#AAAAAA";
-				case 8: //Sent to Contractor
-					return "#AA00AA";
-				case 9: //Contractor Completed
-					return "#FF00FF";
+				case 1: return "#008800"; //Submitted
+				case 2: return "#00FF00"; //Approved
+				case 3: return "#CC0000"; //Denied
+				case 4: return "#FFFFFF"; //unknown
+				case 5: return "#5B3E31"; //Cancelled
+				case 6: return "#0000AA"; //Under Surveillance
+				case 7: return "#AAAAAA"; //Completed
+				case 8: return "#AA00AA"; //Sent to Contractor
+				case 9: return "#FF00FF"; //Contractor Completed
 			};
 		}
         
+        //Read and Plot static blips
+        var blips = [];
         async function read(input) {
 			var fileData = await readFile(input.files[0]);
 			var arrBlips = JSON.parse(fileData);
@@ -164,8 +148,7 @@
 					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {color:clrBlip(arrBlips[i]['status_id']), opacity:1.0})
 					.bindPopup(txtPopup)
 					.addTo(map_init);
-     	  };
-   		
+     	  };	
 		}
         function readFile(file) {
 			return new Promise((resolve, reject) => {
