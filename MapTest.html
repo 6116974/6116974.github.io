@@ -35,7 +35,10 @@
 			background-color: #AAA;
 			border: 1px solid black;
 		} 
-        [type="checkbox"]{
+		input[type="file"]{
+			opacity: 0;
+		}
+        input[type="checkbox"]{
 			opacity: 0;
 		}
         input[type="checkbox"] + label {
@@ -55,7 +58,7 @@
 <body onload="disclamer();">
 	<div class="topbar">
 		<div class="topbarLine">
-			<input type="file" onchange="read(this)"/>
+			<input id="loadfile" type="file" onchange="read(this)"/><label for="loadfile">&#128193;</label>
 			<input id="trackgps" type="checkbox"/><label for"trackgps">&#8982;</label>
 			<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/><label for="fullscreentog">&#x26F6;</label>
 		</div>
