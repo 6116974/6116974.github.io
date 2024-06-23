@@ -114,9 +114,10 @@
         
         //Read from file and Plot static blips
         var blips = [];
+        var arrBlips = [];
         async function read(input) {
 			var fileData = await readFile(input.files[0]);
-			var arrBlips = JSON.parse(fileData);
+			arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
 				var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
