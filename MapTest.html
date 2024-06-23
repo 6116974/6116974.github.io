@@ -100,8 +100,9 @@
 			var arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
-       		console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
-           	blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 3.0, color: randomColor(), fillColor: randomColor(), opacity: 1.0, fillOpacity: 1.0}).addTo(map_init);
+				var txtPopup = "Popup Text";
+				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
+				blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 3.0, color: randomColor(), fillColor: randomColor(), opacity: 1.0, fillOpacity: 1.0}).bindPopup(txtPopup).addTo(map_init);
      	  };
    		
 		}
