@@ -162,7 +162,7 @@
 				elemStatusbar.innerHTML = "[ " + lat.toFixed(4)+ " : " + long.toFixed(4) + " ]";
 			}
 
-			var layers = L.LayerGroup(), //layers contains all markers..
+			var layers = L.LayerGroup(); //layers contains all markers..
 			contained = [];          //makers in map boundingbox
 			layers.eachLayer(function(l) {
 				if (map_init.getBounds().contains(l.getLatLng())) {
