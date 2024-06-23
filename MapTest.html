@@ -208,8 +208,7 @@
 		} 
 		function occupied(latlong) {
 			for (var i=0; i < blips.length; i++) {
-				if (latlong['lat'] = blips[i].getLatLng().lat &&
-					latlong['lng'] = blips[i].getLatLng().lng) {
+				if (latlong['lat'] == blips[i].getLatLng().lat && latlong['lng'] == blips[i].getLatLng().lng) {
 					return true;
 				} 
 			}
