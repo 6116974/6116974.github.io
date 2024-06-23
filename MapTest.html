@@ -79,16 +79,8 @@
         
         
         
-        function blipsFakePositions(position) {    
-            var positionData = [];
-		    for (var i=0; i < 30000; i++) {
-				var newLong = position['lng'] + ((Math.random() *.2)-.1);
-				var newLat = position['lat'] + ((Math.random() *.2)-.1);			
-				positionData.push({'lng':newLong, 'lat':newLat});	
-			};
-			return positionData;
-        };
-        function randomColor() {
+        
+        function clrRandom() {
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
         function clrStatus(status_id) {
@@ -117,10 +109,7 @@
 		} 
         
         async function read(input) {
-       	 //var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
 			var fileData = await readFile(input.files[0]);
-			//console.log(fileData);
-			//console.log(JSON.parse(fileData));
 			var arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
