@@ -67,7 +67,7 @@
 		<div class="topbarLine">
 			<input id="loadfile" type="file" onchange="read(this)"/>
 			<label class="btnlabel material-icons" for="loadfile">folder_open</label>
-			<input  id="trackgps" type="checkbox"/>
+			<input  id="trackgps" type="checkbox" onclick="trackgps(this);"/>
 			<label class="btnlabel material-icons" for="trackgps">gps_fixed</label>
 			<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>
 			<label class="btnlabel material-icons" for="fullscreentog">fullscreen</label>
@@ -88,18 +88,21 @@
         L.Control.geocoder().addTo(map_init);    
         
         //Start tracking the GPS
-        if (!navigator.geolocation) {
-            console.log("Your browser doesn't support geolocation feature!")
-        } else {
-            setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
-        };
-        function gpsError(err) {
-   		console.warn(`Error: ${err.code}, ${err.message}`);
-		};
+        function trackgps(elem) {
+       	if (!navigator.geolocation) {
+           	console.log("Your browser doesn't support geolocation feature!")
+       	} else {
+           	setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
+       	};
+       	function gpsError(err) {
+   			console.warn(`Error: ${err.code}, ${err.message}`);
+			};
+		}
 		
-		if (document.getElementById("trackgps").checked==true) {
-			var dot, circle, lat, long, accuracy;
-			function getPosition(position) {    
+		
+		var dot, circle, lat, long, accuracy;
+		function getPosition(position) {    
+			if (document.getElementById("trackgps").checked==false) {return;} 
 				lat = position.coords.latitude;
 				long = position.coords.longitude;
 				accuracy = (position.coords.accuracy/2);
