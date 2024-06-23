@@ -91,6 +91,29 @@
         function randomColor() {
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
+        function clrStatus(status_id) {
+			switch(status_id) {
+				case 1: //Submitted
+					return "#008800";
+				case 2: //Approved
+					return "#00FF00";
+				case 3: //Denied
+					return "#AA0000";
+				case 4: //unknown
+					return "#AAAA00";
+				case 5: //Cancelled
+					return "#5B3E31";
+				case 6: //Under Surveillance
+					return "#0000AA";
+				case 7: //Completed
+					return "#AAAAAA";
+				case 8: //Sent to Contractor
+					return "#AA00AA";
+				case 9: //Contractor Completed
+					return "#FF00FF";
+				default: 
+					return "#000000";
+		} 
         
         async function read(input) {
        	 //var arrBlips = blipsFakePositions({'lat':46.3,'lng':-79.4});
