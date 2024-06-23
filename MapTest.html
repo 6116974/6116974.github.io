@@ -126,10 +126,10 @@
 											"Work:" + arrBlips[i]['work_type'];
 				//console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				
-				var newPos = getUnoccupied(arrBlips[i]);
+				//var newPos = getUnoccupied(arrBlips[i]);
 				
 				blips[i] = L
-					.circle([newPos['lat'], newPos['lng']], styleBlip(arrBlips[i]['status_id']))
+					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(arrBlips[i]['status_id']))
 					.bindPopup(txtPopup)
 					.addTo(map_init);
      	  };	
