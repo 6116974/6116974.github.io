@@ -103,18 +103,17 @@
 		var dot, circle, lat, long, accuracy;
 		function getPosition(position) {    
 			if (document.getElementById("trackgps").checked==false) {return;} 
-				lat = position.coords.latitude;
-				long = position.coords.longitude;
-				accuracy = (position.coords.accuracy/2);
+			lat = position.coords.latitude;
+			long = position.coords.longitude;
+			accuracy = (position.coords.accuracy/2);
 				
-				if (dot) {map_init.removeLayer(dot);};
-				if (circle) {map_init.removeLayer(circle);};
-				dot = L.circle([lat, long], {radius: 1.0, color: '#000000', opacity: 1.0, fillColor: '#FFFFFF', fillOpacity: 1});
-				circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
-				var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
-				map_init.fitBounds(featureGroup.getBounds());
-				elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
-			};
+			if (dot) {map_init.removeLayer(dot);};
+			if (circle) {map_init.removeLayer(circle);};
+			dot = L.circle([lat, long], {radius: 1.0, color: '#000000', opacity: 1.0, fillColor: '#FFFFFF', fillOpacity: 1});
+			circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
+			var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
+			map_init.fitBounds(featureGroup.getBounds());
+			elemStatusbar.innerHTML = "Lat:" + lat + " Long:" + long + " Acc:" + accuracy.toFixed(1);
         };
         
         
