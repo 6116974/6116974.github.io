@@ -124,11 +124,14 @@
 			var arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
-				var txtPopup = "ID:" + arrBlips[i]['request_id'] + " Status:" + arrBlips[i]['status'] + " Submitted:" + arrBlips[i]['submitted'] + "\n" +
-											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "\n" +
+				var txtPopup = "ID:" + arrBlips[i]['request_id'] + " Status:" + arrBlips[i]['status'] + " Submitted:" + arrBlips[i]['submitted'] + "<br>" +
+											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br>" +
 											"Address:" + arrBlips[i]['address'];
 				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
-				blips[i] = L.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 10.0, color: clrStatus(arrBlips[i]['status_id']), fillColor: clrStatus(arrBlips[i]['status_id']), opacity: 1.0, fillOpacity: 1.0}).bindPopup(txtPopup).addTo(map_init);
+				blips[i] = L
+					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {radius: 10.0, color: clrStatus(arrBlips[i]['status_id']), fillColor: clrStatus(arrBlips[i]['status_id']), opacity: 1.0, fillOpacity: 1.0})
+					.bindPopup(txtPopup)
+					.addTo(map_init);
      	  };
    		
 		}
