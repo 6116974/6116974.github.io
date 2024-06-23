@@ -30,7 +30,8 @@
 			position: absolute;
 			top: 20px;
 			width: 100%;
-			z-index: 9999;
+			z-index: 2;
+			font-size: 8px;
 		} 
         #listbox {
 			width: 100%;
@@ -81,11 +82,15 @@
     <script>
 		var elemStatusbar = document.getElementById("status");
 		var elemListbox = document.getElementById("listbox");
+		var tmrGPS;
 		
 		//Toggle tracking GPS position
         function trackgps(elem) {
-        	if (elem.checked==false) {return;}
-			setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
+        	if (elem.checked==false) {
+				clearInterval(tmrGPS);
+			} else {
+				tmrGPS = setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
+			} 
 		}
 		function gpsError(err) {
 			console.warn(`Error: ${err.code}, ${err.message}`);
@@ -134,7 +139,6 @@
 		//Track the client's position	
 		var dot, circle, lat, long, accuracy;
 		function getPosition(position) {    
-			if (document.getElementById("trackgps").checked==false) {return;} 
 			lat = position.coords.latitude;
 			long = position.coords.longitude;
 			accuracy = (position.coords.accuracy/2);
@@ -150,8 +154,8 @@
         
         //Update bottom list
         function updateBottom() {
-			setInterval(updateBottom(), 3000);
 			console.log("test");
+			setTimeout(updateBottom, 3000);
 		} 
         
         function clrRandom() {
