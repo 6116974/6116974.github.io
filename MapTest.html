@@ -41,13 +41,8 @@
         input[type="checkbox"]{
 			display: none;
 		}
-        input[type="checkbox"] + label + div {
+        input[type="checkbox"] + label {
         	color: #FA0;
-		}
-		input[type="checkbox"]:checked + label + div {
-			color: #0FA;
-		}
-		.topbutton {
 			background-color: #444;		
 			line-height: 15px;
 			font-size: 15px;
@@ -55,17 +50,20 @@
 			height: 15px;
 			margin: 2px;
 			border: 1px solid black;
-			float: right;
 		}
+		input[type="checkbox"]:checked + label {
+			color: #0FA;
+		}
+		
     </style>
 </head>
 
 <body onload="disclamer();">
 	<div class="topbar">
 		<div class="topbarLine">
-			<label for="loadfile"><div class="topbutton"><input id="loadfile" type="file" onchange="read(this)"/>&#x1F4C1;</div></label>
-			<label for="trackgps"><div class="topbutton"><input id="trackgps" type="checkbox"/>&#8982;</div></label>
-			<label for="fullscreentog"><div class="topbutton"><input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>&#x26F6;</div></label>
+			<label for="loadfile"><input id="loadfile" type="file" onchange="read(this)"/>&#x1F4C1;</label>
+			<label for="trackgps"><input id="trackgps" type="checkbox"/>&#8982;</label>
+			<label for="fullscreentog"><input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>&#x26F6;</label>
 		</div>
 		<div id="status" class="topbarLine">Status:</div>
 	</div>
