@@ -66,7 +66,7 @@
     </style>
 </head>
 
-<body onload="disclamer();">
+<body onload="onLoad();">
 	<div class="topbar">
 		<input id="loadfile" type="file" onchange="read(this)"/>
 		<label class="btnlabel material-icons" for="loadfile">folder_open</label>
@@ -177,7 +177,7 @@
 		}
         
         
-		function disclamer() {
+		function onLoad() {
 			alert("This tool is only used to translate data. No data will be transfered to or from any location as all data is processed client side. This tool will attempt to interpret data from a range of different sources and will plot the data on a map.");
 			tmrBottomList = setInterval(updateBottom, 3000);
 		} 
