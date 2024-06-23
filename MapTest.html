@@ -165,7 +165,7 @@
 			var layers = L.LayerGroup(), //layers contains all markers..
 			contained = [];          //makers in map boundingbox
 			layers.eachLayer(function(l) {
-				if( l instanceof L.Marker && map_init.getBounds().contains(l.getLatLng()) ) {
+				if (map_init.getBounds().contains(l.getLatLng())) {
 					contained.push(l);
 				} 
 			});
