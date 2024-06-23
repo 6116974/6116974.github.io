@@ -163,9 +163,9 @@
 			}
 
 			var features = [];
-			map.eachLayer( function(layer) {
+			map_init.eachLayer( function(layer) {
 				if(layer instanceof L.circle) {
-					if(map.getBounds().contains(layer.getLatLng())) {
+					if(map_init.getBounds().contains(layer.getLatLng())) {
 						features.push(layer.feature);
 					}
 				}
