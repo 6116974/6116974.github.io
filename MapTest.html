@@ -84,21 +84,21 @@
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
         function styleBlip(status_id) {
-        	var ret = {radius:40.0, fillColor:'#FFFFFF', fillOpacity:1.0, color:'#FFFFFF', opacity:1.0, stroke:false};
+        	var ret = {radius:40.0, fillColor:'#FFFFFF', fillOpacity:1.0, color:'#FFFFFF', opacity:1.0, weight:1.0, stroke:false};
 			switch(status_id) {
 				case 1: //Submitted
 					ret['fillColor'] = "#008800";
 					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#008800";
+					ret['color'] = "#000000";
 					ret['opacity'] = 0.0;
 					ret['stroke'] = false;
 					break;
 				case 2: //Approved
 					ret['fillColor'] = "#00FF00";
 					ret['fillOpacity'] = 1.0;
-					ret['color'] = "#008800";
-					ret['opacity'] = 0.0;
-					ret['stroke'] = false;
+					ret['color'] = "#00FF00";
+					ret['opacity'] = 1.0;
+					ret['stroke'] = true;
 					break;
 				case 3: //Denied
 					ret['fillColor'] = "#CC0000";
