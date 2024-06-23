@@ -44,6 +44,7 @@
 		<div class="topbarLine">
 			<input type="file" onchange="read(this)"/>
 			<input id="trackgps" type="checkbox">Track GPS</input>
+			<input type="button" onclick="fullscreen();"><FullScreen</input>
 		</div>
 		<div id="status" class="topbarLine">Status:</div>
 	</div>
@@ -156,8 +157,7 @@
 		} 
 		function fullscreen() {
 			console.log("going fullscreen4");
-			//document.documentElement.requestFullscreen();
-			window.scrollTo(0,1);
+			document.documentElement.requestFullscreen();
 		} 
     </script>
 </body>
