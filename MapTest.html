@@ -15,13 +15,8 @@
         }
        .topbar {
 			width: 100%;
-			height: 40px;
-			background-color: #AAA;
-			border: 1px solid black;
-		} 
-		.toobarLine {
-        	width: 100%;
 			height: 20px;
+			background-color: #AAA;
 			border: 1px solid black;
 		} 
         #map {
@@ -69,14 +64,12 @@
 
 <body onload="disclamer();">
 	<div class="topbar">
-		<div class="topbarLine">
-			<input id="loadfile" type="file" onchange="read(this)"/>
-			<label class="btnlabel material-icons" for="loadfile">folder_open</label>
-			<input  id="trackgps" type="checkbox" onclick="trackgps(this);"/>
-			<label class="btnlabel material-icons" for="trackgps">gps_fixed</label>
-			<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>
-			<label class="btnlabel material-icons" for="fullscreentog">fullscreen</label>
-		</div>
+		<input id="loadfile" type="file" onchange="read(this)"/>
+		<label class="btnlabel material-icons" for="loadfile">folder_open</label>
+		<input  id="trackgps" type="checkbox" onclick="trackgps(this);"/>
+		<label class="btnlabel material-icons" for="trackgps">gps_fixed</label>
+		<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>
+		<label class="btnlabel material-icons" for="fullscreentog">fullscreen</label>
 	</div>
 	<div id="status">Status:</div>
     <div id="map"></div>
