@@ -31,7 +31,9 @@
             border: 1px solid black;
         }
         #status {
-       	z-index: 999;
+			position:absolute;
+			top: 20px;
+			width: 100%;
 		} 
         #listbox {
 			width: 100%;
@@ -76,9 +78,8 @@
 			<label class="btnlabel material-icons" for="fullscreentog">fullscreen</label>
 		</div>
 	</div>
-    <div id="map">
-   	<div id="status" class="topbarLine">Status:</div>
-	</div>
+	<div id="status">Status:</div>
+    <div id="map"></div>
     <div id="listbox"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
