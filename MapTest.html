@@ -124,7 +124,7 @@
 											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
 											"Address:" + arrBlips[i]['address'] + "<br>" +
 											"Work:" + arrBlips[i]['work_type'];
-				console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
+				//console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				
 				var newPos = getUnoccupied(arrBlips[i]);
 				
@@ -214,6 +214,7 @@
 				newPos['lat'] = oldPos['lat'] + Math.random()*0.001;
 				newPos['lng'] = oldPos['lng'] + Math.random()*0.001;
 			}
+			console.log(newPos);
 			return newPos;
 		} 
 		function occupied(latlong) {
