@@ -73,6 +73,25 @@
 			border: 1px solid black;
 			border-radius: 2px;
 		}
+		.popup {
+			position: absolute;
+			margin: auto;
+			width: 300px;
+			height: 400px;
+		} 
+		.popupHeader {
+			position: relative;
+			left: 0px; top: 0px; right: 0px; height: 20px;
+		} 
+		.popupContents {
+			position: relative;
+			left: 0px; right: 0px;
+			height: 360;
+		} 
+		.popupFooter {
+			position: relative;
+			left: 0px; right: 0px; bottom: 0px; height: 20px;
+		} 
     </style>
 </head>
 
@@ -88,6 +107,22 @@
 	<div id="status">Status:</div>
     <div id="map"></div>
     <div id="listbox"></div>
+    <div class="popup" id="popup">
+		<div class="popupHeader" id="popupHeader" >
+			<div class="popupHeader_title" id="popupHeader_title">
+			
+			</div>
+			<div class="popupHeader_btnClose">X</div>
+		</div>
+		<div class="popupContents" id="popupContents" >
+		
+		</div>
+		<div class="popupFooter" id="popupFooter" >
+			<div class="popupFooter_status" id="popupFooter_status">
+			
+			</div>
+		</div>
+	</div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
