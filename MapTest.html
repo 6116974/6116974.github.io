@@ -266,9 +266,8 @@
 		} 
         
         function popupOpen(i) {
-        	map_init.eachLayer(function(layer) {
-				if(layer.options.pane === "tooltipPane") layer.removeFrom(map_init);
-			});
+        	const tooltipPanes = document.getElementsByClassName("leaflet-tooltip-pane");
+			console.log("found " +tooltipPanes.length+" tooltips");
 			document.getElementById("popupContainer").style.visibility = 'visible';
 			var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
 										"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
