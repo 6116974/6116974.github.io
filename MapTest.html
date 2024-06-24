@@ -251,8 +251,8 @@
 			for (var i=0; i < blips.length; i++) {
 				if (map_init.getBounds().contains(blips[i].getLatLng())) {
 					//if (arrBlips[i]['status_id'] != 2) continue;
-					listHTML += "<div class='jobBar' style='background-color:" + styleColor(arrBlips[i]['status_id']) + ";'" +
-											onclick='openPopup("+i+")'>" +
+					listHTML += "<div class='jobBar' style='background-color:" + styleColor(arrBlips[i]['status_id']) + ";' " +
+											"onclick='openPopup("+i+")'>" +
 											arrBlips[i]['address'] + 
 											"</div>";
 				}
