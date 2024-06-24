@@ -121,7 +121,7 @@
     <div class="popupContainer" id="popupContainer">
 		<div class="popupHeader" id="popupHeader">
 			<div style="float:left;" class="popupHeader_title" id="popupHeader_title"></div>
-			<div style="float:right;" class="popupHeader_btnClose">X</div>
+			<div style="float:right;" class="popupHeader_btnClose" onclick="popupClose">X</div>
 		</div>
 		<div class="popupContents" id="popupContents" >
 		
@@ -255,11 +255,16 @@
 											arrBlips[i]['address'] + 
 											"</div>";
 				}
-			}
-			
+			}		
 			elemListbox.innerHTML = listHTML;
 		} 
         
+        function popupOpen() {
+			document.getElementById("popupContainer").hidden=false;	
+		} 
+		function popupClose() {
+			document.getElementById("popupContainer").hidden=true;	
+		}
         function popupDetails(data) {
         	console.log(data);
 		} 
