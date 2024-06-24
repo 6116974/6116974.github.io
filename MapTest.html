@@ -197,10 +197,13 @@
 		//Plot static blips from array
 		function plotFileData() {			
 			for (var i=0; i < arrBlips.length; i++) {	
+				/*
 				var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
 											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
 											"Address:" + arrBlips[i]['address'] + "<br>" +
 											"Work:" + arrBlips[i]['work_type'];
+				*/
+				var txtPopup = "<a href='#' onclick='popupOpen("+i+");'>ClickMe</a>";
 				//console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
 				
 				//var newPos = getUnoccupied(arrBlips[i]);
