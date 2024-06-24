@@ -145,7 +145,7 @@
         	if (elem.checked==false) {
 				clearInterval(tmrGPS);
 			} else {
-				tmrGPS = setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 3000);
+				tmrGPS = setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 1000);
 			} 
 		}
 		function gpsError(err) {
@@ -251,7 +251,8 @@
 			for (var i=0; i < blips.length; i++) {
 				if (map_init.getBounds().contains(blips[i].getLatLng())) {
 					//if (arrBlips[i]['status_id'] != 2) continue;
-					listHTML += "<div class='jobBar' style='background-color:" + styleColor(arrBlips[i]['status_id']) + ";'>" +
+					listHTML += "<div class='jobBar' style='background-color:" + styleColor(arrBlips[i]['status_id']) + ";'" +
+											onclick='openPopup("+i+")'>" +
 											arrBlips[i]['address'] + 
 											"</div>";
 				}
