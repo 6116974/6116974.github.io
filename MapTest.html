@@ -139,7 +139,7 @@
 				
 				//var newPos = getUnoccupied(arrBlips[i]);
 				
-				var newPos = [arrBlips[i]['lat']+parseFloat(randomNumber(-0.001, 0.001)), arrBlips[i]['lng']+parseFloat(randomNumber(-0.001, 0.001))];
+				var newPos = [parseFloat(arrBlips[i]['lat'])+randomNumber(-0.001, 0.001), parseFloat(arrBlips[i]['lng'])+randomNumber(-0.001, 0.001)];
 				console.log(newPos);
 				
 				blips[i] = L
