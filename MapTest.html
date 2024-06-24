@@ -122,7 +122,7 @@
 		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map_init);
 		L.Control.geocoder().addTo(map_init);    
         
-        //Read from Fike
+        //Read from File
         var blips = [];
         var arrBlips = [];
         
@@ -133,10 +133,9 @@
 			for (var i=0; i < tempArray.length; i++) {
 				if (tempArray[i]['lat'] == "") {continue;}
 				if (tempArray[i]['lng'] == "") {continue;}
-				arrBlips.push(tempArray);
-				
+				arrBlips.push(tempArray);			
 			}	
-			plotFileData()
+			plotFileData();
 		}
 		function readFile(file) {
 			return new Promise((resolve, reject) => {
