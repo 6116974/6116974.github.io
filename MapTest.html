@@ -125,6 +125,7 @@
         //Read from file and Plot static blips
         var blips = [];
         var arrBlips = [];
+        var grpBlips = L.featureGroup().addTo(map);
         async function read(input) {
 			var fileData = await readFile(input.files[0]);
 			arrBlips = JSON.parse(fileData);
@@ -140,8 +141,8 @@
 				
 				blips[i] = L
 					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
-					.addTo(map_init);
-				blips[i].on("click", console.log(i))
+					.addTo(grpBlips);
+				
      	  };	
 		}				//.bindPopup(txtPopup)
         function readFile(file) {
