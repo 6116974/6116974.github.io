@@ -261,8 +261,13 @@
 			elemListbox.innerHTML = listHTML;
 		} 
         
-        function popupOpen() {
+        function popupOpen(i) {
 			document.getElementById("popupContainer").style.visibility = 'visible';
+			var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
+										"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
+										"Address:" + arrBlips[i]['address'] + "<br>" +
+										"Work:" + arrBlips[i]['work_type'];
+			document.getElementById("popupContents").innerHTML=txtPopup;
 		} 
 		function popupClose() {
 			console.log("closing popup");
