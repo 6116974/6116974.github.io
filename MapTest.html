@@ -140,7 +140,7 @@
 				//var newPos = getUnoccupied(arrBlips[i]);
 				
 				blips[i] = L
-					.circle([parseFloat(arrBlips[i]['lat']+randomNumber(-0.001,0.001)), parseFloat(arrBlips[i]['lng']+randomNumber(-0.001,0.001))], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
+					.circle([parseFloat(arrBlips[i]['lat']+randomNumber(-0.01,0.01)), parseFloat(arrBlips[i]['lng']+randomNumber(-0.01,0.01))], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
 					.bindPopup(txtPopup)
 					.addTo(map_init);			
 			};	
