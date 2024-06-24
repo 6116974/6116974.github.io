@@ -134,7 +134,9 @@
 				if (tempArray[i]['lat'] == "") {continue;}
 				if (tempArray[i]['lng'] == "") {continue;}
 				arrBlips.push(tempArray);			
-			}	
+			}
+			console.log ("Original Data Count: " + tempArray.count);
+			console.log ("Pruned Data Count: " + arrBlips.count);
 			plotFileData();
 		}
 		function readFile(file) {
