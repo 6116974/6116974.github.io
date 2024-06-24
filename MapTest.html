@@ -131,6 +131,10 @@
 			arrBlips = JSON.parse(fileData);
 			
 			for (var i=0; i < arrBlips.length; i++) {
+				//Can't graph something that has no coordinates
+				if (arrBlips[i]['lat'] == "") {continue;}
+				if (arrBlips[i]['lng'] == "") {continue;}
+				
 				var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
 											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
 											"Address:" + arrBlips[i]['address'] + "<br>" +
