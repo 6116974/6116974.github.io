@@ -260,10 +260,10 @@
 		} 
         
         function popupOpen() {
-			document.getElementById("popupContainer").hidden=false;	
+			document.getElementById("popupContainer").style.visibility = 'visible';
 		} 
 		function popupClose() {
-			document.getElementById("popupContainer").hidden=true;	
+			document.getElementById("popupContainer").style.visibility = 'hidden';	
 		}
         function popupDetails(data) {
         	console.log(data);
