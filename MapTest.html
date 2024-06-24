@@ -141,12 +141,10 @@
 				
 				blips[i] = L
 					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
-					.addTo(map_init)
-					.on("click", function (e) {
-						console.log("blip: "+e);
-					});			
+					.bindPopup(txtPopup)
+					.addTo(map_init);			
 			};	
-		}				//.bindPopup(txtPopup)
+		}
 		
         function readFile(file) {
 			return new Promise((resolve, reject) => {
