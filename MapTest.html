@@ -135,8 +135,8 @@
 				if (tempArray[i]['lng'] == "") {continue;}
 				arrBlips.push(tempArray);			
 			}
-			console.log ("Original Data Count: " + tempArray.count);
-			console.log ("Pruned Data Count: " + arrBlips.count);
+			console.log ("Original Data Count: " + tempArray.length);
+			console.log ("Pruned Data Count: " + arrBlips.length);
 			plotFileData();
 		}
 		function readFile(file) {
