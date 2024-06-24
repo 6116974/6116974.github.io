@@ -140,7 +140,7 @@
 				//var newPos = getUnoccupied(arrBlips[i]);
 				
 				blips[i] = L
-					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
+					.circle([arrBlips[i]['lat']+randomNumber(-0.001,0.001), arrBlips[i]['lng']+randomNumber(-0.001,0.001)], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
 					.bindPopup(txtPopup)
 					.addTo(map_init);			
 			};	
@@ -195,6 +195,9 @@
         	console.log(data);
 		} 
         
+        function randomNumber(min, max) {
+			return Math.random() * (max - min) + min;
+		}
         function clrRandom() {
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
