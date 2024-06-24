@@ -163,7 +163,7 @@
 				
 				//var newPos = [parseFloat()+randomNumber(-0.001, 0.001), parseFloat(arrBlips[i]['lng'])+randomNumber(-0.001, 0.001)];
 				var newPos = [arrBlips[i]['lat'], arrBlips[i]['lng']];
-				console.log(newPos);
+				//console.log(newPos);
 				
 				blips[i] = L
 					.circle(newPos, {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
