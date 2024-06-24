@@ -133,10 +133,12 @@
 			for (var i=0; i < tempArray.length; i++) {
 				if (tempArray[i]['lat'] == "") {continue;}
 				if (tempArray[i]['lng'] == "") {continue;}
+				if (tempArray[i]['status_id'] != 2) {continue;}
 				arrBlips.push(tempArray[i]);			
 			}
 			//console.log ("Original Data Count: " + tempArray.length);
-			//console.log ("Pruned Data Count: " + arrBlips.length);			
+			//console.log ("Pruned Data Count: " + arrBlips.length);		
+			console.log("Pruned " + (tempArray.length - arrBlips.length) + " items.");
 			plotFileData();
 		}
 		function readFile(file) {
