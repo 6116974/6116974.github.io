@@ -129,7 +129,7 @@
 				//var newPos = getUnoccupied(arrBlips[i]);
 				
 				blips[i] = L
-					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], styleBlip(arrBlips[i]['status_id']))
+					.circle([arrBlips[i]['lat'], arrBlips[i]['lng']], {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
 					.bindPopup(txtPopup)
 					.addTo(map_init);
      	  };	
@@ -170,7 +170,7 @@
 			for (var i=0; i < blips.length; i++) {
 				if (map_init.getBounds().contains(blips[i].getLatLng())) {
 					//if (arrBlips[i]['status_id'] != 2) continue;
-					listHTML += arrBlips[i]['address'] + "<br>";
+					listHTML += <div class="jobBar" >arrBlips[i]['address'] + "<br>";
 				}
 			}
 			
@@ -180,7 +180,7 @@
         function clrRandom() {
         	return "#"+(((1+Math.random())*(1<<24)|0).toString(16)).substr(-6);
         };
-        function clrBlip(status_id) {
+        function styleColor(status_id) {
 			switch(status_id) {
 				case 1: return "#008800"; //Submitted
 				case 2: return "#00FF00"; //Approved
@@ -193,17 +193,17 @@
 				case 9: return "#FF00FF"; //Contractor Completed
 			};
 		}
-		function styleBlip(status_id) {
+		function styleOpacity(status_id) {
 			switch(status_id) {
-				case 1: return {color:"#008800", opacity:0.1}; //Submitted
-				case 2: return {color:"#00FF00", opacity:1.0}; //Approved
-				case 3: return {color:"#FF0000", opacity:0.1}; //Denied
-				case 4: return {color:"#FFFFFF", opacity:1.0}; //unknown
-				case 5: return {color:"#5B3E31", opacity:0.1}; //Cancelled
-				case 6: return {color:"#0000AA", opacity:0.5}; //Under Surveillance
-				case 7: return {color:"#AAAAAA", opacity:0.0}; //Completed
-				case 8: return {color:"#AA00AA", opacity:0.0}; //Sent to Contractor
-				case 9: return {color:"#FF00FF", opacity:0.0}; //Contractor Completed
+				case 1: return 0.1; //Submitted
+				case 2: return 1.0; //Approved
+				case 3: return 0.1; //Denied
+				case 4: return 1.0; //unknown
+				case 5: return 0.1; //Cancelled
+				case 6: return 0.5; //Under Surveillance
+				case 7: return 0.1; //Completed
+				case 8: return 0.1; //Sent to Contractor
+				case 9: return 0.1; //Contractor Completed
 			};			
 		} 
 		
