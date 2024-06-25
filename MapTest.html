@@ -276,8 +276,8 @@
 			"</table><hr><table>" +
 			"	<tr><td>Address:</td><td>" + data['address'] + "</td>" +
 			"	<tr><td>Work:</td><td>" + data['work_type'] + "</td>" +
-			"</table>" +
-			data;
+			"</table><hr>" +
+			JSON.stringify(data);
 			document.getElementById("popupContents").innerHTML=txtPopup;
 		} 
 		function popupClose() {
