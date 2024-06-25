@@ -260,11 +260,16 @@
 		} 
         
         function popupOpen(i) {
+        	var data = arrBlips[i];
 			document.getElementById("popupContainer").style.visibility = 'visible';
-			var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
-										"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
-										"Address:" + arrBlips[i]['address'] + "<br>" +
-										"Work:" + arrBlips[i]['work_type'];
+			var txtPopup =
+			"<table>" +
+			"	<tr><td>ID:</td><td>" + data['request_id'] + "</td><td>Submitted:</td><td>" + data['submitted'] + "</td></tr>" +
+			"	<tr><td>Requestor:</td><td>" + data['requestor'] + "</td><td>Manager:</td><td>" + data['manager'] + "</td></tr>" +
+			"</table><table>" +
+			"	<tr><td>Address:</td><td>" + data['address'] + "</td>" +
+			"	<tr><td>Work:</td><td>" + data['work_type'] + "</td>" +
+			"</table>";
 			document.getElementById("popupContents").innerHTML=txtPopup;
 		} 
 		function popupClose() {
