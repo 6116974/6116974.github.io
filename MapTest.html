@@ -190,6 +190,7 @@
 			var fileData = await readFile(input.files[0]);
 			tempArray = JSON.parse(fileData);		//arrBlips = JSON.parse(fileData);	
 			for (var i=0; i < tempArray.length; i++) {
+				console.log(getLocation(tempArray[i]['address']));
 				if (tempArray[i]['lat'] == "") {continue;}
 				if (tempArray[i]['lng'] == "") {continue;}
 				if (tempArray[i]['status_id'] != 2) {continue;}
@@ -345,6 +346,26 @@
 		function onLoad() {
 			tmrBottomList = setInterval(updateBottom, 3000);
 		} 
+		
+		
+		
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+//Function to covert address to Latitude and Longitude
+var getLocation =  function(address) {
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode( { 'address': address}, function(results, status) {
+
+  if (status == google.maps.GeocoderStatus.OK) {
+      var latitude = results[0].geometry.location.lat();
+      var longitude = results[0].geometry.location.lng();
+      console.log(latitude, longitude);
+      } 
+  }); 
+}
+		
+		
+		
     </script>
 </body>
 
