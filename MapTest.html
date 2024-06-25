@@ -195,8 +195,8 @@
 			tempArray = JSON.parse(fileData);		//arrBlips = JSON.parse(fileData);	
 			for (var i=0; i < tempArray.length; i++) {
 				//console.log(getLocation(tempArray[i]['address']));
-				if (tempArray[i]['lat'] == "" || tempArray[i]['lng'] == "") {badloc++;continue;}
-				if (tempArray[i]['ticket_status'] != 'OPEN') {badstatus++;continue;}		
+				if (tempArray[i]['ticket_status'] != 'OPEN') {badstatus++;continue;}
+				if (tempArray[i]['lat'] == "" || tempArray[i]['lng'] == "") {badloc++;console.log(tempArray[i]['address']);continue;}
 				arrBlips.push(tempArray[i]);			
 			}
 			//console.log ("Original Data Count: " + tempArray.length);
