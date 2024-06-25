@@ -190,18 +190,22 @@
         
         async function read(input) {
         	arrBlips = [];
+       	 var badloc = 0, badstatus = 0
 			var fileData = await readFile(input.files[0]);
 			tempArray = JSON.parse(fileData);		//arrBlips = JSON.parse(fileData);	
 			for (var i=0; i < tempArray.length; i++) {
 				//console.log(getLocation(tempArray[i]['address']));
-				if (tempArray[i]['ticket_status'] != 'OPEN') {continue;}
-				//if (tempArray[i]['lat'] == "") {continue;}
-				//if (tempArray[i]['lng'] == "") {continue;}
+				if (tempArray[i]['ticket_status'] != 'OPEN') {badstatus++;continue;}
+				if (tempArray[i]['lat'] == "" or tempArray[i]['lng'] == "") {badloc++;continue;}
 				arrBlips.push(tempArray[i]);			
 			}
 			//console.log ("Original Data Count: " + tempArray.length);
 			//console.log ("Pruned Data Count: " + arrBlips.length);		
-			console.log("Loaded: " + tempArray.length + "\nPruned: " + (tempArray.length - arrBlips.length) + "\nPlotting: " + arrBlips.length);
+			console.log("Loaded: " + tempArray.length);
+			console.log("Pruned: " + (tempArray.length - arrBlips.length));
+			console.log("Plotting: " + arrBlips.length);
+			console.log("Bad Status: " + badstatus);
+			console.log("Bad Location: " + badloc);
 			plotFileData();
 		}
 		function readFile(file) {
