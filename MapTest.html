@@ -129,7 +129,10 @@
 			<div style="float:right;width:280px;" class="popupHeader_title" id="popupHeader_title">Title Test Text</div>
 		</div>
 		<div class="popupContents" id="popupContents" >
-		
+			This tool is only used to translate data. 
+			No data will be transfered to or from any location as all data is processed client side. 
+
+			This tool will attempt to interpret data from a range of different sources and will plot the data on a map.
 		</div>
 		<div class="popupFooter" id="popupFooter" >
 			<div class="popupFooter_status" id="popupFooter_status">
@@ -201,21 +204,9 @@
 		//Plot static blips from array
 		function plotFileData() {			
 			for (var i=0; i < arrBlips.length; i++) {	
-				/*
-				var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
-											"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
-											"Address:" + arrBlips[i]['address'] + "<br>" +
-											"Work:" + arrBlips[i]['work_type'];
-				*/
-				//var txtPopup = "<a href='#' onclick='popupOpen("+i+");'>ClickMe</a>";
-				var txtPopup = "<img src onerror='popupOpen("+i+");'>Close Me</img>";
-				//console.log("Plotting: " + arrBlips[i]['lat'] + ", " + arrBlips[i]['lng']);
-				
-				//var newPos = getUnoccupied(arrBlips[i]);
-				
+				var txtPopup = "<img src onerror='popupOpen("+i+");'>Close Me</img>";			
 				var newPos = [parseFloat(arrBlips[i]['lat'])+randomNumber(-0.001, 0.001), parseFloat(arrBlips[i]['lng'])+randomNumber(-0.001, 0.001)];
 				//var newPos = [arrBlips[i]['lat'], arrBlips[i]['lng']];
-				console.log(newPos);
 				
 				blips[i] = L
 					.circle(newPos, {color:styleColor(arrBlips[i]['status_id']), opacity:styleOpacity(arrBlips[i]['status_id'])} )
@@ -259,7 +250,6 @@
 			var listHTML = "";
 			for (var i=0; i < blips.length; i++) {
 				if (map_init.getBounds().contains(blips[i].getLatLng())) {
-					//if (arrBlips[i]['status_id'] != 2) continue;
 					listHTML += "<div class='jobBar' style='background-color:" + styleColor(arrBlips[i]['status_id']) + ";' " +
 											"onclick='popupOpen("+i+");'>" +
 											arrBlips[i]['address'] + 
@@ -270,10 +260,6 @@
 		} 
         
         function popupOpen(i) {
-        	//const elemTooltip = document.getElementsByClassName("leaflet-tooltip-pane");
-			//console.log("found " +elemTooltip.length+" tooltips.");
-			//elemTooltip[0].style.visibility = 'hidden';
-			
 			document.getElementById("popupContainer").style.visibility = 'visible';
 			var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
 										"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
@@ -343,7 +329,6 @@
         
         
 		function onLoad() {
-			alert("This tool is only used to translate data. No data will be transfered to or from any location as all data is processed client side. This tool will attempt to interpret data from a range of different sources and will plot the data on a map.");
 			tmrBottomList = setInterval(updateBottom, 3000);
 		} 
     </script>
