@@ -268,8 +268,8 @@
         function popupOpen(i) {
         	const tooltipPanes = document.getElementsByClassName("leaflet-tooltip-pane");
 			console.log("found " +tooltipPanes.length+" tooltips");
-			//tooltipPanes[0].remove();
-			tooltipPanes[0].style.display='none';
+			tooltipPanes[0].remove();
+			//tooltipPanes[0].style.display='none';
 			document.getElementById("popupContainer").style.visibility = 'visible';
 			var txtPopup = "#" + arrBlips[i]['request_id'] + " Date:" + arrBlips[i]['submitted'] + " " + arrBlips[i]['status'] + "<br>" +
 										"Requestor:" + arrBlips[i]['requestor'] + " Manager:" + arrBlips[i]['manager'] + "<br><br>" +
