@@ -193,7 +193,7 @@
 			var fileData = await readFile(input.files[0]);
 			tempArray = JSON.parse(fileData);		//arrBlips = JSON.parse(fileData);	
 			for (var i=0; i < tempArray.length; i++) {
-				console.log(getLocation(tempArray[i]['address']));
+				//console.log(getLocation(tempArray[i]['address']));
 				if (tempArray[i]['ticket_status'] != 'OPEN') {continue;}
 				if (tempArray[i]['lat'] == "") {continue;}
 				if (tempArray[i]['lng'] == "") {continue;}
