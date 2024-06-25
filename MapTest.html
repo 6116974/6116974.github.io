@@ -103,9 +103,6 @@
 			left: 0px; right: 0px; bottom: 0px; height: 20px;
 			background-color: #DDD;
 		} 
-		.leaflet-tooltip {
-			display: none;
-		}
     </style>
 </head>
 
@@ -167,6 +164,7 @@
    	
     	//Setup the map
 		var map_init = L.map('map', {center: [46.3, -79.4], zoom: 8});
+		map_init.getPane('tooltipPane').style.display = 'none';
 		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map_init);
 		L.Control.geocoder().addTo(map_init);    
         
@@ -270,7 +268,7 @@
         
         function popupOpen(i) {
         	const tooltipPanes = document.getElementsByClassName("leaflet-tooltip-pane");
-			console.log("found " +tooltipPanes.length+" tooltips");
+			console.log("found " +tooltipPanes.length+" tooltips. Should be hidden");
 			//tooltipPanes[0].remove();
 			//tooltipPanes[0].style.display='none';
 			document.getElementById("popupContainer").style.visibility = 'visible';
