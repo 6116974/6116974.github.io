@@ -290,12 +290,8 @@
 			document.getElementById("popupContents").innerHTML=txtPopup;
 		} 
 		function popupClose() {
-			console.log("closing popup");
 			document.getElementById("popupContainer").style.visibility = 'hidden';	
 		}
-        function popupDetails(data) {
-        	console.log(data);
-		} 
         
         function randomNumber(min, max) {
 			return parseFloat(Math.random() * (max - min) + min);
