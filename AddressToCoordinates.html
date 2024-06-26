@@ -27,7 +27,7 @@
 			arrData = JSON.parse(fileData);	
 			for (var i=0; i < arrData.length; i++) {
 					data = arrData[i];
-					console.log(data['address'] + ',' + data['click_district']);
+					document.write(data['address'] + ',' + data['click_district']);
 			}
 		}
 		function readFile(file) {
