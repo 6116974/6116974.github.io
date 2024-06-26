@@ -5,7 +5,7 @@
 		body {
             margin: 0;
             padding: 0;
-            background-color: #00F;
+            background-color: #F0F;
 		}
 	</style>
 </head>
@@ -23,7 +23,7 @@
 			arrData = JSON.parse(fileData);	
 			for (var i=0; i < arrData.length; i++) {
 					data = arrData[i];
-					document.write(data['address'] + ',' + data['click_district'] + '\n');
+					document.write(data['address'] + ',' + data['click_district'] + '<br>');
 			}
 		}
 		function readFile(file) {
