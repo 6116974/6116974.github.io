@@ -1,0 +1,39 @@
+<html lang="en">
+
+<head>
+	<style>
+		body {
+            margin: 0;
+            padding: 0;
+            background-color: #F0F;
+		}
+	</style>
+</head>
+
+<body>
+	<input id="loadfile" type="file" onchange="read(this)"/>
+    
+    <script>
+        //Read from File
+        var blips = [];
+        var arrBlips = [];
+        
+        async function read(input) {
+			var fileData = await readFile(input.files[0]);
+			arrData = JSON.parse(fileData);	
+			for (var i=0; i < arrData.length; i++) {
+					data = arrData[i];
+					document.write(data['address'] + ',' + data['click_district'] + '<br>');
+			}
+		}
+		function readFile(file) {
+			return new Promise((resolve, reject) => {
+				let fr = new FileReader();
+				fr.onload = x=> resolve(fr.result);
+				fr.readAsText(file);
+			});
+		}
+    </script>
+</body>
+
+</html>
