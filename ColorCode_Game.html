@@ -156,6 +156,7 @@
       <tr>
         <td><input readonly class="debug" type="text" id="hdnQuestion"/></td>
         <td><input readonly class="debug" type="text" id="hdnStartTime"/></td>
+        <td><input readonly class="debug" type="text" id="hdnStartTimeTotal"/></td>
         <td><input readonly class="debug" type="text" id="hdnTimes"/></td>
         <td><input readonly class="debug" type="text" id="hdnCorrect"/></td>
         <td><input readonly class="debug" type="text" id="hdnWrong"/></td>
@@ -189,7 +190,7 @@
       
       //Save current Time
       document.getElementById("hdnStartTime").value = new Date().getTime();
-      updateTimer();
+      //updateTimer();
     }
     function checkAnswer() {
       if (document.getElementById("txtAnswer").value == "") return
@@ -214,7 +215,7 @@
         document.getElementById("txtAnswer").value = "";
         return;
       }
-      document.getElementById("txtScore").value = (parseFloat(document.getElementById("hdnCorrect").value) / parseFloat(document.getElementById("optEnd").value) * 100) + "%";
+      document.getElementById("txtScore").value = (parseFloat(document.getElementById("hdnCorrect").value) / parseFloat(document.getElementById("optEnd").value) * 100).toFixed(2) + "%";
       nextQuestion();
     }
     function onLoad() {
@@ -249,13 +250,17 @@
       document.getElementById("txtAnswer").value = "";
       document.getElementById("txtAnswer").focus();
       nextQuestion();
+      
+      //Save current Time
+      document.getElementById("hdnStartTimeTotal").value = new Date().getTime();
+      updateTimerTotal();
     }
     function stop() {
       document.getElementById("txtAnswer").readOnly = true;
       document.getElementById("txtAnswer").disabled = true;
       document.getElementById("txtAnswer").value = "";
       document.getElementById("hdnQuestion").value = "";
-      alert("You completed " + document.getElementById("hdnCorrect").value + " questions in " + document.getElementById("txtTimer").value + " minutes\n" +
+      alert("You completed " + document.getElementById("hdnCorrect").value + " questions in " + document.getElementById("txtTimer").value + "\n" +
             "\n" + 
             "You have an average correct time of " + document.getElementById("txtAverage").value + "\n" +
             "And an accuracy of " + document.getElementById("txtAccuracy").value + "\n");
@@ -267,12 +272,20 @@
         document.getElementById("debugTable").style.display = 'none';
       };
     }
-    function updateTimer() {
+    /*function updateTimer() {
       if (document.getElementById("hdnQuestion").value == "") return;
       var frequency = 100;
       var myVar = setTimeout(updateTimer, frequency);
       
       var seconds = (new Date().getTime() - document.getElementById("hdnStartTime").value) / 1000;
+      document.getElementById("txtTimer").value = new Date(seconds * 1000).toISOString().substring(14, 22);
+    }*/
+    function updateTimerTotal() {
+      if (document.getElementById("hdnQuestion").value == "") return;
+      var frequency = 100;
+      var myVar = setTimeout(updateTimerTotal, frequency);
+      
+      var seconds = (new Date().getTime() - document.getElementById("hdnStartTimeTotal").value) / 1000;
       document.getElementById("txtTimer").value = new Date(seconds * 1000).toISOString().substring(14, 22);
     }
   </script>

@@ -33,18 +33,38 @@
       }
       .type_tap {
         background-color: #AAAAFF;
+        border:0px;padding:0px;margin:0px;
+        z-index: 995;
       }
       .type_cable {
         background-color: #FFAA00;
+        border:0px;padding:0px;margin:0px;
+        z-index: 995;
       }
       .type_splice {
         background-color: #AA00AA;
+        border:0px;padding:0px;margin:0px;
+        z-index: 997;
       }
-      .type_change {
+      .type_guage {
         background-color: #AAFFFF;
+        border:0px;padding:0px;margin:0px;
+        z-index: 998;
       }
       .type_interface {
-        background-color: #00CC00;
+        background-color: #00AA00;
+        border:0px;padding:0px;margin:0px;
+        z-index: 996;
+      }
+      .type_terminal {
+        background-color: #00FF00;
+        border:0px;padding:0px;margin:0px;
+        z-index: 996;
+      }
+      .type_load {
+        background-color: #FF0000;
+        border:0px;padding:0px;margin:0px;
+        z-index: 999;
       }
     </style>
   </head>
@@ -128,7 +148,7 @@
     function draw_graph(aData) {
       const HEIGHT_SCROLLBAR = 20;
       const HEIGHT_BAR = 20;
-      const WIDTH_BARMIN = 10;
+      const WIDTH_BARMIN = 4;
       const OFFSET_LINE = 25;
       
       var oContainer = document.getElementById("container_graph");
@@ -146,11 +166,8 @@
         var oBlock = document.createElement("div");
         oBlock.className = 'graph_block';
         
-        var iWidth = WIDTH_BARMIN;
-        if (line_Data['length'] != '-') {
-          iWidth = line_Data['length']*KM2PX;
-        }
         
+        var iWidth = WIDTH_BARMIN;
         var iLine = 0;
         switch(line_Data['type']) {
           case 'Cable': 
@@ -164,17 +181,37 @@
             break;
           case 'Splice':
             iLine = 0;
-            oBlock.textContent = 'S';
+            oBlock.textContent = ' ';
+            iWidth = 7;
             break;
           case 'Guage change':
+            line_Data['type'] = "Guage";
             iLine = 0;
-            oBlock.textContent = 'G';
+            oBlock.textContent = ' ';
+            iWidth = 5;
             break;
           case 'Interface':
             iLine = 0;
-            oBlock.textContent = 'I';
+            oBlock.textContent = ' ';
+            iWidth = 9;
+            break;
+          case 'Terminal':
+            iLine = 0;
+            oBlock.textContent = ' ';
+            iWidth = 9;
+            break;
+          case 'Load Coil':
+            line_Data['type'] = "Load";
+            iLine = 0;
+            oBlock.textContent = ' ';
+            iWidth = 3;
             break;
           default: oBlock.textContent = '.';
+        }
+        
+        
+        if (line_Data['length'] != '-') {
+          iWidth = line_Data['length']*KM2PX;
         }
         
         oBlock.classList.add("type_"+line_Data['type']);
@@ -205,7 +242,7 @@
       //Collect basic data
       for (var i = 0; i < aInput.length-1; i++) {
         var aParts = aInput[i].split("  ");
-        if (aParts[0] == "Cable" || aParts[0] == "Tap" || aParts[0] == "Splice" || aParts[0] == "Guage change" || aParts[0] == "Interface") {
+        if (aParts[0] == "Cable" || aParts[0] == "Tap" || aParts[0] == "Splice" || aParts[0] == "Guage change" || aParts[0] == "Interface" || aParts[0] == "Load Coil" || aParts[0] == "Terminal") {
           aData.push({'type':aParts[0],'guage':aParts[2],'length':aParts[3]}); 
         } else if (aParts[0] == "Total cable") {
           aLoop['length'] = aParts[3];

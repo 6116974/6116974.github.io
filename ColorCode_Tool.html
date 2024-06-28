@@ -30,14 +30,20 @@
         border-radius: 10px;
         text-align: center;
         font-weight: bold;
+        color: #FFF;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
       }
     </style>
   </head>
   <body>
     <table>
       <tr>
+        <td>Start Pair:</td>
+        <td><input type="number" id="txtStart" value="1"/></td>
+      </tr>
+      <tr>
         <td>Input:</td>
-        <td><input type="number" id="txtQuestion" onkeydown="if (event.keyCode==13) document.getElementById('btnSubmit').click()"/></td>
+        <td><input type="number" id="txtQuestion" value="1" onkeydown="if (event.keyCode==13) document.getElementById('btnSubmit').click()"/></td>
         <td><button id="btnSubmit" onclick="getResult();">Calculate</button></td>
       </tr>
       <tr><td colspan="3" class="boxAnswer" id="boxSuperBinder">Super Binder&nbsp;</td></tr>
@@ -48,11 +54,16 @@
   </body>
   <script>
     function getResult() {
-      var iQuestion = document.getElementById("txtQuestion").value;
-      if (iQuestion < 0) {alert("You must enter a value greater than 0");return;}
-      if (iQuestion > 3000) {alert("You must enter a value of 3000 or less");return;}
+      var iStart = parseInt(document.getElementById("txtStart").value);
+      var iQuestion = parseInt(document.getElementById("txtQuestion").value);
       
-      var aQuestion = pairDecode(parseInt(iQuestion));
+      if (iStart <= 0) {alert("Your start value must be greater than 0");return;}
+      if (iStart >= 3000) {alert("Your start value must be 3000 or less");return;}
+      
+      if (iQuestion < iStart) {alert("You must enter a value greater than "+iStart);return;}
+      if (iQuestion > iStart + 2999) {alert("You must enter a value of "+(iStart + 2999)+" or less");return;}
+      
+      var aQuestion = pairDecode(iQuestion - (iStart-1));
       var aBinder = getTipRing(aQuestion['binder']);
       var aPair = getTipRing(aQuestion['pair']);
       console.log(aQuestion);
