@@ -87,6 +87,8 @@
           if (resp.error !== undefined) {
             throw (resp);
           }
+					listCalendars();
+					
           await listUpcomingEvents();
         };
 
@@ -114,6 +116,18 @@
         }
       }
 
+      /**
+       *
+			 *
+			 */
+			function listCalendars() {
+        var request = gapi.client.calendar.calendarList.list();
+
+        request.execute(function(resp){
+          var calendars = resp.items;
+          console.log(calendars);
+        });
+      }
       /**
        * Print the summary and start datetime/date of the next ten events in
        * the authorized user's calendar. If no events are found an
