@@ -20,8 +20,10 @@
       /* exported handleSignoutClick */
 
       // TODO(developer): Set to client ID and API key from the Developer Console
-      const CLIENT_ID = '154825715905-8rnbkjeqthqlp1hm99j6prn9mcmj6b0c.apps.googleusercontent.com';
-      const API_KEY = 'AIzaSyDTxmzGbNT6M4jWOWzLjKLsKwGDOjW9IdA';
+			const SECRET = prompt("Secret:");
+			
+      const CLIENT_ID = SECRET.split("|")[0];
+      const API_KEY = SECRET.split("|")[1];
 
       // Discovery doc URL for APIs used by the quickstart
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
@@ -125,7 +127,7 @@
         let response;
         try {
           const request = {
-            'calendarId': '6116974',
+            'calendarId': 'primary',
             'timeMin': (new Date()).toISOString(),
             'showDeleted': false,
             'singleEvents': true,
