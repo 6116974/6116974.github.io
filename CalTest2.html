@@ -17,11 +17,12 @@
       /* exported gisLoaded */
       /* exported handleAuthClick */
       /* exported handleSignoutClick */
-
-      const SECRET = prompt("Secret:");
+		
+		
+			const SECRET = new URLSearchParams(window.location.search);
 			
-      const CLIENT_ID = SECRET.split("|")[0];
-      const API_KEY = SECRET.split("|")[1];
+      const CLIENT_ID = SECRET.get('client');
+      const API_KEY = SECRET.get('api');
 
       // Discovery doc URL for APIs used by the quickstart
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
