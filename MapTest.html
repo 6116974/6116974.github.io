@@ -219,8 +219,12 @@
 		//Plot static blips from array
 		function plotFileData() {			
 			for (var i=0; i < arrBlips.length; i++) {	
-				var txtPopup = "<img src onerror='popupOpen("+i+");'>Close Me</img>";			
+				var txtPopup = "<img src onerror='popupOpen("+i+");'>Close Me</img>";		
+				
 				var newPos = [parseFloat(arrBlips[i]['lat'])+randomNumber(-0.001, 0.001), parseFloat(arrBlips[i]['lng'])+randomNumber(-0.001, 0.001)];
+				if (arrBlips[i]['y_coordinate'] != '' && arrBlips[i]['x_coordinate']) {
+					newPos = [parseFloat(arrBlips[i]['x_coordinate']),parseFloat(arrBlips[i]['y_coordinate'])];
+				}
 				//var newPos = [arrBlips[i]['lat'], arrBlips[i]['lng']];
 				
 				blips[i] = L
