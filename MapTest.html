@@ -109,7 +109,7 @@
 		}
 		table {width: 100%;}
 		td {
-			overflow: scroll;
+			overflow: hidden;
 			font-size: 10px;
 			border: 1px solid black;
 			border-radius: 3px;
@@ -278,19 +278,32 @@
 			elemListbox.innerHTML = listHTML;
 		} 
         
-        function popupOpen(i) {
-        	var data = arrBlips[i];
+    function popupOpen(i) {
+      var data = arrBlips[i];
 			document.getElementById("popupContainer").style.visibility = 'visible';
-			var txtPopup =
-			"<table>" +
-			"	<tr><td>ID:</td><td>" + data['request_id'] + "</td><td>Submitted:</td><td>" + data['submitted'] + "</td></tr>" +
-			"	<tr><td>Requestor:</td><td>" + data['requestor'] + "</td><td>Manager:</td><td>" + data['manager'] + "</td></tr>" +
-			"</table><hr><table>" +
-			"	<tr><td>Address:</td><td>" + data['address'] + "</td>" +
-			"	<tr><td>Work:</td><td>" + data['work_type'] + "</td>" +
-			"</table><hr>" +
-			"Data:<br>" +
-			"<div style='font-size: 10px;width:100%;overflow:scroll;'>" + JSON.stringify(data) + "</div>";
+			var txtPopup = `
+			<table>
+				<tr><td>ID:</td><td>${data['request_id']}</td><td>Submitted:</td><td>${data['submitted']}</td></tr>
+				<tr><td>Requestor:</td><td>${data['requestor']}</td><td>Manager:</td><td>${data['manager']}</td></tr>
+			</table>
+			<hr>
+			<table>
+				<tr><td>Address:</td><td>${data['address']}</td></tr>
+				<tr><td>Work:</td><td>${data['work_type']}</td></tr>
+				<tr><td>Link:</td><td><a href="${data['url_details']}">${data['url_details']}</a></td></tr>
+			</table>
+			<table>
+				<tr>
+					<td>Cable:</td><td>${data['cable']}</td>
+					<td>Low:</td><td>${data['low_pair']}</td>
+					<td>High:</td><td>${data['high_pair']}</td>
+				</tr>
+			</table>
+			<hr>
+			Data:
+			<br>
+			<div style="font-size: 10px;width:100%;overflow:scroll;">${JSON.stringify(data)}</div>
+			`;
 			document.getElementById("popupContents").innerHTML=txtPopup;
 		} 
 		function popupClose() {
