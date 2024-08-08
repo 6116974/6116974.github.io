@@ -21,14 +21,14 @@
 			padding-left: 10px;
 			//border: 1px solid black;
 		} 
-        #map {
-            width: 100%;
-            height: calc(100vh - 24px - 150px);
-            background-color: #FA0;
-            //border: 1px solid black;
-            z-index: 1;
-        }
-        #status {
+		#map {
+			width: 100%;
+			height: calc(100vh - 24px - 150px);
+			background-color: #FA0;
+			//border: 1px solid black;
+			z-index: 1;
+		}
+		#status {
 			position: absolute;
 			top: 24px;
 			width: 100%;
@@ -37,20 +37,16 @@
 			z-index: 2;
 			font-size: 10px;
 		} 
-        #listbox {
+		#listbox {
 			width: 100%;
 			height: 150px;
 			background-color: #888;
 			//border: 1px solid black;
-		} 
-		input[type="file"]{display: none;}
-        input[type="checkbox"]{display: none;}
-        input[type="checkbox"] + label {
-        	color: #FA0;	
 		}
-		input[type="checkbox"]:checked + label {
-			color: #0FA;
-		}
+		div.topbar input[type="file"]{display: none;}
+		div.topbar input[type="checkbox"]{display: none;}
+		div.topbar input[type="checkbox"] + label {color: #FA0;}
+		div.topbar input[type="checkbox"]:checked + label {color: #0FA;}
 		.btnlabel {
 			color: #FA0;
 			background-color: #444;		
@@ -114,6 +110,34 @@
 			border: 1px solid black;
 			border-radius: 3px;
 		} 
+		div.optionsMenu {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			width: 300px;
+			height: 200px;
+			z-index: 99;
+			border: 1px solid black;
+			background-color: #CCC;
+			border-radius: 10px;
+			visibility: hidden;
+		}
+		div.optionsMenu div.optionsTextRow {
+			padding: 10px 5px 0px 5px;
+			height: 30px;
+			width: calc(100%-10px);
+			display:grid;
+			grid-template-columns: max-content max-content;
+			grid-gap: 5px;
+		}
+		div.optionsMenu div.optionsCheckRow {
+			padding: 10px 5px 0px 5px;
+			height: 30px;
+			width: calc(100%-10px);
+		}
+		div.optionsMenu label {text-align: right;width:60px;}
+		div.optionsMenu label:after {content: ":";}
+		div.optionsMenu div.optionsTextRow input[type="text"] {width: 220px;}
     </style>
 </head>
 
@@ -123,12 +147,30 @@
     <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
     
 	<div class="topbar">
+		<input id="options" type="checkbox" onclick="toggleOptions(this);"/>
+		<label class="btnlabel material-icons" for="options">menu</label>
 		<input id="loadfile" type="file" onchange="read(this)"/>
 		<label class="btnlabel material-icons" for="loadfile">folder_open</label>
 		<input  id="trackgps" type="checkbox" onclick="trackgps(this);"/>
 		<label class="btnlabel material-icons" for="trackgps">gps_fixed</label>
-		<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>
-		<label class="btnlabel material-icons" for="fullscreentog">fullscreen</label>
+		<!--<input id="fullscreentog" type="checkbox" onclick="fullscreen(this);"/>-->
+		<!--<label class="btnlabel material-icons" for="fullscreentog">fullscreen</label>-->
+	</div>
+	<div id="optionsMenu" class="optionsMenu">
+		<div style="padding: 3px 0px 0px 10px;">Options</div>
+		<div class="optionsTextRow">
+			<label for="txtIncludeRequestor">Whitelist</label>
+			<input title="Format is 'LastName FirstName'. Will accept partial matches. Can be comma seperated for multiple" placeholder="Name(s)" id="txtIncludeRequestor" type="text"/>
+		</div>
+		<div class="optionsTextRow">
+			<label for="txtIgnoreRequestor">Blacklist</label>
+			<input title="Format is 'LastName FirstName'. Will accept partial matches. Can be comma seperated for multiple" placeholder="Name(s)" id="txtIgnoreRequestor" type="text"/>
+		</div>
+		<div class="optionsCheckRow">
+			<label for="chkOnlyOpen">Only tickets in 'Open' status</label>
+			<input id="chkOnlyOpen" type="checkbox" checked/>
+		</div>
+		
 	</div>
 	
 	<div id="status">Status:</div>
@@ -159,8 +201,8 @@
 		var tmrBottomList;
 		
 		//Toggle tracking GPS position
-        function trackgps(elem) {
-        	if (elem.checked==false) {
+		function trackgps(elem) {
+			if (elem.checked==false) {
 				clearInterval(tmrGPS);
 			} else {
 				tmrGPS = setInterval(() => {navigator.geolocation.getCurrentPosition(getPosition, gpsError, {enableHighAccuracy: true})}, 1000);
@@ -178,26 +220,64 @@
 				document.exitFullscreen();
 			} 
 		} 
+		function toggleOptions(elem) {
+			if (elem.checked) {
+				document.getElementById("optionsMenu").style.visibility = 'visible';
+			} else {
+				document.getElementById("optionsMenu").style.visibility = 'hidden';
+			}
+		}
    	
     	//Setup the map
 		var map_init = L.map('map', {center: [46.3, -79.4], zoom: 8});
 		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map_init);
 		L.Control.geocoder().addTo(map_init);    
         
-        //Read from File
-        var blips = [];
-        var arrBlips = [];
-        
-        async function read(input) {
-        	arrBlips = [];
-       	 var badloc = 0, badstatus = 0
+		//Read from File
+		var blips = [];
+		var arrBlips = [];
+			
+		async function read(input) {
+			blips = [];
+			arrBlips = [];
+			var badloc = 0, badstatus = 0
 			var fileData = await readFile(input.files[0]);
 			tempArray = JSON.parse(fileData);		//arrBlips = JSON.parse(fileData);	
-			for (var i=0; i < tempArray.length; i++) {
-				//console.log(getLocation(tempArray[i]['address']));
-				if (tempArray[i]['ticket_status'] != 'OPEN') {badstatus++;continue;}
-				if (tempArray[i]['lat'] == "" || tempArray[i]['lng'] == "") {badloc++;continue;}
-				arrBlips.push(tempArray[i]);			
+			console.log(tempArray);
+			//tempArray = tempArray['data'];
+			
+			for (var i=0; i < tempArray['data'].length; i++) {
+				//Use Whitelist
+				var listWhite = document.getElementById("txtIncludeRequestor").value.split(",");
+				if (listWhite) {
+					var allowed = false;
+					for (var j=0;j<listWhite.length;j++) {
+						if (tempArray['data'][i]['requestor'].toLowerCase().replace(",","").includes(listWhite[j].toLowerCase())) {allowed=true;}
+					}
+					if (!allowed) {badstatus++;continue;}
+				} else {
+				
+				//Use Blacklist
+					var listBlack = document.getElementById("txtIgnoreRequestor").value.split(",");
+					if (listBlack) {
+						for (var j=0;j<listBlack.length;j++) {
+							if (tempArray['data'][i]['requestor'].toLowerCase().includes(listBlack[j])) {badstatus++;continue;}
+						}
+					}
+				}
+				
+				//Only Show Open Tickets
+				if (document.getElementById("chkOnlyOpen").checked) {
+					if (tempArray['data'][i]['ticket_status'] != 'OPEN') {badstatus++;continue;}															//Only show tickets in open status
+				}
+				
+				//Don't bother trying to map things with no lat/lng data
+				if (tempArray['data'][i]['lat'] == "" || tempArray['data'][i]['lng'] == "") {badloc++;continue;}
+				
+				tempArray['data'][i]['url'] = `${tempArray['url_prefix']}${tempArray['data'][i]['request_id']}`;
+				tempArray['data'][i]['url_details'] = `${tempArray['url_data_prefix']}${tempArray['data'][i]['request_id']}`;
+				tempArray['data'][i]['url_tmi'] = `${tempArray['url_tmi_prefix']}${tempArray['data'][i]['ticket_id']}`;
+				arrBlips.push(tempArray['data'][i]);			
 			}
 			//console.log ("Original Data Count: " + tempArray.length);
 			//console.log ("Pruned Data Count: " + arrBlips.length);		
@@ -219,7 +299,7 @@
 		//Plot static blips from array
 		function plotFileData() {			
 			for (var i=0; i < arrBlips.length; i++) {	
-				var txtPopup = "<img src onerror='popupOpen("+i+");'>Close Me</img>";		
+				var txtPopup = `<img src onerror='popupOpen(${i});'>Close Me</img>`;		
 				
 				var newPos = [parseFloat(arrBlips[i]['lat'])+randomNumber(-0.001, 0.001), parseFloat(arrBlips[i]['lng'])+randomNumber(-0.001, 0.001)];
 				if (arrBlips[i]['y_coordinate'] != '' && arrBlips[i]['x_coordinate']) {
@@ -255,7 +335,7 @@
 			circle = L.circle([lat, long], {radius: accuracy, color: '#000000', opacity: 0.1, stroke: false});
 			var featureGroup = L.featureGroup([dot, circle]).addTo(map_init);
 			map_init.fitBounds(featureGroup.getBounds());
-			elemStatusbar.innerHTML = "[ " + lat.toFixed(4) + " : " + long.toFixed(4) + " ]     Accuracy:" + accuracy.toFixed(1);
+			elemStatusbar.innerHTML = `[ ${lat.toFixed(4)} : ${long.toFixed(4)} ]     Accuracy:${accuracy.toFixed(1)}`;
         };
         
         //Update bottom list
@@ -263,16 +343,13 @@
 			if (document.getElementById("trackgps").checked == false) {
 				lat = map_init.getCenter().lat;
 				long = map_init.getCenter().lng;
-				elemStatusbar.innerHTML = "[ " + lat.toFixed(4)+ " : " + long.toFixed(4) + " ]";
+				elemStatusbar.innerHTML = `[ ${lat.toFixed(4)} : ${long.toFixed(4)} ]`;
 			}
 			
 			var listHTML = "";
 			for (var i=0; i < blips.length; i++) {
 				if (map_init.getBounds().contains(blips[i].getLatLng())) {
-					listHTML += "<div class='jobBar' style='background-color:" + styleColor(arrBlips[i]['status_id']) + ";' " +
-											"onclick='popupOpen("+i+");'>" +
-											arrBlips[i]['address'] + 
-											"</div>";
+					listHTML += `<div class='jobBar' style='background-color:${styleColor(arrBlips[i]['status_id'])};' onclick='popupOpen(${i});'>${arrBlips[i]['address']}</div>`;
 				}
 			}		
 			elemListbox.innerHTML = listHTML;
@@ -285,12 +362,15 @@
 			<table>
 				<tr><td>ID:</td><td>${data['request_id']}</td><td>Submitted:</td><td>${data['submitted']}</td></tr>
 				<tr><td>Requestor:</td><td>${data['requestor']}</td><td>Manager:</td><td>${data['manager']}</td></tr>
+				<tr><td>ANPM Status:</td><td>${data['status']}</td><td>Ticket Status:</td><td>${data['ticket_status']}</td></tr>
 			</table>
 			<hr>
 			<table>
 				<tr><td>Address:</td><td>${data['address']}</td></tr>
 				<tr><td>Work:</td><td>${data['work_type']}</td></tr>
-				<tr><td>Link:</td><td><a href="${data['url_details']}">${data['url_details']}</a></td></tr>
+				<tr><td>ANPM Link:</td><td><a target="_blank" href="${data['url']}">${data['url']}</a></td></tr>
+				<tr><td>ANPM Link2:</td><td><a target="_blank" href="${data['url_details']}">${data['url_details']}</a></td></tr>
+				<tr><td>TMI Link:</td><td><a target="_blank" href="${data['url_tmi']}">${data['url_tmi']}</a></td></tr>
 			</table>
 			<table>
 				<tr>
@@ -310,7 +390,7 @@
 			document.getElementById("popupContainer").style.visibility = 'hidden';	
 		}
         
-        function randomNumber(min, max) {
+		function randomNumber(min, max) {
 			return parseFloat(Math.random() * (max - min) + min);
 		}
         function clrRandom() {
@@ -318,15 +398,15 @@
         };
         function styleColor(status_id) {
 			switch(status_id) {
-				case 1: return "#008800"; //Submitted
-				case 2: return "#00FF00"; //Approved
-				case 3: return "#CC0000"; //Denied
-				case 4: return "#FFFFFF"; //unknown
-				case 5: return "#5B3E31"; //Cancelled
-				case 6: return "#0000AA"; //Under Surveillance
-				case 7: return "#AAAAAA"; //Completed
-				case 8: return "#AA00AA"; //Sent to Contractor
-				case 9: return "#FF00FF"; //Contractor Completed
+				case 1: return "#FFA500"; //Submitted							(Orange)
+				case 2: return "#008000"; //Approved							(Blue)
+				case 3: return "#800000"; //Denied								(Red)
+				case 4: return "#808080"; //unknown								(Grey)
+				case 5: return "#800080"; //Cancelled							(Purple)
+				case 6: return "#808000"; //Under Surveillance  	(Yellow)
+				case 7: return "#008000"; //Completed							(Green)
+				case 8: return "#FF4500"; //Sent to Contractor		(OrangeRed)
+				case 9: return "#088F8F"; //Contractor Completed	(BlueGreen)
 			};
 		}
 		function styleOpacity(status_id) {
@@ -387,3 +467,6 @@
 </body>
 
 </html>
+
+https://gtt.int.bell.ca/Html5Viewer/gtt_h.html?viewer=GTT.GTT_Viewer&layer=centraloffice&group=copper&clli=NRBAON24&locale=en-US
+https://gtt.int.bell.ca/Html5Viewer/gtt_h.html?viewer=GTT.GTT_Viewer&layer=centraloffice&group=copper&clli=SNRGON39&locale=en-US
