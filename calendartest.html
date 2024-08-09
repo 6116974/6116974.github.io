@@ -39,7 +39,7 @@
 			function checkAuth() {
 				gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
 			}
-
+			const today = Date.now();
 			// This is the resource we will pass while calling api function
 			var resource = {
 				"summary": "My Event",
@@ -47,7 +47,7 @@
 						"dateTime": today
 				},
 				"end": {
-						"dateTime": twoHoursLater
+						"dateTime": today
 				},
 				"description":"We are organizing events",
 				"location":"US",
