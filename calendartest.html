@@ -8,23 +8,76 @@
     <p>Google Calendar API Quickstart</p>
 
     <script type="text/javascript">
-			//async function to handle data fetching
-			async function getData () {
-				//try catch block to handle promises and errors
-				try {
-					const calendarId = '28b89a6d9635d84201f872206c07ad4b9544854c6b287bd83efdc183c0d269ce@group.calendar.google.com'
-					const myKey = 'AIzaSyDTxmzGbNT6M4jWOWzLjKLsKwGDOjW9IdA'
-					//using await and fetch together as two standard ES6 client side features to extract the data
-					let apiCall = await fetch('https://www.googleapis.com/calendar/v3/calendars/' + calendarId+ '/events?key=' + myKey)
-					//response.json() is a method on the Response object that lets you extract a JSON object from the response
-					//response.json() returns a promise resolved to a JSON object
-					let apiResponse = await apiCall.json()
-					console.log(apiResponse)
-				} catch (error) {
-					console.log(error)
-				}
-			}
-			getData()
+			const { google } = require("googleapis");
+			require("dotenv").config();
+
+			const GOOGLE_PRIVATE_KEY = 'AIzaSyDTxmzGbNT6M4jWOWzLjKLsKwGDOjW9IdA';
+			const GOOGLE_CLIENT_EMAIL = '154825715905-8rnbkjeqthqlp1hm99j6prn9mcmj6b0c.apps.googleusercontent.com';
+			const GOOGLE_PROJECT_NUMBER = 'GitHub';
+			const GOOGLE_CALENDAR_ID = '28b89a6d9635d84201f872206c07ad4b9544854c6b287bd83efdc183c0d269ce@group.calendar.google.com';
+
+			const SCOPES = ["https://www.googleapis.com/auth/calendar"];
+
+			const jwtClient = new google.auth.JWT(
+				GOOGLE_CLIENT_EMAIL,
+				null,
+				GOOGLE_PRIVATE_KEY,
+				SCOPES
+			);
+
+			const calendar = google.calendar({
+				version: "v3",
+				project: GOOGLE_PROJECT_NUMBER,
+				auth: jwtClient,
+			});
+
+			const auth = new google.auth.GoogleAuth({
+				keyFile: "./keys.json",
+				scopes: SCOPES,
+			});
+
+			const calendarEvent = {
+				summary: "Test Event added by Node.js",
+				description: "This event was created by Node.js",
+				start: {
+					dateTime: "2022-06-03T09:00:00-02:00",
+					timeZone: "Asia/Kolkata",
+				},
+				end: {
+					dateTime: "2022-06-04T17:00:00-02:00",
+					timeZone: "Asia/Kolkata",
+				},
+				attendees: [],
+				reminders: {
+					useDefault: false,
+					overrides: [
+						{ method: "email", minutes: 24 * 60 },
+						{ method: "popup", minutes: 10 },
+					],
+				},
+			};
+
+			const addCalendarEvent = async () => {
+				auth.getClient().then((auth) => {
+					calendar.events.insert(
+						{
+							auth: auth,
+							calendarId: GOOGLE_CALENDAR_ID,
+							resource: calendarEvent,
+						},
+						function (error, response) {
+							if (error) {
+								console.log("Something went wrong: " + err); // If there is an error, log it to the console
+								return;
+							}
+					console.log("Event created successfully.")
+							console.log("Event details: ", response.data); // Log the event details
+						}
+					);
+				});
+			};
+
+			addCalendarEvent();
     </script>
     <script async defer src="https://apis.google.com/js/api.js"></script>
     <script async defer src="https://accounts.google.com/gsi/client"></script>
