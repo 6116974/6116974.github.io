@@ -9,7 +9,7 @@
   <body>
     <div class="row">
 	<div class="col-md-2 col-sm-2 col-xs-12">
-		<button id="authorize-button" style="visibility: hidden" class="btn btn-primary">Authorize</button>
+		<button id="authorize-button" class="btn btn-primary">Authorize</button>
     </div><!-- .col -->
     
     <div class="col-md-10 col-sm-10 col-xs-12">
@@ -37,6 +37,7 @@
 
 			function checkAuth() {
 				gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+				console.log("Checked Authentication");
 			}
 
 			// show/hide the 'authorize' button, depending on application state
