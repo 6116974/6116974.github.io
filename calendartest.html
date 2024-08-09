@@ -5,79 +5,89 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    <p>Google Calendar API Quickstart</p>
+    <button id="btnCreateEvents" class="btn btn-primary" onclick="makeApiCall();">
+                    Create Events</button>  
+
+<div id="divifm">
+                    <iframe id="ifmCalendar" 
+                    src="https://www.google.com/calendar/embed?
+                    height=550&amp;wkst=1&amp;bgcolor=%23FFFFFF&
+                    amp;src=24tn4fht2sssdssfdiqqlsedk%40group.calendar.google.com&
+                    amp;color=%238C500B&amp;ctz=Asia%2FCalcutta"
+                        style="border-width: 0" width="950" 
+                        height="520" frameborder="0" scrolling="no">
+                    </iframe>
+                </div>
 
     <script type="text/javascript">
-			const { google } = require("googleapis");
-			require("dotenv").config();
+			// Google api console clientID and apiKey 
 
-			const GOOGLE_PRIVATE_KEY = 'AIzaSyDTxmzGbNT6M4jWOWzLjKLsKwGDOjW9IdA';
-			const GOOGLE_CLIENT_EMAIL = '154825715905-8rnbkjeqthqlp1hm99j6prn9mcmj6b0c.apps.googleusercontent.com';
-			const GOOGLE_PROJECT_NUMBER = 'GitHub';
-			const GOOGLE_CALENDAR_ID = '28b89a6d9635d84201f872206c07ad4b9544854c6b287bd83efdc183c0d269ce@group.calendar.google.com';
+			var clientId = '154825715905-8rnbkjeqthqlp1hm99j6prn9mcmj6b0c.apps.googleusercontent.com';
+			var apiKey = 'AIzaSyDTxmzGbNT6M4jWOWzLjKLsKwGDOjW9IdA';
 
-			const SCOPES = ["https://www.googleapis.com/auth/calendar"];
+			// enter the scope of current project (this API must be turned on in the Google console)
+			 var scopes = 'https://www.googleapis.com/auth/calendar';
 
-			const jwtClient = new google.auth.JWT(
-				GOOGLE_CLIENT_EMAIL,
-				null,
-				GOOGLE_PRIVATE_KEY,
-				SCOPES
-			);
 
-			const calendar = google.calendar({
-				version: "v3",
-				project: GOOGLE_PROJECT_NUMBER,
-				auth: jwtClient,
-			});
-
-			const auth = new google.auth.GoogleAuth({
-				keyFile: "./keys.json",
-				scopes: SCOPES,
-			});
-
-			const calendarEvent = {
-				summary: "Test Event added by Node.js",
-				description: "This event was created by Node.js",
-				start: {
-					dateTime: "2022-06-03T09:00:00-02:00",
-					timeZone: "Asia/Kolkata",
-				},
-				end: {
-					dateTime: "2022-06-04T17:00:00-02:00",
-					timeZone: "Asia/Kolkata",
-				},
-				attendees: [],
-				reminders: {
-					useDefault: false,
-					overrides: [
-						{ method: "email", minutes: 24 * 60 },
-						{ method: "popup", minutes: 10 },
-					],
-				},
-			};
-
-			const addCalendarEvent = async () => {
-				auth.getClient().then((auth) => {
-					calendar.events.insert(
-						{
-							auth: auth,
-							calendarId: GOOGLE_CALENDAR_ID,
-							resource: calendarEvent,
-						},
-						function (error, response) {
-							if (error) {
-								console.log("Something went wrong: " + err); // If there is an error, log it to the console
-								return;
-							}
-					console.log("Event created successfully.")
-							console.log("Event details: ", response.data); // Log the event details
+			// OAuth2 functions
+				 function handleClientLoad() {
+							 gapi.client.setApiKey(apiKey);
+							 window.setTimeout(checkAuth, 1);
 						}
-					);
-				});
-			};
 
-			addCalendarEvent();
+			//To authenticate
+			function checkAuth() {
+				gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
+						}
+
+			// This is the resource we will pass while calling api function
+			var resource = {
+								"summary": "My Event",
+								"start": {
+										"dateTime": today
+								},
+								"end": {
+										"dateTime": twoHoursLater
+								},
+								"description":"We are organizing events",
+								"location":"US",
+								"attendees":[
+								{
+												"email":"attendee1@gmail.com",
+												"displayName":"Jhon",
+												"organizer":true,
+												"self":false,
+												"resource":false,
+												"optional":false,
+												"responseStatus":"needsAction",
+												"comment":"This is my demo event",
+												"additionalGuests":3
+												
+								},
+								{    
+										"email":"attendee2@gmail.com",
+												"displayName":"Marry",
+												"organizer":true,
+												"self":false,
+												"resource":false,
+												"optional":false,
+												"responseStatus":"needsAction",
+												"comment":"This is an official event",
+												"additionalGuests":3
+								}
+								],
+						};
+
+			function makeApiCall(){
+			gapi.client.load('calendar', 'v3', function () { // load the calendar api (version 3)
+										var request = gapi.client.calendar.events.insert
+										({
+												'calendarId': '24tn4fht2tr6m86efdiqqlsedk@group.calendar.google.com', 
+			// calendar ID which id of Google Calendar where you are creating events. this can be copied from your Google Calendar user view.
+
+												"resource": resource 	// above resource will be passed here
+										});                
+			}
     </script>
     <script async defer src="https://apis.google.com/js/api.js"></script>
     <script async defer src="https://accounts.google.com/gsi/client"></script>
